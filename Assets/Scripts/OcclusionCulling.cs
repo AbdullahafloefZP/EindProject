@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OcclusionCulling : MonoBehaviour
 {
-     [System.Serializable] public class ObjectSettings
+    [System.Serializable] public class ObjectSettings
     {
         [HideInInspector] public string title;
         public GameObject theGameObject;
@@ -32,9 +32,7 @@ public class OcclusionCulling : MonoBehaviour
 
     private Camera camera;
     private float cameraHalfWidth;
-
     public float updateRateInSeconds = 0.1f;
-
     private float timer;
 
     void Awake(){ 
@@ -96,8 +94,8 @@ public class OcclusionCulling : MonoBehaviour
         {
             if(o.theGameObject)
             {
-                bool IsObjectVisibleInCastingCamera = o.right > cameraLeft & o.left < cameraRight & 
-                                                      o.top > cameraBottom & o.bottom < cameraTop;
+                bool IsObjectVisibleInCastingCamera = o.right > cameraLeft & o.left < cameraRight &
+                o.top > cameraBottom & o.bottom < cameraTop;
                 o.theGameObject.SetActive(IsObjectVisibleInCastingCamera);
             }
         }
