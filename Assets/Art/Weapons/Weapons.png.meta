@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 13
+  spritePixelsToUnits: 17
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -126,12 +126,12 @@ TextureImporter:
       name: Weapons_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 119
+        x: 0
+        y: 95
         width: 88
         height: 30
       alignment: 9
-      pivot: {x: 0.35696748, y: 0.5511663}
+      pivot: {x: 0.34943533, y: 0.7357946}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,12 +147,12 @@ TextureImporter:
       name: Weapons_1
       rect:
         serializedVersion: 2
-        x: 4
-        y: 92
+        x: 0
+        y: 68
         width: 74
         height: 22
       alignment: 9
-      pivot: {x: 0.43777093, y: 0.40231946}
+      pivot: {x: 0.4135888, y: 0.7229472}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -168,12 +168,12 @@ TextureImporter:
       name: Weapons_2
       rect:
         serializedVersion: 2
-        x: 4
-        y: 61
+        x: 0
+        y: 37
         width: 116
         height: 18
       alignment: 9
-      pivot: {x: 0.31739, y: 0.4829445}
+      pivot: {x: 0.30090353, y: 0.7657691}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -189,12 +189,12 @@ TextureImporter:
       name: Weapons_3
       rect:
         serializedVersion: 2
-        x: 4
-        y: 24
+        x: 0
+        y: 0
         width: 80
         height: 26
       alignment: 9
-      pivot: {x: 0.41173849, y: 0.40553957}
+      pivot: {x: 0.3785847, y: 0.68934005}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

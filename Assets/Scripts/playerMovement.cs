@@ -34,11 +34,11 @@ public class PlayerMovement : MonoBehaviour {
     private void OnMouseMovement() {
     Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     Vector2 direction = mousePosition - transform.position;
-
-    if (direction.x > 0) {
-        transform.localScale = new Vector3(-1, 1, 1);
-    } else {
-        transform.localScale = new Vector3(1, 1, -1);
+        
+   if (direction.x > 0) {
+        transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+    } else if (direction.x < 0) {
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
     }
 }
 
