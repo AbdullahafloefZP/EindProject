@@ -1680,7 +1680,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: -8.26, z: -2}
+  m_LocalPosition: {x: 2.6802368, y: -7.753428, z: -2}
   m_LocalScale: {x: 2.2480812, y: 2.2297146, z: 0.0030983856}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1740,7 +1740,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 1764606452}
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 35
@@ -3846,7 +3846,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.46, y: 0.08}
-    oldSize: {x: 4.2105265, y: 4.2105265}
+    oldSize: {x: 4.7058825, y: 4.7058825}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
