@@ -5,15 +5,27 @@ using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {
-    [SerializeField] private LayerMask shootableLayers;
     [SerializeField] private Transform gunTransform;
-    
-    private float shootCooldownTimer;
-    private Vector2 shootDirection;
-    
+    public LineRenderer lineRenderer;
+    public float shootRate = 0.2f;
+    private bool isShooting = false;
+    private float lastShootTime = 0f;
+    public int damage = 40;
+
     private void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame && shootCooldownTimer <= 0)
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            isShooting = true;
+            Shoot();
+        }
+        else if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            isShooting = false;
+            lineRenderer.enabled = false;
+        }
+
+        if (isShooting && Time.time - lastShootTime >= shootRate)
         {
             Shoot();
         }
@@ -21,17 +33,30 @@ public class PlayerShooting : MonoBehaviour
 
     private void Shoot()
     {
-        
-        Vector3 shootOrigin = gunTransform.position;
-        shootDirection = gunTransform.right; 
+        lastShootTime = Time.time;
+        lineRenderer.enabled = true;
 
-        
-        RaycastHit2D hit = Physics2D.Raycast(shootOrigin, shootDirection, shootableLayers);
+        RaycastHit2D hit = Physics2D.Raycast(gunTransform.position, gunTransform.right);
 
-        if (hit.collider != null)
+        if (hit)
         {
-            GameObject target = hit.collider.gameObject;
+            Debug.Log("Hit: " + hit.collider.gameObject.name);
+
+            lineRenderer.SetPosition(0, gunTransform.position);
+            lineRenderer.SetPosition(1, hit.point);
+
+            Collider2D targetCollider = hit.collider;
+            if (targetCollider != null)
+            {
+                Destroy(targetCollider.gameObject);
+            }
         }
-        Debug.Log(hit.transform.name);
+        else
+        {
+            Debug.Log("No target hit.");
+
+            lineRenderer.SetPosition(0, gunTransform.position);
+            lineRenderer.SetPosition(1, gunTransform.position + gunTransform.right * 100);
+        }
     }
 }

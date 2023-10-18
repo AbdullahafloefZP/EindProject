@@ -6,25 +6,29 @@ public class PlayerAimWeapon : MonoBehaviour
 {
     private Transform aimTransform;
     private Transform weaponsParent;
+    private Transform shootPoint;
 
     private void Awake()
     {
         weaponsParent = transform.Find("Weapons");
         aimTransform = weaponsParent.Find("Ak47");
+        shootPoint = aimTransform.Find("Shootpoint");
     }
 
     private void Update()
     {
-        UpdateGunFlip();
+        UpdateGunRotation();
 
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 aimDirection = (mousePosition - transform.position).normalized;
+        Vector3 aimDirection = (mousePosition - aimTransform.position).normalized;
 
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        aimTransform.eulerAngles = new Vector3(0, 0, angle);
+        weaponsParent.eulerAngles = new Vector3(0, 0, angle);
+
+        shootPoint.position = mousePosition;
     }
 
-    private void UpdateGunFlip()
+    private void UpdateGunRotation()
     {
         if (aimTransform != null)
         {

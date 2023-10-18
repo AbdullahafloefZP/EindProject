@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f70fe0371a5e31240910e28de5d597e3
+guid: 47c2b7d06a899864486bb755c3f1a0ce
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 17
+  spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,85 +123,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Weapons_0
+      name: Zmonster_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 95
-        width: 88
-        height: 30
+        y: 46
+        width: 339
+        height: 192
       alignment: 9
-      pivot: {x: 0.5, y: 0.73337275}
+      pivot: {x: 0.3801734, y: 0.1102682}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9b52ceada5243e4d8c4df4a2c06ff52
-      internalID: -318859795
+      spriteID: d63510eee62d8034cb15e749dfa78d2c
+      internalID: -2026579930
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Weapons_1
+      name: Zmonster_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 68
-        width: 74
-        height: 22
-      alignment: 9
-      pivot: {x: 0.5, y: 0.72200984}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e1c4547439dfa6543ad872890072c8f0
-      internalID: -1294426998
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Weapons_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 37
-        width: 116
-        height: 18
-      alignment: 9
-      pivot: {x: 0.5, y: 0.773834}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 86e49858ca5d6b74e929fb99f4fb5116
-      internalID: 621419469
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Weapons_3
-      rect:
-        serializedVersion: 2
-        x: 0
+        x: 443
         y: 0
-        width: 80
-        height: 26
+        width: 272
+        height: 188
       alignment: 9
-      pivot: {x: 0.5, y: 0.69210964}
+      pivot: {x: 0.3801734, y: 0.1102682}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ecebdad191373d47a5e9919226afeee
-      internalID: 761510477
+      spriteID: dfdc048e6ff16344f9595913434308ce
+      internalID: 1899807480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zmonster_2
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 46
+        width: 270
+        height: 192
+      alignment: 9
+      pivot: {x: 0.3801734, y: 0.1102682}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 835b138c3d96dc440bea255b7647ee87
+      internalID: -989828780
       vertices: []
       indices: 
       edges: []
@@ -217,10 +196,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Weapons_0: -318859795
-      Weapons_1: -1294426998
-      Weapons_2: 621419469
-      Weapons_3: 761510477
+      Zmonster_0: -2026579930
+      Zmonster_1: 1899807480
+      Zmonster_2: -989828780
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
