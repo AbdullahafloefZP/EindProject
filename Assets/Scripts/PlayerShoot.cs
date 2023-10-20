@@ -53,7 +53,7 @@ public class PlayerShooting : MonoBehaviour
             Collider2D targetCollider = hit.collider;
             if (targetCollider != null)
             {
-               targetCollider.gameObject.GetComponent<SpriteRenderer> ().material = Color.red;
+               targetCollider.gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
             }
         }
         else
