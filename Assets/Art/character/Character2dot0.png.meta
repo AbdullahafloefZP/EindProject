@@ -147,12 +147,12 @@ TextureImporter:
       name: Character2dot0_1
       rect:
         serializedVersion: 2
-        x: 80
+        x: 79
         y: 80
         width: 80
         height: 80
       alignment: 9
-      pivot: {x: 0.4860012, y: 0.03}
+      pivot: {x: 0.46, y: 0.03}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

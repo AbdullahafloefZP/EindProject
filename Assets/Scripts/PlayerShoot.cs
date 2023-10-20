@@ -9,7 +9,7 @@ public class PlayerShooting : MonoBehaviour
     public LineRenderer lineRenderer;
     public float shootRate = 0.2f;
     private bool isShooting = false;
-    private float lastShootTime = 0f;
+    private float lastShootTime = 2f;
     public int damage = 40;
 
     private void Update()
@@ -27,7 +27,12 @@ public class PlayerShooting : MonoBehaviour
 
         if (isShooting && Time.time - lastShootTime >= shootRate)
         {
+            isShooting = true;
             Shoot();
+        } 
+
+        if (isShooting && Time.time - lastShootTime >= 0.1f) {
+            lineRenderer.enabled = false;
         }
     }
 
@@ -48,7 +53,7 @@ public class PlayerShooting : MonoBehaviour
             Collider2D targetCollider = hit.collider;
             if (targetCollider != null)
             {
-                Destroy(targetCollider.gameObject);
+               targetCollider.gameObject.GetComponent<SpriteRenderer> ().material = Color.red;
             }
         }
         else

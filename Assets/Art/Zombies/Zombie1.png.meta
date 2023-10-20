@@ -255,7 +255,7 @@ TextureImporter:
         x: 458
         y: 77
         width: 52
-        height: 63
+        height: 67
       alignment: 9
       pivot: {x: 0.5, y: 0.023}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -378,7 +378,7 @@ TextureImporter:
       name: Zombie1_12
       rect:
         serializedVersion: 2
-        x: 390
+        x: 389
         y: 2
         width: 52
         height: 67
@@ -400,9 +400,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 465
-        y: 3
+        y: 2
         width: 52
-        height: 63
+        height: 67
       alignment: 9
       pivot: {x: 0.5, y: 0.023}
       border: {x: 0, y: 0, z: 0, w: 0}
