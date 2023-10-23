@@ -45,21 +45,17 @@ public class PlayerShooting : MonoBehaviour
 
         if (hit)
         {
-            Debug.Log("Hit: " + hit.collider.gameObject.name);
-
             lineRenderer.SetPosition(0, gunTransform.position);
             lineRenderer.SetPosition(1, hit.point);
 
-            Collider2D targetCollider = hit.collider;
-            if (targetCollider != null)
+            DamageFlash damageFlash = hit.collider.GetComponent<DamageFlash>();
+            if (damageFlash != null)
             {
-               
+                damageFlash.CallDamageFlash();
             }
         }
         else
         {
-            Debug.Log("No target hit.");
-
             lineRenderer.SetPosition(0, gunTransform.position);
             lineRenderer.SetPosition(1, gunTransform.position + gunTransform.right * 100);
         }
