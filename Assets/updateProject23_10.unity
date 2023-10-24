@@ -1042,9 +1042,11 @@ GameObject:
   - component: {fileID: 274994175}
   - component: {fileID: 274994174}
   - component: {fileID: 274994173}
+  - component: {fileID: 274994179}
   - component: {fileID: 274994177}
+  - component: {fileID: 274994178}
   m_Layer: 0
-  m_Name: Zombie4
+  m_Name: Zombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1079,7 +1081,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1.59795}
@@ -1107,8 +1109,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
-  m_LinearDrag: 100
+  m_Mass: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -1120,8 +1122,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!212 &274994175
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1201,8 +1203,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4c7d6dff8d1904483babee4e4f8cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 5
   _flashColor: {r: 1, g: 1, b: 1, a: 1}
   _flashTime: 0.25
+--- !u!114 &274994178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274994172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061f80b3602fc34ca42b1f756781051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  lineOfSight: 40
+  avoidanceDistance: 3
+--- !u!95 &274994179
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274994172}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1c92aa47c2930a541897386cc2a38ea9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &292190439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,7 +1893,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6802368, y: -7.753428, z: -2}
+  m_LocalPosition: {x: -21.9, y: -7.753428, z: -2}
   m_LocalScale: {x: 2.2480812, y: 2.2297146, z: 0.0030983856}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2216,48 +2256,6 @@ MonoBehaviour:
     showBorders: 1
   - title: tree36
     theGameObject: {fileID: 1678378657}
-    size: {x: 1, y: 1}
-    offset: {x: 0, y: 0}
-    multiplySizeByTransformScale: 1
-    DrawColor: {r: 1, g: 1, b: 1, a: 1}
-    showBorders: 1
-  - title: Zombie
-    theGameObject: {fileID: 1480517497}
-    size: {x: 1, y: 1}
-    offset: {x: 0, y: 0}
-    multiplySizeByTransformScale: 1
-    DrawColor: {r: 1, g: 1, b: 1, a: 1}
-    showBorders: 1
-  - title: Zombie1
-    theGameObject: {fileID: 1779827008}
-    size: {x: 1, y: 1}
-    offset: {x: 0, y: 0}
-    multiplySizeByTransformScale: 1
-    DrawColor: {r: 1, g: 1, b: 1, a: 1}
-    showBorders: 1
-  - title: Zombie2
-    theGameObject: {fileID: 903033871}
-    size: {x: 1, y: 1}
-    offset: {x: 0, y: 0}
-    multiplySizeByTransformScale: 1
-    DrawColor: {r: 1, g: 1, b: 1, a: 1}
-    showBorders: 1
-  - title: Zombie3
-    theGameObject: {fileID: 1075832260}
-    size: {x: 1, y: 1}
-    offset: {x: 0, y: 0}
-    multiplySizeByTransformScale: 1
-    DrawColor: {r: 1, g: 1, b: 1, a: 1}
-    showBorders: 1
-  - title: Zombie4
-    theGameObject: {fileID: 274994172}
-    size: {x: 1, y: 1}
-    offset: {x: 0, y: 0}
-    multiplySizeByTransformScale: 1
-    DrawColor: {r: 1, g: 1, b: 1, a: 1}
-    showBorders: 1
-  - title: Zombie5
-    theGameObject: {fileID: 1573931356}
     size: {x: 1, y: 1}
     offset: {x: 0, y: 0}
     multiplySizeByTransformScale: 1
@@ -3048,9 +3046,11 @@ GameObject:
   - component: {fileID: 903033874}
   - component: {fileID: 903033873}
   - component: {fileID: 903033872}
+  - component: {fileID: 903033878}
   - component: {fileID: 903033876}
+  - component: {fileID: 903033877}
   m_Layer: 0
-  m_Name: Zombie2
+  m_Name: Zombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3085,7 +3085,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1.59795}
@@ -3113,8 +3113,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
-  m_LinearDrag: 100
+  m_Mass: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -3126,8 +3126,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!212 &903033874
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3207,8 +3207,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4c7d6dff8d1904483babee4e4f8cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 5
   _flashColor: {r: 1, g: 1, b: 1, a: 1}
   _flashTime: 0.25
+--- !u!114 &903033877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903033871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061f80b3602fc34ca42b1f756781051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  lineOfSight: 40
+  avoidanceDistance: 3
+--- !u!95 &903033878
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903033871}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1c92aa47c2930a541897386cc2a38ea9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &943017692
 GameObject:
   m_ObjectHideFlags: 0
@@ -3389,9 +3427,11 @@ GameObject:
   - component: {fileID: 1075832263}
   - component: {fileID: 1075832262}
   - component: {fileID: 1075832261}
+  - component: {fileID: 1075832267}
   - component: {fileID: 1075832265}
+  - component: {fileID: 1075832266}
   m_Layer: 0
-  m_Name: Zombie3
+  m_Name: Zombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3426,7 +3466,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1.59795}
@@ -3454,8 +3494,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
-  m_LinearDrag: 100
+  m_Mass: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -3467,8 +3507,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!212 &1075832263
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3548,8 +3588,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4c7d6dff8d1904483babee4e4f8cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 5
   _flashColor: {r: 1, g: 1, b: 1, a: 1}
   _flashTime: 0.25
+--- !u!114 &1075832266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075832260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061f80b3602fc34ca42b1f756781051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  lineOfSight: 40
+  avoidanceDistance: 3
+--- !u!95 &1075832267
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075832260}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1c92aa47c2930a541897386cc2a38ea9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1100436526
 GameObject:
   m_ObjectHideFlags: 0
@@ -3911,7 +3989,9 @@ GameObject:
   - component: {fileID: 1480517500}
   - component: {fileID: 1480517499}
   - component: {fileID: 1480517498}
+  - component: {fileID: 1480517504}
   - component: {fileID: 1480517502}
+  - component: {fileID: 1480517503}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Enemy
@@ -3948,7 +4028,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1.59795}
@@ -3976,8 +4056,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
-  m_LinearDrag: 100
+  m_Mass: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -3989,8 +4069,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!212 &1480517500
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4070,8 +4150,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4c7d6dff8d1904483babee4e4f8cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 5
   _flashColor: {r: 1, g: 1, b: 1, a: 1}
   _flashTime: 0.25
+--- !u!114 &1480517503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480517497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061f80b3602fc34ca42b1f756781051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  lineOfSight: 40
+  avoidanceDistance: 3
+--- !u!95 &1480517504
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480517497}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1c92aa47c2930a541897386cc2a38ea9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1541905571
 GameObject:
   m_ObjectHideFlags: 0
@@ -4266,9 +4384,11 @@ GameObject:
   - component: {fileID: 1573931359}
   - component: {fileID: 1573931358}
   - component: {fileID: 1573931357}
+  - component: {fileID: 1573931363}
   - component: {fileID: 1573931361}
+  - component: {fileID: 1573931362}
   m_Layer: 0
-  m_Name: Zombie5
+  m_Name: Zombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4303,7 +4423,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1.59795}
@@ -4331,8 +4451,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
-  m_LinearDrag: 100
+  m_Mass: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -4344,8 +4464,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!212 &1573931359
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4425,8 +4545,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4c7d6dff8d1904483babee4e4f8cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 5
   _flashColor: {r: 1, g: 1, b: 1, a: 1}
   _flashTime: 0.25
+--- !u!114 &1573931362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573931356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061f80b3602fc34ca42b1f756781051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  lineOfSight: 40
+  avoidanceDistance: 5
+--- !u!95 &1573931363
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573931356}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1c92aa47c2930a541897386cc2a38ea9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1575360799
 GameObject:
   m_ObjectHideFlags: 0
@@ -5034,7 +5192,7 @@ GameObject:
   - component: {fileID: 1764606456}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5126,8 +5284,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
-  m_LinearDrag: 10
+  m_Mass: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -5139,7 +5297,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!212 &1764606451
 SpriteRenderer:
@@ -5202,7 +5360,7 @@ Transform:
   m_GameObject: {fileID: 1764606446}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.1802368, y: -7.7534285, z: 0}
+  m_LocalPosition: {x: -21.4, y: -7.7534285, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5270,7 +5428,6 @@ MonoBehaviour:
   gunTransform: {fileID: 1573843285}
   lineRenderer: {fileID: 1573843286}
   shootRate: 0.2
-  damage: 40
 --- !u!1 &1779827008
 GameObject:
   m_ObjectHideFlags: 0
@@ -5283,9 +5440,11 @@ GameObject:
   - component: {fileID: 1779827011}
   - component: {fileID: 1779827010}
   - component: {fileID: 1779827009}
+  - component: {fileID: 1779827015}
   - component: {fileID: 1779827013}
+  - component: {fileID: 1779827014}
   m_Layer: 0
-  m_Name: Zombie1
+  m_Name: Zombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5320,7 +5479,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1.59795}
@@ -5348,8 +5507,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
-  m_LinearDrag: 100
+  m_Mass: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -5361,8 +5520,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!212 &1779827011
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5442,8 +5601,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4c7d6dff8d1904483babee4e4f8cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 5
   _flashColor: {r: 1, g: 1, b: 1, a: 1}
   _flashTime: 0.25
+--- !u!114 &1779827014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779827008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061f80b3602fc34ca42b1f756781051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  lineOfSight: 40
+  avoidanceDistance: 3
+--- !u!95 &1779827015
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779827008}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1c92aa47c2930a541897386cc2a38ea9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1796414643
 GameObject:
   m_ObjectHideFlags: 0
@@ -5511,7 +5708,7 @@ Transform:
   m_GameObject: {fileID: 1855053089}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.93, y: -0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37334,9 +37531,29 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 1855053094}
+    m_ColliderPaths:
+    - - X: 1237500032
+        Y: 710156224
+      - X: 1235156224
+        Y: 712499968
+      - X: -1307812480
+        Y: 712499968
+      - X: -1312499968
+        Y: 705468736
+      - X: -1312499968
+        Y: -900000000
+      - X: 1237500032
+        Y: -900000000
   m_CompositePaths:
-    m_Paths: []
+    m_Paths:
+    - - {x: 123.74998, y: -90}
+      - {x: 123.74999, y: 71.01563}
+      - {x: 123.51561, y: 71.25}
+      - {x: -130.78127, y: 71.249985}
+      - {x: -131.25, y: 70.54687}
+      - {x: -131.24997, y: -90}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -37348,7 +37565,7 @@ TilemapCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1855053089}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

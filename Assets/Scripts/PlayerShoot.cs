@@ -10,7 +10,6 @@ public class PlayerShooting : MonoBehaviour
     public float shootRate = 0.2f;
     private bool isShooting = false;
     private float lastShootTime = 2f;
-    public int damage = 40;
 
     private void Update()
     {
@@ -52,6 +51,11 @@ public class PlayerShooting : MonoBehaviour
             if (damageFlash != null)
             {
                 damageFlash.CallDamageFlash();
+                hit.collider.gameObject.TryGetComponent<DamageFlash>(out DamageFlash zombieComponent);
+                if (zombieComponent != null)
+                {
+                    zombieComponent.TakeDamage(1);
+                }
             }
         }
         else

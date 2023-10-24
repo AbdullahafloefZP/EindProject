@@ -4,12 +4,28 @@ using UnityEngine;
 
 public class DamageFlash : MonoBehaviour
 {
+    [SerializeField] private float health, maxHealth = 3f;
     [SerializeField] private Color _flashColor = Color.white;
     [SerializeField] private float _flashTime = 0.25f;
 
     private SpriteRenderer[] _spriteRenderers;
     private Material[] _materials;
     private Coroutine damageFlashCoroutine;
+
+    private void Start() 
+    {
+        health = maxHealth;
+    }
+
+    public void TakeDamage(float damageAmount) 
+    {
+        health -= damageAmount;
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Awake()
     {

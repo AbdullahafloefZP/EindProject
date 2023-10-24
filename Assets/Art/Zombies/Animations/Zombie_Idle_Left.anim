@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player_WalkRight
+  m_Name: Zombie_Idle_Left
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,17 +21,15 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 685110603, guid: 0d70656550f1e4b438c1f210d40e6ba1, type: 3}
-    - time: 0.125
-      value: {fileID: 2009551224, guid: 0d70656550f1e4b438c1f210d40e6ba1, type: 3}
-    - time: 0.25
-      value: {fileID: 758245675, guid: 0d70656550f1e4b438c1f210d40e6ba1, type: 3}
+      value: {fileID: -1648903577, guid: d628ebf02289cd1459cc872c302d1991, type: 3}
+    - time: 0.5
+      value: {fileID: 1850425263, guid: d628ebf02289cd1459cc872c302d1991, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 8
+  m_SampleRate: 2
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -48,15 +46,14 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 685110603, guid: 0d70656550f1e4b438c1f210d40e6ba1, type: 3}
-    - {fileID: 2009551224, guid: 0d70656550f1e4b438c1f210d40e6ba1, type: 3}
-    - {fileID: 758245675, guid: 0d70656550f1e4b438c1f210d40e6ba1, type: 3}
+    - {fileID: -1648903577, guid: d628ebf02289cd1459cc872c302d1991, type: 3}
+    - {fileID: 1850425263, guid: d628ebf02289cd1459cc872c302d1991, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.375
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
