@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class CursorManager : MonoBehaviour
 {
-    
-    [SerializeField] private Texture2D cursonTexture;
-
-    private Vector2 cursorHotspot;
-
-    void Start()
+    void Update()
     {
-        cursorHotspot = new Vector2(cursonTexture.width / 2, cursonTexture.height / 2);
-        Cursor.SetCursor(cursonTexture, cursorHotspot, CursorMode.Auto);
+        Vector2 mouseCursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = mouseCursorPos;
+    }
+
+    void Awake() 
+    {
+        Cursor.visible = false;
     }
 }
