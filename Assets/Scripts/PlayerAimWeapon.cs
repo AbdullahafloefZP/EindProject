@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class PlayerAimWeapon : MonoBehaviour
 {
-    private Transform aimTransform;
     private Transform weaponsParent;
-    private Transform shootPoint;
 
     private void Awake()
     {
         weaponsParent = transform.Find("Weapons");
-        aimTransform = weaponsParent.Find("Ak47");
-        shootPoint = aimTransform.Find("Shootpoint");
     }
 
     private void Update()
@@ -20,33 +16,42 @@ public class PlayerAimWeapon : MonoBehaviour
         UpdateGunRotation();
 
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 aimDirection = (mousePosition - aimTransform.position).normalized;
 
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        weaponsParent.eulerAngles = new Vector3(0, 0, angle);
+        foreach (Transform child in weaponsParent)
+        {
+            if (child != null)
+            {
+                Vector3 aimDirection = (mousePosition - child.position).normalized;
 
-        shootPoint.position = mousePosition;
+                float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+                child.eulerAngles = new Vector3(0, 0, angle);
+            }
+        }
     }
 
     private void UpdateGunRotation()
     {
-        if (aimTransform != null)
-        {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 direction = mousePosition - transform.position;
-            SpriteRenderer gunSpriteRenderer = aimTransform.GetComponent<SpriteRenderer>();
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 direction = mousePosition - transform.position;
 
-            if (direction.x > 0)
+        foreach (Transform child in weaponsParent)
+        {
+            if (child != null)
             {
-                gunSpriteRenderer.sortingOrder = GetComponent<SpriteRenderer>().sortingOrder;
-                aimTransform.localScale = new Vector3(Mathf.Abs(aimTransform.localScale.x), aimTransform.localScale.y, aimTransform.localScale.z);
-                aimTransform.localScale = new Vector3(aimTransform.localScale.x, Mathf.Abs(aimTransform.localScale.y), aimTransform.localScale.z);
-            }
-            else if (direction.x < 0)
-            {
-                gunSpriteRenderer.sortingOrder = GetComponent<SpriteRenderer>().sortingOrder - 1;
-                aimTransform.localScale = new Vector3(-Mathf.Abs(aimTransform.localScale.x), aimTransform.localScale.y, aimTransform.localScale.z);
-                aimTransform.localScale = new Vector3(aimTransform.localScale.x, -Mathf.Abs(aimTransform.localScale.y), aimTransform.localScale.z);
+                SpriteRenderer gunSpriteRenderer = child.GetComponent<SpriteRenderer>();
+
+                if (direction.x > 0)
+                {
+                    gunSpriteRenderer.sortingOrder = GetComponent<SpriteRenderer>().sortingOrder;
+                    child.localScale = new Vector3(Mathf.Abs(child.localScale.x), child.localScale.y, child.localScale.z);
+                    child.localScale = new Vector3(child.localScale.x, Mathf.Abs(child.localScale.y), child.localScale.z);
+                }
+                else if (direction.x < 0)
+                {
+                    gunSpriteRenderer.sortingOrder = GetComponent<SpriteRenderer>().sortingOrder - 1;
+                    child.localScale = new Vector3(-Mathf.Abs(child.localScale.x), child.localScale.y, child.localScale.z);
+                    child.localScale = new Vector3(child.localScale.x, -Mathf.Abs(child.localScale.y), child.localScale.z);
+                }
             }
         }
     }

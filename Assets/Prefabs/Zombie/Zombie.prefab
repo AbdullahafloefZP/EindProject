@@ -195,8 +195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 3
-  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  maxHealth: 10
+  _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _flashTime: 0.25
 --- !u!114 &6469721955514423115
 MonoBehaviour:
@@ -212,4 +212,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   lineOfSight: 100
-  avoidanceDistance: 3
+  avoidanceDistance: 0

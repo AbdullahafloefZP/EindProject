@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Weapon
+  - ScarL
+  - FRD
+  - N4o1
+  - Ak47
   layers:
   - Default
   - TransparentFX

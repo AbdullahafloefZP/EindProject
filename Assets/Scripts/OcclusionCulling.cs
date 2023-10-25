@@ -83,10 +83,10 @@ public class OcclusionCulling : MonoBehaviour
         if (timer > updateRateInSeconds) timer = 0;
         else return;
 
-        float cameraRight = camera.transform.position.x + cameraHalfWidth * 1.7f;
-        float cameraLeft = camera.transform.position.x - cameraHalfWidth * 1.7f;
-        float cameraTop = camera.transform.position.y + camera.orthographicSize * 1.7f;
-        float cameraBottom = camera.transform.position.y - camera.orthographicSize * 1.7f;
+        float cameraRight = camera.transform.position.x + cameraHalfWidth * 2f;
+        float cameraLeft = camera.transform.position.x - cameraHalfWidth * 2f;
+        float cameraTop = camera.transform.position.y + camera.orthographicSize * 2f;
+        float cameraBottom = camera.transform.position.y - camera.orthographicSize * 2f;
 
         foreach (ObjectSettings o in objectSettings)
         {

@@ -8,8 +8,10 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private Transform gunTransform;
     public LineRenderer lineRenderer;
     public float shootRate = 0.2f;
+    public float damages = 1f;
     private bool isShooting = false;
     private float lastShootTime = 2f;
+
 
     private void Update()
     {
@@ -54,7 +56,7 @@ public class PlayerShooting : MonoBehaviour
                 hit.collider.gameObject.TryGetComponent<DamageFlash>(out DamageFlash zombieComponent);
                 if (zombieComponent != null)
                 {
-                    zombieComponent.TakeDamage(1);
+                    zombieComponent.TakeDamage(damages);
                 }
             }
         }
