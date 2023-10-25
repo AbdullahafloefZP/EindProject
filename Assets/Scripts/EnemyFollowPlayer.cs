@@ -66,8 +66,6 @@ public class EnemyFollowPlayer : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, lineOfSight);
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, avoidanceDistance);
     }
 
     private void FixedUpdate()
