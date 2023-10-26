@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 8060009254262391420}
   m_Layer: 0
   m_Name: Ak47
-  m_TagString: Weapon
+  m_TagString: Ak47
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 7370821437079158634}
   m_Layer: 0
   m_Name: ScarL
-  m_TagString: Weapon
+  m_TagString: ScarL
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

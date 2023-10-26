@@ -10,6 +10,7 @@ TagManager:
   - FRD
   - N4o1
   - Ak47
+  - UIText
   layers:
   - Default
   - TransparentFX

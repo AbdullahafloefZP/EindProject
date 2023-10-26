@@ -5,50 +5,95 @@ using UnityEngine;
 public class GunChange : MonoBehaviour
 {
     public WeaponHolder weapon;
+    public GameObject pickupMessage;
+    private bool canPickup;
+    private GameObject currentWeapon;
 
-    void Awake() 
+    void Awake()
     {
         weapon = GetComponentInChildren<WeaponHolder>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) 
+    void Start()
     {
-        GameObject whatHit = collision.gameObject;
+        canPickup = false;
+        pickupMessage.SetActive(false);
+    }
 
-        if (whatHit.CompareTag("Ak47"))
+    void Update()
+    {
+        if (canPickup)
         {
-            weapon.guns[0].SetActive(true);
-            weapon.guns[1].SetActive(false);
-            weapon.guns[2].SetActive(false);
-            weapon.guns[3].SetActive(false);
-            
+            if (Input.GetKeyDown(KeyCode.E) && currentWeapon != null)
+            {
+                string weaponTag = currentWeapon.tag;
+                if (!string.IsNullOrEmpty(weaponTag))
+                {
+                    PickUpWeapon(weaponTag);
+                }
+            }
         }
+    }
 
-        if (whatHit.CompareTag("ScarL"))
+     private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (IsWeaponTag(other.tag))
         {
-            weapon.guns[0].SetActive(false);
-            weapon.guns[1].SetActive(true);
-            weapon.guns[2].SetActive(false);
-            weapon.guns[3].SetActive(false);
-            
+            canPickup = true;
+            pickupMessage.SetActive(true);
+            currentWeapon = other.gameObject;
         }
+    }
 
-        if (whatHit.CompareTag("FRD"))
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (IsWeaponTag(other.tag))
         {
-            weapon.guns[0].SetActive(false);
-            weapon.guns[1].SetActive(false);
-            weapon.guns[2].SetActive(true);
-            weapon.guns[3].SetActive(false);
-            
+            canPickup = false;
+            pickupMessage.SetActive(false);
+            currentWeapon = null;
         }
+    }
 
-        if (whatHit.CompareTag("N4o1"))
+    void PickUpWeapon(string weaponTag)
+    {
+        switch (weaponTag)
         {
-            weapon.guns[0].SetActive(false);
-            weapon.guns[1].SetActive(false);
-            weapon.guns[2].SetActive(false);
-            weapon.guns[3].SetActive(true);
-            
-        }   
+            case "Ak47":
+                weapon.guns[0].SetActive(true);
+                weapon.guns[1].SetActive(false);
+                weapon.guns[2].SetActive(false);
+                weapon.guns[3].SetActive(false);
+                break;
+
+            case "ScarL":
+                weapon.guns[0].SetActive(false);
+                weapon.guns[1].SetActive(true);
+                weapon.guns[2].SetActive(false);
+                weapon.guns[3].SetActive(false);
+                break;
+
+            case "FRD":
+                weapon.guns[0].SetActive(false);
+                weapon.guns[1].SetActive(false);
+                weapon.guns[2].SetActive(true);
+                weapon.guns[3].SetActive(false);
+                break;
+
+            case "N4o1":
+                weapon.guns[0].SetActive(false);
+                weapon.guns[1].SetActive(false);
+                weapon.guns[2].SetActive(false);
+                weapon.guns[3].SetActive(true);
+                break;
+        }
+        pickupMessage.SetActive(false);
+        Destroy(currentWeapon);
+        
+    }
+
+    bool IsWeaponTag(string tag)
+    {
+        return tag == "Ak47" || tag == "ScarL" || tag == "FRD" || tag == "N4o1";
     }
 }

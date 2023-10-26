@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2361387394879692702}
   m_Layer: 0
   m_Name: FRD
-  m_TagString: Weapon
+  m_TagString: FRD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
