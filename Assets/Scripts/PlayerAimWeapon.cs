@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerAimWeapon : MonoBehaviour
 {
     private Transform weaponsParent;
+    private Transform weaponsCanvas;
 
     private void Awake()
     {
         weaponsParent = transform.Find("Weapons");
+        weaponsCanvas = transform.Find("Canvas/pickupMessage");
     }
 
     private void Update()
@@ -25,6 +27,15 @@ public class PlayerAimWeapon : MonoBehaviour
 
                 float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
                 child.eulerAngles = new Vector3(0, 0, angle);
+
+                if (transform.localScale.x < 0)
+                {
+                    weaponsCanvas.localEulerAngles = new Vector3(0, 180, 0);
+                }
+                else
+                {
+                    weaponsCanvas.localEulerAngles = Vector3.zero;
+                }
             }
         }
     }

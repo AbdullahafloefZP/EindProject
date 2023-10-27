@@ -197,7 +197,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 10
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
-  _flashTime: 0.25
+  _flashTime: 0.5
 --- !u!114 &6469721955514423115
 MonoBehaviour:
   m_ObjectHideFlags: 0

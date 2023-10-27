@@ -2302,7 +2302,7 @@ MonoBehaviour:
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 9
+  m_DynamicPixelsPerUnit: 20
   m_PresetInfoIsWorld: 1
 --- !u!223 &889788967
 Canvas:
@@ -3866,7 +3866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swarmerPrefab: {fileID: 7355526101739464427, guid: ddb98ae82a519c84a910c578b3d9ef01, type: 3}
-  swarmerInterval: 10
+  swarmerInterval: 1
 --- !u!4 &1653760423
 Transform:
   m_ObjectHideFlags: 0
