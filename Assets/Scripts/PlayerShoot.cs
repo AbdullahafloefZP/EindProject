@@ -7,33 +7,77 @@ public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private Transform gunTransform;
     public LineRenderer lineRenderer;
+    [SerializeField] private Transform shootPoint;
+    [SerializeField] private Transform MuzzleFlash;
     public float shootRate = 0.2f;
     public float damages = 1f;
     private bool isShooting = false;
-    private float lastShootTime = 2f;
+    private bool flipped = false;
+    private float lastShootTime = 0f;
 
+    private void Awake() 
+    {
+        shootPoint.gameObject.SetActive(false);
+        gunTransform.gameObject.SetActive(false);
+    }
 
     private void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.wasPressedThisFrame && Time.time - lastShootTime >= shootRate)
         {
             isShooting = true;
+            shootPoint.gameObject.SetActive(true);
+            gunTransform.gameObject.SetActive(true);
+
+            if (transform.localScale.x > 0)
+            {
+                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90); 
+            }
+            else if (transform.localScale.x < 0)
+            {
+                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270); 
+            }
             Shoot();
         }
+        
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
             isShooting = false;
             lineRenderer.enabled = false;
+            shootPoint.gameObject.SetActive(false);
+            gunTransform.gameObject.SetActive(true);
         }
 
         if (isShooting && Time.time - lastShootTime >= shootRate)
         {
             isShooting = true;
-            Shoot();
-        } 
+            shootPoint.gameObject.SetActive(true);
 
-        if (isShooting && Time.time - lastShootTime >= 0.1f) {
+            if (transform.localScale.x > 0)
+            {
+                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90); 
+            }
+            else if (transform.localScale.x < 0)
+            {
+                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270); 
+            }
+            Shoot();
+        }
+
+        if (isShooting && Time.time - lastShootTime >= 0.1f)
+        {
+            shootPoint.gameObject.SetActive(false);
+            gunTransform.gameObject.SetActive(true);
             lineRenderer.enabled = false;
+
+            if (transform.localScale.x > 0)
+            {
+                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90); 
+            }
+            else if (transform.localScale.x < 0)
+            {
+                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270); 
+            }
         }
     }
 
@@ -63,7 +107,12 @@ public class PlayerShooting : MonoBehaviour
         else
         {
             lineRenderer.SetPosition(0, gunTransform.position);
-            lineRenderer.SetPosition(1, gunTransform.position + gunTransform.right * 100);
+            Vector3 shootDirection = gunTransform.position + gunTransform.right * 100f;
+            lineRenderer.SetPosition(1, shootDirection);
         }
+    }
+    public void FlipCharacter(bool isFlipped)
+    {
+        flipped = isFlipped;
     }
 }
