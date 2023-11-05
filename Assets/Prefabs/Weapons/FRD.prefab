@@ -103,8 +103,8 @@ MonoBehaviour:
   lineRenderer: {fileID: 6614388979145383271}
   shootPoint: {fileID: 4791354810752964887}
   MuzzleFlash: {fileID: 2303437522281056622}
-  shootRate: 0.7
-  damages: 5.5
+  shootRate: 0.6
+  damages: 6
 --- !u!1 &2961216723164007912
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +395,7 @@ MonoBehaviour:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 84.73357
-  m_PointLightOuterAngle: 232.89961
+  m_PointLightOuterAngle: 291.74237
   m_PointLightInnerRadius: 2
   m_PointLightOuterRadius: 10
   m_ShapeLightParametricSides: 5

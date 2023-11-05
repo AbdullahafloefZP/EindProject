@@ -53,13 +53,11 @@ public class PlayerAimWeapon : MonoBehaviour
 
                 if (direction.x > 0)
                 {
-                    gunSpriteRenderer.sortingOrder = GetComponent<SpriteRenderer>().sortingOrder;
                     child.localScale = new Vector3(Mathf.Abs(child.localScale.x), child.localScale.y, child.localScale.z);
                     child.localScale = new Vector3(child.localScale.x, Mathf.Abs(child.localScale.y), child.localScale.z);
                 }
                 else if (direction.x < 0)
                 {
-                    gunSpriteRenderer.sortingOrder = GetComponent<SpriteRenderer>().sortingOrder - 1;
                     child.localScale = new Vector3(-Mathf.Abs(child.localScale.x), child.localScale.y, child.localScale.z);
                     child.localScale = new Vector3(child.localScale.x, -Mathf.Abs(child.localScale.y), child.localScale.z);
                 }
