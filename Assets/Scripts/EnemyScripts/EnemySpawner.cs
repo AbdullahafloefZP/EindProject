@@ -55,7 +55,7 @@ public class EnemySpawner : MonoBehaviour
         float radius = lineOfSight;
 
         Vector3 randomPoint = center + Random.insideUnitSphere * radius;
-        randomPoint.z = 0; // Ensure the position is at the same z-level as the spawner
+        randomPoint.z = 0;
 
         return randomPoint;
     }
