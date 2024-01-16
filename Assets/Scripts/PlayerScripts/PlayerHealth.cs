@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-
-    public int maxHealth = 10;
-    public int health;
+    public int maxHealth = 100;
+    private int health;
     public HealthBar healthBar;
 
     void Start()
@@ -15,6 +14,13 @@ public class PlayerHealth : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
     }
 
+    public void TakeDamage(int damage)
+    {
+        health -= damage; 
+        healthBar.SetHealth(health);
+    }
+
+    /*
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -22,10 +28,13 @@ public class PlayerHealth : MonoBehaviour
             TakeDamage(2);
         }
     }
+    */
 
-    void TakeDamage(int damage)
+    private void OnTriggerEnter(Collider other)
     {
-        health -= damage; 
-        healthBar.SetHealth(health);
+        if (other.CompareTag("Enemy"))
+        {
+            TakeDamage(2); 
+        }
     }
 }
