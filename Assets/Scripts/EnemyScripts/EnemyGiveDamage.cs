@@ -16,7 +16,8 @@ public class EnemyGiveDamage : MonoBehaviour
 
         if (timeSinceLastAttack >= attackInterval)
         {
-            Collider2D[] nearbyPlayers = Physics2D.OverlapCircleAll(transform.position, damageRange);
+            Vector3 adjustedPosition = transform.position + new Vector3(0, 1.5f, 0);
+            Collider2D[] nearbyPlayers = Physics2D.OverlapCircleAll(adjustedPosition, damageRange);
             foreach (var playerCollider in nearbyPlayers)
             {
                 if (playerCollider.CompareTag("Player"))
@@ -35,6 +36,7 @@ public class EnemyGiveDamage : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, damageRange);
+        Vector3 adjustedPosition = transform.position + new Vector3(0, 1.5f, 0);
+        Gizmos.DrawWireSphere(adjustedPosition, damageRange);
     }
 }

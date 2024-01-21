@@ -14,6 +14,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private int maxAmmo = 15;
     private int currentAmmo;
     private bool isReloading = false;
+    public GameObject reloadMessage;
     [SerializeField] private float reloadTime = 1f;
 
     public Animator animator;
@@ -29,6 +30,7 @@ public class PlayerShooting : MonoBehaviour
         shootPoint.gameObject.SetActive(false);
         gunTransform.gameObject.SetActive(false);
         currentAmmo = maxAmmo;
+        reloadMessage.SetActive(false);
     }
 
     void OnEnable()
@@ -40,7 +42,7 @@ public class PlayerShooting : MonoBehaviour
     private void Update()
     {
 
-        ammoDisplay.text = currentAmmo.ToString();
+        ammoDisplay.text = currentAmmo.ToString() + "/" + maxAmmo.ToString();
 
         if (isReloading)
         {
@@ -50,6 +52,12 @@ public class PlayerShooting : MonoBehaviour
         if (currentAmmo <= 0)
         {
             StartCoroutine(Reload());
+            reloadMessage.SetActive(true);
+            return;
+        } else if (Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(Reload());
+            reloadMessage.SetActive(true);
             return;
         }
 
@@ -112,32 +120,30 @@ public class PlayerShooting : MonoBehaviour
     }
 
     private IEnumerator Reload()
-{
-    isReloading = true;
-    Debug.Log("Reloading..");
+    {
+        isReloading = true;
 
-    animator.SetBool("Reloading", true);
-    lineRenderer.enabled = false;
-    MuzzleFlash.gameObject.SetActive(false);
-    shootPoint.gameObject.SetActive(false);
+        animator.SetBool("Reloading", true);
+        lineRenderer.enabled = false;
+        MuzzleFlash.gameObject.SetActive(false);
+        shootPoint.gameObject.SetActive(false);
 
-    yield return new WaitForSeconds(reloadTime);
+        yield return new WaitForSeconds(reloadTime);
 
-    animator.SetBool("Reloading", false);
-    lineRenderer.enabled = true;
-    MuzzleFlash.gameObject.SetActive(true);
+        animator.SetBool("Reloading", false);
+        reloadMessage.SetActive(false);
 
-    shootPoint.gameObject.SetActive(true);
-
-    currentAmmo = maxAmmo;
-    isReloading = false;
-}
-
+        currentAmmo = maxAmmo;
+        isShooting = false;
+        isReloading = false;
+    }
 
     private void Shoot()
     {
         lastShootTime = Time.time;
         lineRenderer.enabled = true;
+        MuzzleFlash.gameObject.SetActive(true);
+        shootPoint.gameObject.SetActive(true);
 
         currentAmmo--;
 

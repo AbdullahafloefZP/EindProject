@@ -182,11 +182,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunTransform: {fileID: 8624219550567303002}
+  ammoDisplay: {fileID: 0}
   lineRenderer: {fileID: 2373234081557354941}
   shootPoint: {fileID: 7914641732502949275}
   MuzzleFlash: {fileID: 5007019818561866230}
   maxAmmo: 25
-  reloadTime: 1.5
+  reloadMessage: {fileID: 0}
+  reloadTime: 2.5
   animator: {fileID: 0}
   shootRate: 0.17
   damages: 3

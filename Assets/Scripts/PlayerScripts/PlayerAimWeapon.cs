@@ -6,11 +6,13 @@ public class PlayerAimWeapon : MonoBehaviour
 {
     private Transform weaponsParent;
     private Transform weaponsCanvas;
+    private Transform Canvas;
 
     private void Awake()
     {
         weaponsParent = transform.Find("Weapons");
         weaponsCanvas = transform.Find("Canvas/pickupMessage");
+        Canvas = transform.Find("Canvas/reloadMessage");
     }
 
     private void Update()
@@ -31,10 +33,12 @@ public class PlayerAimWeapon : MonoBehaviour
                 if (transform.localScale.x < 0)
                 {
                     weaponsCanvas.localEulerAngles = new Vector3(0, 180, 0);
+                    Canvas.localEulerAngles = new Vector3(0, 180, 0);
                 }
                 else
                 {
                     weaponsCanvas.localEulerAngles = Vector3.zero;
+                    Canvas.localEulerAngles = Vector3.zero;
                 }
             }
         }
