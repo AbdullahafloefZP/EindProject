@@ -690,6 +690,85 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29a48cfce09df5344b0267d1384a7f05, type: 3}
+--- !u!1 &274133939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 274133940}
+  - component: {fileID: 274133942}
+  - component: {fileID: 274133941}
+  m_Layer: 5
+  m_Name: Ammo
+  m_TagString: UIText
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &274133940
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274133939}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.26089263, y: 0.33668098, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 605383622}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 64.9, y: 49}
+  m_SizeDelta: {x: 561.9449, y: 163.9486}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &274133941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274133939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 100
+    m_FontStyle: 1
+    m_BestFit: 1
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &274133942
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274133939}
+  m_CullTransparentMesh: 1
 --- !u!1 &287971961 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1279878559384966560, guid: 29a48cfce09df5344b0267d1384a7f05, type: 3}
@@ -1795,7 +1874,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1813,6 +1892,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1136466985}
+  - {fileID: 274133940}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2758,7 +2838,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 20
@@ -35432,7 +35512,7 @@ MonoBehaviour:
   - {fileID: 370002540}
   - {fileID: 1260396435}
   weaponHolder: {fileID: 1988973705}
-  currentWeapon: {fileID: 0}
+  currentWeapon: {fileID: 824582519}
 --- !u!95 &1988973708
 Animator:
   serializedVersion: 5
@@ -36001,6 +36081,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1988973708}
+    - target: {fileID: 8060009254262391420, guid: c081c11d42e8ea74d8f7d033259c4d71, type: 3}
+      propertyPath: ammoDisplay
+      value: 
+      objectReference: {fileID: 274133941}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36119,6 +36203,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1988973708}
+    - target: {fileID: 7370821437079158634, guid: aa5ff2265227f9741af252047b8d111a, type: 3}
+      propertyPath: ammoDisplay
+      value: 
+      objectReference: {fileID: 274133941}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36140,6 +36228,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1988973708}
+    - target: {fileID: 3553546595285734140, guid: f246a2fdbd06aaf428892408bc703558, type: 3}
+      propertyPath: ammoDisplay
+      value: 
+      objectReference: {fileID: 274133941}
     - target: {fileID: 6879735136541480047, guid: f246a2fdbd06aaf428892408bc703558, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.201
@@ -36254,6 +36346,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1988973708}
+    - target: {fileID: 2361387394879692702, guid: f410e3eb054b8b841990dfdc06c3f413, type: 3}
+      propertyPath: ammoDisplay
+      value: 
+      objectReference: {fileID: 274133941}
     - target: {fileID: 2469574396267201438, guid: f410e3eb054b8b841990dfdc06c3f413, type: 3}
       propertyPath: m_Name
       value: FRD

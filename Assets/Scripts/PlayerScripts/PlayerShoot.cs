@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private Transform gunTransform;
+    public Text ammoDisplay;
     public LineRenderer lineRenderer;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private Transform MuzzleFlash;
@@ -29,8 +31,16 @@ public class PlayerShooting : MonoBehaviour
         currentAmmo = maxAmmo;
     }
 
+    void OnEnable()
+    {
+        isReloading = false;
+        animator.SetBool("Reloading", false);
+    }
+
     private void Update()
     {
+
+        ammoDisplay.text = currentAmmo.ToString();
 
         if (isReloading)
         {
