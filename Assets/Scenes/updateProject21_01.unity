@@ -35387,6 +35387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1988973706}
   - component: {fileID: 1988973707}
+  - component: {fileID: 1988973708}
   m_Layer: 0
   m_Name: Weapons
   m_TagString: Weapon
@@ -35431,7 +35432,28 @@ MonoBehaviour:
   - {fileID: 370002540}
   - {fileID: 1260396435}
   weaponHolder: {fileID: 1988973705}
-  currentWeapon: {fileID: 824582519}
+  currentWeapon: {fileID: 0}
+--- !u!95 &1988973708
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988973705}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 77cd28a4390647640b461a28965525e2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2002308260 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1279878559384966560, guid: 29a48cfce09df5344b0267d1384a7f05, type: 3}
@@ -35975,6 +35997,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ak47
       objectReference: {fileID: 0}
+    - target: {fileID: 8060009254262391420, guid: c081c11d42e8ea74d8f7d033259c4d71, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1988973708}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36089,6 +36115,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScarL
       objectReference: {fileID: 0}
+    - target: {fileID: 7370821437079158634, guid: aa5ff2265227f9741af252047b8d111a, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1988973708}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36106,6 +36136,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: N4o1
       objectReference: {fileID: 0}
+    - target: {fileID: 3553546595285734140, guid: f246a2fdbd06aaf428892408bc703558, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1988973708}
     - target: {fileID: 6879735136541480047, guid: f246a2fdbd06aaf428892408bc703558, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.201
@@ -36216,6 +36250,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1988973706}
     m_Modifications:
+    - target: {fileID: 2361387394879692702, guid: f410e3eb054b8b841990dfdc06c3f413, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1988973708}
     - target: {fileID: 2469574396267201438, guid: f410e3eb054b8b841990dfdc06c3f413, type: 3}
       propertyPath: m_Name
       value: FRD
