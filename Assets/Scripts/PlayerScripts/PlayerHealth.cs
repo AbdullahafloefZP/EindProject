@@ -16,25 +16,26 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage; 
+        health -= damage;
         healthBar.SetHealth(health);
-    }
 
-    /*
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (health <= 0)
         {
-            TakeDamage(2);
+            Die();
         }
     }
-    */
 
-    private void OnTriggerEnter(Collider other)
+    private void Die()
     {
-        if (other.CompareTag("Enemy"))
+        Debug.Log("Player has died!");
+        gameObject.SetActive(false);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            TakeDamage(2); 
+            TakeDamage(2);
         }
     }
 }

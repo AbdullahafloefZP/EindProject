@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1239541467601018730}
   - component: {fileID: 8894927758784028548}
   - component: {fileID: 6469721955514423115}
+  - component: {fileID: 6432318247773693284}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Enemy
@@ -213,3 +214,18 @@ MonoBehaviour:
   speed: 10
   lineOfSight: 100
   avoidanceDistance: 0
+--- !u!114 &6432318247773693284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7355526101739464427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccaf75b8203303345879ab75849cf4d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageRange: 2
+  damageAmount: 10
+  attackInterval: 1

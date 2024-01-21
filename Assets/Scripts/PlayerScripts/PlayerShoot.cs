@@ -9,6 +9,13 @@ public class PlayerShooting : MonoBehaviour
     public LineRenderer lineRenderer;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private Transform MuzzleFlash;
+    [SerializeField] private int maxAmmo = 15;
+    private int currentAmmo;
+    private bool isReloading = false;
+    [SerializeField] private float reloadTime = 1f;
+
+    public Animator animator;
+
     public float shootRate = 0.2f;
     public float damages = 1f;
     private bool isShooting = false;
@@ -19,98 +26,133 @@ public class PlayerShooting : MonoBehaviour
     {
         shootPoint.gameObject.SetActive(false);
         gunTransform.gameObject.SetActive(false);
+        currentAmmo = maxAmmo;
     }
 
     private void Update()
+{
+    if (isReloading)
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame && Time.time - lastShootTime >= shootRate)
-        {
-            isShooting = true;
-            shootPoint.gameObject.SetActive(true);
-            gunTransform.gameObject.SetActive(true);
+        return;
+    }
 
-            if (transform.localScale.x > 0)
-            {
-                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90); 
-            }
-            else if (transform.localScale.x < 0)
-            {
-                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270); 
-            }
-            Shoot();
+    if (currentAmmo <= 0)
+    {
+        StartCoroutine(Reload());
+        return;
+    }
+
+    if (Mouse.current.leftButton.wasPressedThisFrame && Time.time - lastShootTime >= shootRate)
+    {
+        isShooting = true;
+        shootPoint.gameObject.SetActive(true);
+        gunTransform.gameObject.SetActive(true);
+
+        if (transform.localScale.x > 0)
+        {
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
         }
-        
-        else if (Mouse.current.leftButton.wasReleasedThisFrame)
+        else if (transform.localScale.x < 0)
         {
-            isShooting = false;
-            lineRenderer.enabled = false;
-            shootPoint.gameObject.SetActive(false);
-            gunTransform.gameObject.SetActive(true);
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
         }
+        Shoot();
+    }
 
-        if (isShooting && Time.time - lastShootTime >= shootRate)
+    else if (Mouse.current.leftButton.wasReleasedThisFrame)
+    {
+        isShooting = false;
+        shootPoint.gameObject.SetActive(false);
+        gunTransform.gameObject.SetActive(true);
+    }
+
+    if (isShooting && Time.time - lastShootTime >= shootRate)
+    {
+        isShooting = true;
+        shootPoint.gameObject.SetActive(true);
+
+        if (transform.localScale.x > 0)
         {
-            isShooting = true;
-            shootPoint.gameObject.SetActive(true);
-
-            if (transform.localScale.x > 0)
-            {
-                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90); 
-            }
-            else if (transform.localScale.x < 0)
-            {
-                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270); 
-            }
-            Shoot();
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
         }
-
-        if (isShooting && Time.time - lastShootTime >= 0.1f)
+        else if (transform.localScale.x < 0)
         {
-            shootPoint.gameObject.SetActive(false);
-            gunTransform.gameObject.SetActive(true);
-            lineRenderer.enabled = false;
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
+        }
+        Shoot();
+    }
 
-            if (transform.localScale.x > 0)
-            {
-                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90); 
-            }
-            else if (transform.localScale.x < 0)
-            {
-                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270); 
-            }
+    if (isShooting && Time.time - lastShootTime >= 0.1f)
+    {
+        shootPoint.gameObject.SetActive(false);
+        gunTransform.gameObject.SetActive(true);
+
+        if (transform.localScale.x > 0)
+        {
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
+        }
+        else if (transform.localScale.x < 0)
+        {
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
         }
     }
+}
+
+
+    private IEnumerator Reload()
+{
+    isReloading = true;
+    Debug.Log("Reloading..");
+
+    animator.SetBool("Reloading", true);
+    lineRenderer.enabled = false;
+    MuzzleFlash.gameObject.SetActive(false);
+    shootPoint.gameObject.SetActive(false);
+
+    yield return new WaitForSeconds(reloadTime);
+
+    animator.SetBool("Reloading", false);
+    lineRenderer.enabled = true;
+    MuzzleFlash.gameObject.SetActive(true);
+
+    shootPoint.gameObject.SetActive(true);
+
+    currentAmmo = maxAmmo;
+    isReloading = false;
+}
+
 
     private void Shoot()
+{
+    lastShootTime = Time.time;
+
+    currentAmmo--;
+
+    RaycastHit2D hit = Physics2D.Raycast(gunTransform.position, gunTransform.right);
+
+    if (hit)
     {
-        lastShootTime = Time.time;
-        lineRenderer.enabled = true;
+        // Removed lineRenderer-related code
 
-        RaycastHit2D hit = Physics2D.Raycast(gunTransform.position, gunTransform.right);
-
-        if (hit)
+        DamageFlash damageFlash = hit.collider.GetComponent<DamageFlash>();
+        if (damageFlash != null)
         {
-            lineRenderer.SetPosition(0, gunTransform.position);
-            lineRenderer.SetPosition(1, hit.point);
-
-            DamageFlash damageFlash = hit.collider.GetComponent<DamageFlash>();
-            if (damageFlash != null)
+            damageFlash.CallDamageFlash();
+            hit.collider.gameObject.TryGetComponent<DamageFlash>(out DamageFlash zombieComponent);
+            if (zombieComponent != null)
             {
-                damageFlash.CallDamageFlash();
-                hit.collider.gameObject.TryGetComponent<DamageFlash>(out DamageFlash zombieComponent);
-                if (zombieComponent != null)
-                {
-                    zombieComponent.TakeDamage(damages);
-                }
+                zombieComponent.TakeDamage(damages);
             }
         }
-        else
-        {
-            lineRenderer.SetPosition(0, gunTransform.position);
-            Vector3 shootDirection = gunTransform.position + gunTransform.right * 100f;
-            lineRenderer.SetPosition(1, shootDirection);
-        }
     }
+    else
+    {
+        // Removed lineRenderer-related code
+
+        Vector3 shootDirection = gunTransform.position + gunTransform.right * 100f;
+        // You might want to consider a different visualization for the shot without LineRenderer
+    }
+}
     public void FlipCharacter(bool isFlipped)
     {
         flipped = isFlipped;

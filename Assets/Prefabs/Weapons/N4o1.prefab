@@ -185,6 +185,9 @@ MonoBehaviour:
   lineRenderer: {fileID: 2373234081557354941}
   shootPoint: {fileID: 7914641732502949275}
   MuzzleFlash: {fileID: 5007019818561866230}
+  maxAmmo: 25
+  reloadTime: 1.5
+  animator: {fileID: 0}
   shootRate: 0.17
   damages: 3
 --- !u!1 &4715997762201924293
