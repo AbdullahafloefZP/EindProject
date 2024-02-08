@@ -11,10 +11,14 @@ public class PlayerShooting : MonoBehaviour
     public LineRenderer lineRenderer;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private Transform MuzzleFlash;
-    [SerializeField] private int maxAmmo = 15;
+    [SerializeField] private int maxAmmo;
     private int currentAmmo;
+    private int currentReserve;
+    [SerializeField] private int maxReserve;
+
     private bool isReloading = false;
     public GameObject reloadMessage;
+    public GameObject ammoMessage;
     [SerializeField] private float reloadTime = 1f;
 
     public Animator animator;
@@ -30,7 +34,9 @@ public class PlayerShooting : MonoBehaviour
         shootPoint.gameObject.SetActive(false);
         gunTransform.gameObject.SetActive(false);
         currentAmmo = maxAmmo;
+        currentReserve = maxReserve;
         reloadMessage.SetActive(false);
+        ammoMessage.SetActive(false);
     }
 
     void OnEnable()
@@ -42,23 +48,36 @@ public class PlayerShooting : MonoBehaviour
     private void Update()
     {
 
-        ammoDisplay.text = currentAmmo.ToString() + "/" + maxAmmo.ToString();
+        ammoDisplay.text = $"{currentAmmo}/{maxAmmo} | {currentReserve}/{maxReserve}";
 
         if (isReloading)
         {
             return;
         }
 
-        if (currentAmmo <= 0)
+        if (currentAmmo <= 0 && currentReserve > 0)
         {
             StartCoroutine(Reload());
             reloadMessage.SetActive(true);
             return;
-        } else if (Input.GetKeyDown(KeyCode.R))
+        } else if (Input.GetKeyDown(KeyCode.R) && currentReserve > 0)
         {
             StartCoroutine(Reload());
             reloadMessage.SetActive(true);
             return;
+        }
+
+        if (currentAmmo <=0 && currentReserve <=0)
+        {
+            lineRenderer.enabled = false;
+            MuzzleFlash.gameObject.SetActive(false);
+            shootPoint.gameObject.SetActive(false);
+            ammoMessage.SetActive(true);
+            return;
+        }
+        else
+        {
+            ammoMessage.SetActive(false);
         }
 
         if (Mouse.current.leftButton.wasPressedThisFrame && Time.time - lastShootTime >= shootRate)
@@ -130,10 +149,13 @@ public class PlayerShooting : MonoBehaviour
 
         yield return new WaitForSeconds(reloadTime);
 
+        int bulletsToReload = Mathf.Min(maxAmmo - currentAmmo, currentReserve);
+        currentAmmo += bulletsToReload;
+        currentReserve -= bulletsToReload;
+
         animator.SetBool("Reloading", false);
         reloadMessage.SetActive(false);
 
-        currentAmmo = maxAmmo;
         isShooting = false;
         isReloading = false;
     }

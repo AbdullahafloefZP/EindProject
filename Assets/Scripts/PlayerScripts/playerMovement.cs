@@ -18,11 +18,9 @@ public class PlayerMovement : MonoBehaviour {
         movement = value.Get<Vector2>();
 
         if (movement.x != 0) {
-            //animator.SetFloat("X", movement.x);
             animator.SetFloat("Y", 0);
             animator.SetBool("IsWalking", true);
          } else if (movement.y != 0) {
-            //animator.SetFloat("X", 0);
             animator.SetFloat("Y", movement.y);
             animator.SetBool("IsWalking", true);
         } else {
