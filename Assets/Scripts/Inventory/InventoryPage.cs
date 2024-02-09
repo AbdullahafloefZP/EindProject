@@ -6,8 +6,12 @@ public class InventoryPage : MonoBehaviour
 {
     [SerializeField] private InventoryItem itemPrefab;
     [SerializeField] private RectTransform contentPanel;
+    [SerializeField] private MouseFollower mouseFollower;
 
     List<InventoryItem> listOfItems = new List<InventoryItem>();
+    private int currentlyDraggedItemIndex = -1;
+    public Sprite image, image2;
+    public int quantity;
 
     public void InitializeInventory(int inventorysize)
         {
@@ -25,27 +29,49 @@ public class InventoryPage : MonoBehaviour
             }
         }
 
-        private void HandleItemSelection(InventoryItem obj)
+        private void Awake()
         {
-            Debug.Log(obj.name);
+            Hide();
+            mouseFollower.Toggle(false);
         }
 
-        private void HandleBeginDrag(InventoryItem obj)
+        private void HandleItemSelection(InventoryItem inventoryItem)
         {
-            
+            Debug.Log(inventoryItem.name);
+            listOfItems[0].Select();
         }
 
-        private void HandleSwap(InventoryItem obj)
+        private void HandleBeginDrag(InventoryItem inventoryItem)
         {
-            
+            int index = listOfItems.IndexOf(inventoryItem);
+            if (index == -1)
+                return;
+            currentlyDraggedItemIndex = index;
+            mouseFollower.Toggle(true);
+            mouseFollower.SetData(index == 0 ? image : image2, quantity);
         }
 
-        private void HandleEndDrag(InventoryItem obj)
+        private void HandleSwap(InventoryItem inventoryItem)
         {
-            
+            int index = listOfItems.IndexOf(inventoryItem);
+            if (index == -1)
+            {
+                mouseFollower.Toggle(false);
+                currentlyDraggedItemIndex = -1;
+                return;
+            }
+            listOfItems[currentlyDraggedItemIndex].SetData(index == 0 ? image : image2, quantity);
+            listOfItems[index].SetData(currentlyDraggedItemIndex == 0 ? image : image2, quantity);
+            mouseFollower.Toggle(false);
+            currentlyDraggedItemIndex = -1;
         }
 
-        private void HandleShowItemActions(InventoryItem obj)
+        private void HandleEndDrag(InventoryItem inventoryItem)
+        {
+            mouseFollower.Toggle(false);
+        }
+
+        private void HandleShowItemActions(InventoryItem inventoryItem)
         {
             
         }
@@ -55,6 +81,8 @@ public class InventoryPage : MonoBehaviour
         {
             gameObject.SetActive(true);
             //ResetSelection();
+            listOfItems[0].SetData(image, quantity);
+            listOfItems[1].SetData(image2, quantity);
         }
 
     public void Hide()

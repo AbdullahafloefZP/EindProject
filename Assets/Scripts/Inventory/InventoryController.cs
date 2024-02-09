@@ -24,8 +24,8 @@ public class InventoryController : MonoBehaviour
                 // foreach (var item in inventoryData.GetCurrentInventoryState())
                 // {
                 //     inventory.UpdateData(item.Key,
-                //         item.Value.item.ItemImage,
-                //         item.Value.quantity);
+                //     item.Value.item.ItemImage,
+                //     item.Value.quantity);
                 // }
             }
             else
