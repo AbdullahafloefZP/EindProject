@@ -36,6 +36,12 @@ public class InventoryPage : MonoBehaviour
             mouseFollower.Toggle(false);
         }
 
+        internal void UpdateDescription(int itemIndex, Sprite itemImage, string name)
+        {
+            DeselectAllItems();
+            listOfItems[itemIndex].Select();
+        }
+
         private void HandleItemSelection(InventoryItem inventoryItem)
         {
             int index = listOfItems.IndexOf(inventoryItem);
@@ -97,6 +103,18 @@ public class InventoryPage : MonoBehaviour
             }
         }
 
+        public void ResetSelection()
+        {
+            DeselectAllItems();
+        }
+
+        private void DeselectAllItems()
+        {
+            foreach (InventoryItem item in listOfItems)
+            {
+                item.Deselect();
+            }
+        }
 
     public void Show()
         {
