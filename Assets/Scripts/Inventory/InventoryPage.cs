@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryPage : MonoBehaviour
+namespace Inventory.Page
 {
+    public class InventoryPage : MonoBehaviour
+    {
     [SerializeField] private InventoryItem itemPrefab;
     [SerializeField] private RectTransform contentPanel;
     [SerializeField] private MouseFollower mouseFollower;
@@ -128,4 +130,6 @@ public class InventoryPage : MonoBehaviour
             ResetDraggedItem();
         }
     
+    }
 }
+
