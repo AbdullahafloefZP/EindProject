@@ -8,8 +8,8 @@ public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private Transform gunTransform;
     public Text ammoDisplay;
-    public LineRenderer lineRenderer;
     [SerializeField] private Transform shootPoint;
+    [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform MuzzleFlash;
     [SerializeField] private int maxAmmo;
     private int currentAmmo;
@@ -69,7 +69,6 @@ public class PlayerShooting : MonoBehaviour
 
         if (currentAmmo <=0 && currentReserve <=0)
         {
-            lineRenderer.enabled = false;
             MuzzleFlash.gameObject.SetActive(false);
             shootPoint.gameObject.SetActive(false);
             ammoMessage.SetActive(true);
@@ -100,7 +99,6 @@ public class PlayerShooting : MonoBehaviour
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
             isShooting = false;
-            lineRenderer.enabled = false;
             shootPoint.gameObject.SetActive(false);
             gunTransform.gameObject.SetActive(true);
         }
@@ -125,7 +123,6 @@ public class PlayerShooting : MonoBehaviour
         {
             shootPoint.gameObject.SetActive(false);
             gunTransform.gameObject.SetActive(true);
-            lineRenderer.enabled = false;
 
             if (transform.localScale.x > 0)
             {
@@ -143,7 +140,6 @@ public class PlayerShooting : MonoBehaviour
         isReloading = true;
 
         animator.SetBool("Reloading", true);
-        lineRenderer.enabled = false;
         MuzzleFlash.gameObject.SetActive(false);
         shootPoint.gameObject.SetActive(false);
 
@@ -163,37 +159,24 @@ public class PlayerShooting : MonoBehaviour
     private void Shoot()
     {
         lastShootTime = Time.time;
-        lineRenderer.enabled = true;
+
+        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+        
+        Bullet bulletComponent = bullet.GetComponent<Bullet>();
+        if (bulletComponent != null)
+        {
+            bulletComponent.SetDirection(gunTransform.right);
+        }
+
         MuzzleFlash.gameObject.SetActive(true);
-        shootPoint.gameObject.SetActive(true);
-
-        currentAmmo--;
-
-        RaycastHit2D hit = Physics2D.Raycast(gunTransform.position, gunTransform.right);
-
-        if (hit)
-        {
-            lineRenderer.SetPosition(0, gunTransform.position);
-            lineRenderer.SetPosition(1, hit.point);
-
-            DamageFlash damageFlash = hit.collider.GetComponent<DamageFlash>();
-            if (damageFlash != null)
-            {
-                damageFlash.CallDamageFlash();
-                hit.collider.gameObject.TryGetComponent<DamageFlash>(out DamageFlash zombieComponent);
-                if (zombieComponent != null)
-                {
-                    zombieComponent.TakeDamage(damages);
-                }
-            }
-        }
-        else
-        {
-            lineRenderer.SetPosition(0, gunTransform.position);
-            Vector3 shootDirection = gunTransform.position + gunTransform.right * 100f;
-            lineRenderer.SetPosition(1, shootDirection);
-        }
+        Invoke("DisableMuzzleFlash", 0.1f);
     }
+
+    private void DisableMuzzleFlash()
+    {
+        MuzzleFlash.gameObject.SetActive(false);
+    }
+    
     public void FlipCharacter(bool isFlipped)
     {
         flipped = isFlipped;

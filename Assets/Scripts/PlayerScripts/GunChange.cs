@@ -64,6 +64,7 @@ public class GunChange : MonoBehaviour
                 weapon.guns[1].SetActive(false);
                 weapon.guns[2].SetActive(false);
                 weapon.guns[3].SetActive(false);
+                weapon.guns[4].SetActive(false);
                 break;
 
             case "ScarL":
@@ -71,6 +72,7 @@ public class GunChange : MonoBehaviour
                 weapon.guns[1].SetActive(true);
                 weapon.guns[2].SetActive(false);
                 weapon.guns[3].SetActive(false);
+                weapon.guns[4].SetActive(false);
                 break;
 
             case "FRD":
@@ -78,6 +80,7 @@ public class GunChange : MonoBehaviour
                 weapon.guns[1].SetActive(false);
                 weapon.guns[2].SetActive(true);
                 weapon.guns[3].SetActive(false);
+                weapon.guns[4].SetActive(false);
                 break;
 
             case "N4o1":
@@ -85,6 +88,14 @@ public class GunChange : MonoBehaviour
                 weapon.guns[1].SetActive(false);
                 weapon.guns[2].SetActive(false);
                 weapon.guns[3].SetActive(true);
+                weapon.guns[4].SetActive(false);
+                break;
+            case "Mg401":
+                weapon.guns[0].SetActive(false);
+                weapon.guns[1].SetActive(false);
+                weapon.guns[2].SetActive(false);
+                weapon.guns[3].SetActive(false);
+                weapon.guns[4].SetActive(true);
                 break;
         }
         pickupMessage.SetActive(false);
@@ -94,6 +105,6 @@ public class GunChange : MonoBehaviour
 
     bool IsWeaponTag(string tag)
     {
-        return tag == "Ak47" || tag == "ScarL" || tag == "FRD" || tag == "N4o1";
+        return tag == "Ak47" || tag == "ScarL" || tag == "FRD" || tag == "N4o1" || tag == "Mg401";
     }
 }

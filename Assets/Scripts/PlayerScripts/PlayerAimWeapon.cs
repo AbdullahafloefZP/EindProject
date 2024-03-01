@@ -8,7 +8,6 @@ public class PlayerAimWeapon : MonoBehaviour
     private Transform weaponsCanvas;
     private Transform Canvas;
     private Transform Canvas2;
-    [SerializeField] private Transform flashlight;
 
     private void Awake()
     {
@@ -38,14 +37,12 @@ public class PlayerAimWeapon : MonoBehaviour
                     weaponsCanvas.localEulerAngles = new Vector3(0, 180, 0);
                     Canvas.localEulerAngles = new Vector3(0, 180, 0);
                     Canvas2.localEulerAngles = new Vector3(0, 180, 0);
-                    flashLight.localEulerAngles = new Vector3(0, 180, 0); 
                 }
                 else
                 {
                     weaponsCanvas.localEulerAngles = Vector3.zero;
                     Canvas.localEulerAngles = Vector3.zero;
                     Canvas2.localEulerAngles = Vector3.zero;
-                    flashLight.localEulerAngles = Vector3.zero; 
                 }
             }
         }
