@@ -38,6 +38,15 @@ namespace Inventory.Page
             mouseFollower.Toggle(false);
         }
 
+        public void ResetAllItems()
+        {
+            foreach (var item in listOfItems)
+            {
+                item.ResetData();
+                item.Deselect();
+            }
+        }
+
         internal void UpdateDescription(int itemIndex, Sprite itemImage, string name)
         {
             DeselectAllItems();
