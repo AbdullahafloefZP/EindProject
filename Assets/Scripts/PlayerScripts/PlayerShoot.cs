@@ -198,10 +198,8 @@ public class PlayerShooting : MonoBehaviour
 
         Vector3 initialRelativePosition = transform.InverseTransformPoint(ejectedBullet.transform.position);
 
-    // Remove ejected bullet's parent to prevent it from following player's movement
 
-    // Start a coroutine to continually update the ejected bullet's position relative to the player
-    StartCoroutine(UpdateRelativePosition(ejectedBullet, initialRelativePosition));
+        StartCoroutine(UpdateRelativePosition(ejectedBullet, initialRelativePosition));
         lastShootTime = Time.time;
 
         RaycastHit2D hit = Physics2D.Raycast(gunTransform.position, gunTransform.right);
@@ -248,10 +246,8 @@ public class PlayerShooting : MonoBehaviour
 {
     while (true)
     {
-        // Calculate the player's position in world space
         Vector3 playerPosition = transform.TransformPoint(initialRelativePosition);
 
-        // Update ejected bullet's position relative to the player
         ejectedBullet.transform.position = playerPosition;
 
         yield return null;

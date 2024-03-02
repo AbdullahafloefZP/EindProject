@@ -6,7 +6,7 @@ public class EjectedBullet : MonoBehaviour
 {
     private void OnEnable()
     {
-        Invoke("DeactivateBullet", 3f);
+        Invoke("DeactivateBullet", 0.5f);
     }
 
     private void DeactivateBullet()
