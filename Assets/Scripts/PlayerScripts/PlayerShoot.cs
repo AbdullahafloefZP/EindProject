@@ -1,11 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using System.Collections.Generic;
+
 
 public class PlayerShooting : MonoBehaviour
 {
+    private GameObject pooledBullet;
+    private List<GameObject> pooledBullets = new List<GameObject>();
+    private int pooledAmount = 1;
     [SerializeField] private Transform gunTransform;
     public Text ammoDisplay;
     [SerializeField] private Transform shootPoint;
@@ -15,21 +19,21 @@ public class PlayerShooting : MonoBehaviour
     private int currentAmmo;
     private int currentReserve;
     [SerializeField] private int maxReserve;
-
     private bool isReloading = false;
     public GameObject reloadMessage;
     public GameObject ammoMessage;
     [SerializeField] private float reloadTime = 1f;
-
     public Animator animator;
-
+    public Animator ejectedBulletAnimator;
     public float shootRate = 0.2f;
     public float damages = 1f;
     private bool isShooting = false;
     private bool flipped = false;
     private float lastShootTime = 0f;
+    public GameObject ejectedBulletPrefab;
+    public Transform EjectPoint;
 
-    private void Awake() 
+    private void Awake()
     {
         shootPoint.gameObject.SetActive(false);
         gunTransform.gameObject.SetActive(false);
@@ -37,6 +41,28 @@ public class PlayerShooting : MonoBehaviour
         currentReserve = maxReserve;
         reloadMessage.SetActive(false);
         ammoMessage.SetActive(false);
+
+        for (int i = 0; i < pooledAmount; i++)
+        {
+            GameObject bullet = Instantiate(ejectedBulletPrefab);
+            bullet.SetActive(false);
+            pooledBullets.Add(bullet);
+        }
+    }
+
+    private GameObject GetPooledBullet()
+    {
+        for (int i = 0; i < pooledBullets.Count; i++)
+        {
+            if (!pooledBullets[i].activeInHierarchy)
+            {
+                return pooledBullets[i];
+            }
+        }
+
+        GameObject newBullet = Instantiate(ejectedBulletPrefab);
+        pooledBullets.Add(newBullet);
+        return newBullet;
     }
 
     void OnEnable()
@@ -46,94 +72,99 @@ public class PlayerShooting : MonoBehaviour
     }
 
     private void Update()
+{
+    ammoDisplay.text = $"{currentAmmo}/{maxAmmo} | {currentReserve}/{maxReserve}";
+
+    if (isReloading)
     {
+        return;
+    }
 
-        ammoDisplay.text = $"{currentAmmo}/{maxAmmo} | {currentReserve}/{maxReserve}";
+    if (currentAmmo <= 0 && currentReserve > 0)
+    {
+        StartCoroutine(Reload());
+        reloadMessage.SetActive(true);
+        return;
+    }
+    else if (Input.GetKeyDown(KeyCode.R) && currentReserve > 0)
+    {
+        StartCoroutine(Reload());
+        reloadMessage.SetActive(true);
+        return;
+    }
 
-        if (isReloading)
+    if (currentAmmo <= 0 && currentReserve <= 0)
+    {
+        MuzzleFlash.gameObject.SetActive(false);
+        shootPoint.gameObject.SetActive(false);
+        ammoMessage.SetActive(true);
+        return;
+    }
+    else
+    {
+        ammoMessage.SetActive(false);
+    }
+
+    if (Mouse.current.leftButton.wasPressedThisFrame && Time.time - lastShootTime >= shootRate)
+    {
+        isShooting = true;
+        // ejectedBulletAnimator.SetBool("Shooting", true);
+
+        shootPoint.gameObject.SetActive(true);
+        gunTransform.gameObject.SetActive(true);
+
+        if (transform.localScale.x > 0)
         {
-            return;
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
         }
-
-        if (currentAmmo <= 0 && currentReserve > 0)
+        else if (transform.localScale.x < 0)
         {
-            StartCoroutine(Reload());
-            reloadMessage.SetActive(true);
-            return;
-        } else if (Input.GetKeyDown(KeyCode.R) && currentReserve > 0)
-        {
-            StartCoroutine(Reload());
-            reloadMessage.SetActive(true);
-            return;
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
         }
+        Shoot();
+    }
+    else if (Mouse.current.leftButton.wasReleasedThisFrame)
+    {
+        isShooting = false;
+        shootPoint.gameObject.SetActive(false);
+        gunTransform.gameObject.SetActive(true);
+        // ejectedBulletAnimator.SetBool("Shooting", false);
+    }
 
-        if (currentAmmo <=0 && currentReserve <=0)
+    if (isShooting && Time.time - lastShootTime >= shootRate)
+    {
+        isShooting = true;
+        // ejectedBulletAnimator.SetBool("Shooting", true);
+        shootPoint.gameObject.SetActive(true);
+
+        if (transform.localScale.x > 0)
         {
-            MuzzleFlash.gameObject.SetActive(false);
-            shootPoint.gameObject.SetActive(false);
-            ammoMessage.SetActive(true);
-            return;
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
         }
-        else
+        else if (transform.localScale.x < 0)
         {
-            ammoMessage.SetActive(false);
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
         }
+        Shoot();
+    }
 
-        if (Mouse.current.leftButton.wasPressedThisFrame && Time.time - lastShootTime >= shootRate)
+    if (isShooting && Time.time - lastShootTime >= 0.1f)
+    {
+        shootPoint.gameObject.SetActive(false);
+        // ejectedBulletAnimator.SetBool("Shooting", false);
+        gunTransform.gameObject.SetActive(true);
+
+        if (transform.localScale.x > 0)
         {
-            isShooting = true;
-            shootPoint.gameObject.SetActive(true);
-            gunTransform.gameObject.SetActive(true);
-
-            if (transform.localScale.x > 0)
-            {
-                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90); 
-            }
-            else if (transform.localScale.x < 0)
-            {
-                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270); 
-            }
-            Shoot();
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
         }
-        
-        else if (Mouse.current.leftButton.wasReleasedThisFrame)
+        else if (transform.localScale.x < 0)
         {
-            isShooting = false;
-            shootPoint.gameObject.SetActive(false);
-            gunTransform.gameObject.SetActive(true);
-        }
-
-        if (isShooting && Time.time - lastShootTime >= shootRate)
-        {
-            isShooting = true;
-            shootPoint.gameObject.SetActive(true);
-
-            if (transform.localScale.x > 0)
-            {
-                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90); 
-            }
-            else if (transform.localScale.x < 0)
-            {
-                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270); 
-            }
-            Shoot();
-        }
-
-        if (isShooting && Time.time - lastShootTime >= 0.1f)
-        {
-            shootPoint.gameObject.SetActive(false);
-            gunTransform.gameObject.SetActive(true);
-
-            if (transform.localScale.x > 0)
-            {
-                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90); 
-            }
-            else if (transform.localScale.x < 0)
-            {
-                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270); 
-            }
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
         }
     }
+}
+
 
     private IEnumerator Reload()
     {
@@ -158,25 +189,81 @@ public class PlayerShooting : MonoBehaviour
 
     private void Shoot()
     {
+        GameObject ejectedBullet = GetPooledBullet();
+        ejectedBullet.transform.position = EjectPoint.position;
+        ejectedBullet.transform.rotation = EjectPoint.rotation;
+        ejectedBullet.transform.SetParent(EjectPoint);
+        ejectedBullet.transform.localPosition = Vector3.zero;
+        ejectedBullet.SetActive(true);
+
+        Vector3 initialRelativePosition = transform.InverseTransformPoint(ejectedBullet.transform.position);
+
+    // Remove ejected bullet's parent to prevent it from following player's movement
+
+    // Start a coroutine to continually update the ejected bullet's position relative to the player
+    StartCoroutine(UpdateRelativePosition(ejectedBullet, initialRelativePosition));
         lastShootTime = Time.time;
 
-        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-        
-        Bullet bulletComponent = bullet.GetComponent<Bullet>();
-        if (bulletComponent != null)
+        RaycastHit2D hit = Physics2D.Raycast(gunTransform.position, gunTransform.right);
+
+        if (hit)
         {
-            bulletComponent.SetDirection(gunTransform.right);
+            GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
+
+            Bullet bulletComponent = bullet.GetComponent<Bullet>();
+            if (bulletComponent != null)
+            {
+                bulletComponent.SetDirection((hit.point - (Vector2)shootPoint.position).normalized);
+            }
+
+            DamageFlash damageFlash = hit.collider.GetComponent<DamageFlash>();
+            if (damageFlash != null)
+            {
+                damageFlash.CallDamageFlash();
+                hit.collider.gameObject.TryGetComponent<DamageFlash>(out DamageFlash zombieComponent);
+                if (zombieComponent != null)
+                {
+                    zombieComponent.TakeDamage(damages);
+                }
+            }
+        }
+        else
+        {
+            GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+
+            Bullet bulletComponent = bullet.GetComponent<Bullet>();
+            if (bulletComponent != null)
+            {
+                bulletComponent.SetDirection(gunTransform.right);
+            }
         }
 
         MuzzleFlash.gameObject.SetActive(true);
         Invoke("DisableMuzzleFlash", 0.1f);
+
+        currentAmmo--;
     }
+
+    private IEnumerator UpdateRelativePosition(GameObject ejectedBullet, Vector3 initialRelativePosition)
+{
+    while (true)
+    {
+        // Calculate the player's position in world space
+        Vector3 playerPosition = transform.TransformPoint(initialRelativePosition);
+
+        // Update ejected bullet's position relative to the player
+        ejectedBullet.transform.position = playerPosition;
+
+        yield return null;
+    }
+}
+
 
     private void DisableMuzzleFlash()
     {
         MuzzleFlash.gameObject.SetActive(false);
     }
-    
+
     public void FlipCharacter(bool isFlipped)
     {
         flipped = isFlipped;
