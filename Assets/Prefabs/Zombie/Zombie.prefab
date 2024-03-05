@@ -213,7 +213,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   lineOfSight: 100
-  avoidanceDistance: 0
 --- !u!114 &6432318247773693284
 MonoBehaviour:
   m_ObjectHideFlags: 0

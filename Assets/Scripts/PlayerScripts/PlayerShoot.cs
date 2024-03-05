@@ -190,16 +190,11 @@ public class PlayerShooting : MonoBehaviour
     private void Shoot()
     {
         GameObject ejectedBullet = GetPooledBullet();
+        ejectedBullet.transform.SetParent(EjectPoint);
         ejectedBullet.transform.position = EjectPoint.position;
         ejectedBullet.transform.rotation = EjectPoint.rotation;
-        ejectedBullet.transform.SetParent(EjectPoint);
-        ejectedBullet.transform.localPosition = Vector3.zero;
         ejectedBullet.SetActive(true);
 
-        Vector3 initialRelativePosition = transform.InverseTransformPoint(ejectedBullet.transform.position);
-
-
-        StartCoroutine(UpdateRelativePosition(ejectedBullet, initialRelativePosition));
         lastShootTime = Time.time;
 
         RaycastHit2D hit = Physics2D.Raycast(gunTransform.position, gunTransform.right);
@@ -241,19 +236,6 @@ public class PlayerShooting : MonoBehaviour
 
         currentAmmo--;
     }
-
-    private IEnumerator UpdateRelativePosition(GameObject ejectedBullet, Vector3 initialRelativePosition)
-{
-    while (true)
-    {
-        Vector3 playerPosition = transform.TransformPoint(initialRelativePosition);
-
-        ejectedBullet.transform.position = playerPosition;
-
-        yield return null;
-    }
-}
-
 
     private void DisableMuzzleFlash()
     {

@@ -12,6 +12,7 @@ TagManager:
   - Ak47
   - UIText
   - Mg401
+  - EnemyWeapons
   layers:
   - Default
   - TransparentFX
