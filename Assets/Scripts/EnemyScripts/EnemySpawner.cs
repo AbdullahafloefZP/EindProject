@@ -5,7 +5,9 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject swarmerPrefab;
+    [SerializeField] private GameObject gunSwarmerPrefab;
     [SerializeField] private float swarmerInterval = 3.5f;
+    [SerializeField] private float gunSwarmerInterval = 5f;
     [SerializeField] private float lineOfSight;
 
     private void OnDrawGizmosSelected()
@@ -17,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
     void Awake()
     {
         StartCoroutine(SpawnEnemiesWithInterval(swarmerInterval, swarmerPrefab));
+        StartCoroutine(SpawnEnemiesWithInterval(gunSwarmerInterval, gunSwarmerPrefab));
     }
 
     private IEnumerator SpawnEnemiesWithInterval(float interval, GameObject enemy)

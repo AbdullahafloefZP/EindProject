@@ -58,10 +58,16 @@ public class EnemyFollowPlayer2 : MonoBehaviour
     private void Update()
     {
         UpdateGunRotation();
-
+    
+        if (currentAmmo <= 0 && !isReloading)
+        {
+            StartCoroutine(Reload());
+            return;
+        }
+    
         float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
         Vector2 moveDirection;
-
+    
         if (distanceFromPlayer < lineOfSight && distanceFromPlayer > shootingRange)
         {
             moveDirection = (player.position - transform.position).normalized;
@@ -70,46 +76,45 @@ public class EnemyFollowPlayer2 : MonoBehaviour
         else if (distanceFromPlayer <= shootingRange)
         {
             isShooting = true;
-
             shootPoint.gameObject.SetActive(true);
             gunTransform.gameObject.SetActive(true);
-
         }
-
-        if (distanceFromPlayer < lineOfSight && distanceFromPlayer > shootingRange)
+    
+        if (distanceFromPlayer < lineOfSight)
         {
-            moveDirection = (player.position - transform.position).normalized; // enemy uses animations to move left and right but also to run. so doing this stops him from moving left and right.
-        }                                                                      // but if you remove '&& distanceFromPlayer > shootingRange' then he will have running animation while standing still.
+            moveDirection = (player.position - transform.position).normalized;
+        }
         else
         {
             moveDirection = Vector2.zero;
         }
-
+    
         SetAnimationParameters(moveDirection);
-
+    
         foreach (Transform child in weaponsParent)
         {
             if (child != null)
             {
                 Vector3 aimDirection = (player.position - child.position).normalized;
                 float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+    
                 child.eulerAngles = new Vector3(0, 0, angle);
-
-
                 child.eulerAngles = new Vector3(0, 0, angle);
             }
         }
-
+    
         if (isReloading)
         {
+            // Ensure shootPoint is deactivated while reloading
+            shootPoint.gameObject.SetActive(false);
             return;
         }
-
+    
         if (isShooting && Time.time - lastShootTime >= shootRate)
         {
             isShooting = true;
             shootPoint.gameObject.SetActive(true);
-
+    
             if (transform.localScale.x > 0)
             {
                 MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
@@ -120,12 +125,12 @@ public class EnemyFollowPlayer2 : MonoBehaviour
             }
             Shoot();
         }
-
+    
         if (isShooting && Time.time - lastShootTime >= 0.1f)
         {
             shootPoint.gameObject.SetActive(false);
             gunTransform.gameObject.SetActive(true);
-
+    
             if (transform.localScale.x > 0)
             {
                 MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
@@ -136,6 +141,7 @@ public class EnemyFollowPlayer2 : MonoBehaviour
             }
         }
     }
+
 
     private void SetAnimationParameters(Vector2 moveDirection)
     {
@@ -150,7 +156,6 @@ public class EnemyFollowPlayer2 : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, lineOfSight);
         Gizmos.DrawWireSphere(transform.position, shootingRange);
     }
-
 
     private void UpdateGunRotation()
     {
@@ -200,25 +205,31 @@ public class EnemyFollowPlayer2 : MonoBehaviour
     void OnEnable()
     {
         isReloading = false;
-        animator.SetBool("Reloading", false);
     }
 
     private IEnumerator Reload()
-    {
-        isReloading = true;
+{
+    isReloading = true;
 
-        animator.SetBool("Reloading", true);
-        MuzzleFlash.gameObject.SetActive(false);
-        shootPoint.gameObject.SetActive(false);
+    MuzzleFlash.gameObject.SetActive(false);
+    shootPoint.gameObject.SetActive(false);
+    reloadMessage.SetActive(true);
 
-        yield return new WaitForSeconds(reloadTime);
+    yield return new WaitForSeconds(reloadTime);
 
-        animator.SetBool("Reloading", false);
-        reloadMessage.SetActive(false);
+    int bulletsToReload = Mathf.Min(maxAmmo - currentAmmo);
+    currentAmmo += bulletsToReload;
 
-        isShooting = false;
-        isReloading = false;
-    }
+    currentAmmo = maxAmmo;
+    reloadMessage.SetActive(false);
+    
+    shootPoint.gameObject.SetActive(false);
+
+    isShooting = false;
+    isReloading = false;
+}
+
+
 
     private void Shoot()
     {
