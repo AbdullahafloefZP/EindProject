@@ -27,8 +27,8 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Player has died!");
         gameObject.SetActive(false);
+        LoseMenu.PlayerHasDied = true;
     }
 
     private void OnCollisionEnter(Collision collision)
