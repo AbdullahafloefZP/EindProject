@@ -8,13 +8,18 @@ public class DamageFlash : MonoBehaviour
     [SerializeField] private Color _flashColor = Color.white;
     [SerializeField] private float _flashTime = 0.25f;
 
+    public bool isDead = true;
     private SpriteRenderer[] _spriteRenderers;
     private Material[] _materials;
     private Coroutine damageFlashCoroutine;
 
+    [HideInInspector] public PlayerShoot printCoin;
+
     private void Start() 
     {
         health = maxHealth;
+        // printCoin = FindObjectOfType<PlayerShoot>();
+        // printCoin.UpdateCoinText();
     }
 
     public void TakeDamage(float damageAmount) 
@@ -24,8 +29,35 @@ public class DamageFlash : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+            // IsDead();
+            printCoin = FindObjectOfType<PlayerShoot>();
+            printCoin.AwardRewards();
+            printCoin.UpdateCoinText();
         }
     }
+
+    // public void IsDead()
+    // {
+    //     isDead = true;
+    //     Destroy(gameObject);
+    // }
+
+    // private void AwardRewards()
+    // {
+    //     coinsEarned += 2;
+    //     xpEarned += 120;
+    // }
+
+
+    // public int GetCoinsEarned()
+    // {
+    //     return coinsEarned;
+    // }
+
+    // public int GetXPEarned()
+    // {
+    //     return xpEarned;
+    // }
 
     private void Awake()
     {

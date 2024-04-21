@@ -5,13 +5,13 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 
-public class PlayerShooting : MonoBehaviour
+public class PlayerShoot : MonoBehaviour
 {
     private GameObject pooledBullet;
     private List<GameObject> pooledBullets = new List<GameObject>();
     private int pooledAmount = 1;
-    [SerializeField] private Transform gunTransform;
     public Text ammoDisplay;
+    [SerializeField] private Transform gunTransform;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform MuzzleFlash;
@@ -32,6 +32,10 @@ public class PlayerShooting : MonoBehaviour
     private float lastShootTime = 0f;
     public GameObject ejectedBulletPrefab;
     public Transform EjectPoint;
+    public Text coinText;
+    [HideInInspector] public int coinsEarned = 0;
+    [HideInInspector] public int xpEarned = 0;
+    [HideInInspector] public DamageFlash zombieDeath;
 
     private void Awake()
     {
@@ -235,6 +239,17 @@ public class PlayerShooting : MonoBehaviour
         Invoke("DisableMuzzleFlash", 0.1f);
 
         currentAmmo--;
+    }
+
+    public void AwardRewards()
+    {
+        coinsEarned += 2;
+        xpEarned += 120;
+    }
+
+    public void UpdateCoinText()
+    {
+        coinText.text = "Coins: " + $"{coinsEarned}";
     }
 
     private void DisableMuzzleFlash()
