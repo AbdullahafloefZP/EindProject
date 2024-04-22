@@ -8,12 +8,11 @@ public class DamageFlash : MonoBehaviour
     [SerializeField] private Color _flashColor = Color.white;
     [SerializeField] private float _flashTime = 0.25f;
 
-    public bool isDead = true;
     private SpriteRenderer[] _spriteRenderers;
     private Material[] _materials;
     private Coroutine damageFlashCoroutine;
 
-    [HideInInspector] public PlayerShoot printCoin;
+    [HideInInspector] public CoinReward printCoin;
 
     private void Start() 
     {
@@ -30,7 +29,7 @@ public class DamageFlash : MonoBehaviour
         {
             Destroy(gameObject);
             // IsDead();
-            printCoin = FindObjectOfType<PlayerShoot>();
+            printCoin = FindObjectOfType<CoinReward>();
             printCoin.AwardRewards();
             printCoin.UpdateCoinText();
         }

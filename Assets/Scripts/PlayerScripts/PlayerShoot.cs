@@ -32,10 +32,6 @@ public class PlayerShoot : MonoBehaviour
     private float lastShootTime = 0f;
     public GameObject ejectedBulletPrefab;
     public Transform EjectPoint;
-    public Text coinText;
-    [HideInInspector] public int coinsEarned = 0;
-    [HideInInspector] public int xpEarned = 0;
-    [HideInInspector] public DamageFlash zombieDeath;
 
     private void Awake()
     {
@@ -76,99 +72,98 @@ public class PlayerShoot : MonoBehaviour
     }
 
     private void Update()
-{
-    ammoDisplay.text = $"{currentAmmo}/{maxAmmo} | {currentReserve}/{maxReserve}";
-
-    if (isReloading)
     {
-        return;
-    }
-
-    if (currentAmmo <= 0 && currentReserve > 0)
-    {
-        StartCoroutine(Reload());
-        reloadMessage.SetActive(true);
-        return;
-    }
-    else if (Input.GetKeyDown(KeyCode.R) && currentReserve > 0)
-    {
-        StartCoroutine(Reload());
-        reloadMessage.SetActive(true);
-        return;
-    }
-
-    if (currentAmmo <= 0 && currentReserve <= 0)
-    {
-        MuzzleFlash.gameObject.SetActive(false);
-        shootPoint.gameObject.SetActive(false);
-        ammoMessage.SetActive(true);
-        return;
-    }
-    else
-    {
-        ammoMessage.SetActive(false);
-    }
-
-    if (Mouse.current.leftButton.wasPressedThisFrame && Time.time - lastShootTime >= shootRate)
-    {
-        isShooting = true;
-        // ejectedBulletAnimator.SetBool("Shooting", true);
-
-        shootPoint.gameObject.SetActive(true);
-        gunTransform.gameObject.SetActive(true);
-
-        if (transform.localScale.x > 0)
+        ammoDisplay.text = $"{currentAmmo}/{maxAmmo} | {currentReserve}/{maxReserve}";
+    
+        if (isReloading)
         {
-            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
+            return;
         }
-        else if (transform.localScale.x < 0)
+    
+        if (currentAmmo <= 0 && currentReserve > 0)
         {
-            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
+            StartCoroutine(Reload());
+            reloadMessage.SetActive(true);
+            return;
         }
-        Shoot();
+        else if (Input.GetKeyDown(KeyCode.R) && currentReserve > 0)
+        {
+            StartCoroutine(Reload());
+            reloadMessage.SetActive(true);
+            return;
+        }
+    
+        if (currentAmmo <= 0 && currentReserve <= 0)
+        {
+            MuzzleFlash.gameObject.SetActive(false);
+            shootPoint.gameObject.SetActive(false);
+            ammoMessage.SetActive(true);
+            return;
+        }
+        else
+        {
+            ammoMessage.SetActive(false);
+        }
+    
+        if (Mouse.current.leftButton.wasPressedThisFrame && Time.time - lastShootTime >= shootRate)
+        {
+            isShooting = true;
+            // ejectedBulletAnimator.SetBool("Shooting", true);
+    
+            shootPoint.gameObject.SetActive(true);
+            gunTransform.gameObject.SetActive(true);
+    
+            if (transform.localScale.x > 0)
+            {
+                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
+            }
+            else if (transform.localScale.x < 0)
+            {
+                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
+            }
+            Shoot();
+        }
+        else if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            isShooting = false;
+            shootPoint.gameObject.SetActive(false);
+            gunTransform.gameObject.SetActive(true);
+            // ejectedBulletAnimator.SetBool("Shooting", false);
+        }
+    
+        if (isShooting && Time.time - lastShootTime >= shootRate)
+        {
+            isShooting = true;
+            // ejectedBulletAnimator.SetBool("Shooting", true);
+            shootPoint.gameObject.SetActive(true);
+    
+            if (transform.localScale.x > 0)
+            {
+                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
+            }
+            else if (transform.localScale.x < 0)
+            {
+                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
+            }
+            Shoot();
+        }
+    
+        if (isShooting && Time.time - lastShootTime >= 0.1f)
+        {
+            shootPoint.gameObject.SetActive(false);
+            // ejectedBulletAnimator.SetBool("Shooting", false);
+            gunTransform.gameObject.SetActive(true);
+    
+            if (transform.localScale.x > 0)
+            {
+                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
+            }
+            else if (transform.localScale.x < 0)
+            {
+                MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
+            }
+        }
     }
-    else if (Mouse.current.leftButton.wasReleasedThisFrame)
-    {
-        isShooting = false;
-        shootPoint.gameObject.SetActive(false);
-        gunTransform.gameObject.SetActive(true);
-        // ejectedBulletAnimator.SetBool("Shooting", false);
-    }
-
-    if (isShooting && Time.time - lastShootTime >= shootRate)
-    {
-        isShooting = true;
-        // ejectedBulletAnimator.SetBool("Shooting", true);
-        shootPoint.gameObject.SetActive(true);
-
-        if (transform.localScale.x > 0)
-        {
-            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
-        }
-        else if (transform.localScale.x < 0)
-        {
-            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
-        }
-        Shoot();
-    }
-
-    if (isShooting && Time.time - lastShootTime >= 0.1f)
-    {
-        shootPoint.gameObject.SetActive(false);
-        // ejectedBulletAnimator.SetBool("Shooting", false);
-        gunTransform.gameObject.SetActive(true);
-
-        if (transform.localScale.x > 0)
-        {
-            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
-        }
-        else if (transform.localScale.x < 0)
-        {
-            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
-        }
-    }
-}
-
 
     private IEnumerator Reload()
     {
@@ -239,17 +234,6 @@ public class PlayerShoot : MonoBehaviour
         Invoke("DisableMuzzleFlash", 0.1f);
 
         currentAmmo--;
-    }
-
-    public void AwardRewards()
-    {
-        coinsEarned += 2;
-        xpEarned += 120;
-    }
-
-    public void UpdateCoinText()
-    {
-        coinText.text = "Coins: " + $"{coinsEarned}";
     }
 
     private void DisableMuzzleFlash()
