@@ -5,11 +5,11 @@ using UnityEngine;
 public class WeaponHolder : MonoBehaviour
 {
     int weaponTotal = 1;
-    public static int currentWeaponIndex;
+    // public static int currentWeaponIndex;
 
     public GameObject[] guns;
     public GameObject weaponHolder;
-    public GameObject currentWeapon;
+    // public GameObject currentWeapon;
 
     void Awake() 
     {
@@ -23,7 +23,7 @@ public class WeaponHolder : MonoBehaviour
         }
 
         guns[0].SetActive(true);
-        currentWeapon = guns[0];
-        currentWeaponIndex = 0;
+        // currentWeapon = guns[0];
+        // currentWeaponIndex = 0;
     }
 }

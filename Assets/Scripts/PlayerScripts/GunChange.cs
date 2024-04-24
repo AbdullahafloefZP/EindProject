@@ -35,7 +35,7 @@ public class GunChange : MonoBehaviour
         }
     }
 
-     private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (IsWeaponTag(other.tag))
         {
@@ -57,50 +57,20 @@ public class GunChange : MonoBehaviour
 
     void PickUpWeapon(string weaponTag)
     {
-        switch (weaponTag)
+        foreach (GameObject gun in weapon.guns)
         {
-            case "Ak47":
-                weapon.guns[0].SetActive(true);
-                weapon.guns[1].SetActive(false);
-                weapon.guns[2].SetActive(false);
-                weapon.guns[3].SetActive(false);
-                weapon.guns[4].SetActive(false);
-                break;
-
-            case "ScarL":
-                weapon.guns[0].SetActive(false);
-                weapon.guns[1].SetActive(true);
-                weapon.guns[2].SetActive(false);
-                weapon.guns[3].SetActive(false);
-                weapon.guns[4].SetActive(false);
-                break;
-
-            case "FRD":
-                weapon.guns[0].SetActive(false);
-                weapon.guns[1].SetActive(false);
-                weapon.guns[2].SetActive(true);
-                weapon.guns[3].SetActive(false);
-                weapon.guns[4].SetActive(false);
-                break;
-
-            case "N4o1":
-                weapon.guns[0].SetActive(false);
-                weapon.guns[1].SetActive(false);
-                weapon.guns[2].SetActive(false);
-                weapon.guns[3].SetActive(true);
-                weapon.guns[4].SetActive(false);
-                break;
-            case "Mg401":
-                weapon.guns[0].SetActive(false);
-                weapon.guns[1].SetActive(false);
-                weapon.guns[2].SetActive(false);
-                weapon.guns[3].SetActive(false);
-                weapon.guns[4].SetActive(true);
-                break;
+            if (gun.tag == weaponTag)
+            {
+                gun.SetActive(true);
+            }
+            else
+            {
+                gun.SetActive(false);
+            }
         }
+
         pickupMessage.SetActive(false);
         Destroy(currentWeapon);
-        
     }
 
     bool IsWeaponTag(string tag)

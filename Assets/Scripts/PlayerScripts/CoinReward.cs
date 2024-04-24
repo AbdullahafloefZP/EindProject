@@ -19,6 +19,6 @@ public class CoinReward : MonoBehaviour
 
     public void UpdateCoinText()
     {
-        coinText.text = "Coins: " + $"{coinsEarned}";
+        coinText.text = ": " + $"{coinsEarned}";
     }
 }

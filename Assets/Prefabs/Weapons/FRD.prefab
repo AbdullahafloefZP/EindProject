@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6767024803058973323
 Transform:
   m_ObjectHideFlags: 0
@@ -102,8 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a4f3c39d68d2d40a71b8ed1542425a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunTransform: {fileID: 8256105682759044175}
   ammoDisplay: {fileID: 0}
+  gunTransform: {fileID: 8256105682759044175}
   shootPoint: {fileID: 4791354810752964887}
   bulletPrefab: {fileID: 5872118433379449172, guid: 8fd06d7e3f993a34e8a57e751cec7955, type: 3}
   MuzzleFlash: {fileID: 2303437522281056622}

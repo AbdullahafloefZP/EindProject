@@ -199,6 +199,8 @@ MonoBehaviour:
   maxHealth: 10
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _flashTime: 0.3
+  coinPrefab: {fileID: 1469445659507798497, guid: 86430fbe022565a4fbc44472647726ef, type: 3}
+  printCoin: {fileID: 0}
 --- !u!114 &6469721955514423115
 MonoBehaviour:
   m_ObjectHideFlags: 0

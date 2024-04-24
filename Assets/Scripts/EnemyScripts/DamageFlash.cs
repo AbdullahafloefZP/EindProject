@@ -7,6 +7,7 @@ public class DamageFlash : MonoBehaviour
     [SerializeField] private float health, maxHealth = 3f;
     [SerializeField] private Color _flashColor = Color.white;
     [SerializeField] private float _flashTime = 0.25f;
+    [SerializeField] private GameObject coinPrefab;
 
     private SpriteRenderer[] _spriteRenderers;
     private Material[] _materials;
@@ -17,8 +18,6 @@ public class DamageFlash : MonoBehaviour
     private void Start() 
     {
         health = maxHealth;
-        // printCoin = FindObjectOfType<PlayerShoot>();
-        // printCoin.UpdateCoinText();
     }
 
     public void TakeDamage(float damageAmount) 
@@ -28,18 +27,17 @@ public class DamageFlash : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
-            // IsDead();
-            printCoin = FindObjectOfType<CoinReward>();
-            printCoin.AwardRewards();
-            printCoin.UpdateCoinText();
+
+            Instantiate(coinPrefab, transform.position, Quaternion.identity);
+
+            // CoinReward printCoin = FindObjectOfType<CoinReward>();
+            // if (printCoin != null)
+            // {
+            //     printCoin.AwardRewards();
+            //     printCoin.UpdateCoinText();
+            // }
         }
     }
-
-    // public void IsDead()
-    // {
-    //     isDead = true;
-    //     Destroy(gameObject);
-    // }
 
     // private void AwardRewards()
     // {

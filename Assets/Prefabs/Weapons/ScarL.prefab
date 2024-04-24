@@ -381,8 +381,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a4f3c39d68d2d40a71b8ed1542425a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunTransform: {fileID: 4390865580427948261}
   ammoDisplay: {fileID: 0}
+  gunTransform: {fileID: 4390865580427948261}
   shootPoint: {fileID: 6220567504010877841}
   bulletPrefab: {fileID: 5872118433379449172, guid: 8fd06d7e3f993a34e8a57e751cec7955, type: 3}
   MuzzleFlash: {fileID: 6607018376230747690}
