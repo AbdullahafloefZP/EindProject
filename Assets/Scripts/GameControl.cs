@@ -11,32 +11,19 @@ public class GameControl : MonoBehaviour
     void Start()
     {
         moneyAmount = PlayerPrefs.GetInt("MoneyAmount");
-
-        int purchasedWeaponIndex = PlayerPrefs.GetInt("PurchasedWeaponIndex", -1);
-        if (purchasedWeaponIndex != -1)
-        {
-            ActivatePurchasedWeapon(purchasedWeaponIndex);
-            if (weaponHolder.guns[purchasedWeaponIndex].activeSelf)
-            {
-                //PlayerPrefs.DeleteKey("PurchasedWeaponIndex");
-            }
-            else
-            {
-                Debug.LogWarning("Failed to activate purchased weapon: " + purchasedWeaponIndex);
-            }
-        }
-
+        UpdateMoneyDisplay();
+        int equippedWeaponIndex = PlayerPrefs.GetInt("EquippedWeaponIndex", -1);
+        ActivatePurchasedWeapon(equippedWeaponIndex);
     }
 
     void Update()
     {
-        moneyText.text = moneyAmount.ToString();
+        UpdateMoneyDisplay();
     }
 
-    public void GotoShop()
+    void UpdateMoneyDisplay()
     {
-        PlayerPrefs.SetInt("MoneyAmount", moneyAmount);
-        SceneManager.LoadScene("ShopScene");
+        moneyText.text = moneyAmount.ToString();
     }
 
     void ActivatePurchasedWeapon(int weaponIndex)
@@ -47,7 +34,6 @@ public class GameControl : MonoBehaviour
             {
                 gun.SetActive(false);
             }
-
             weaponHolder.guns[weaponIndex].SetActive(true);
         }
         else
@@ -55,5 +41,5 @@ public class GameControl : MonoBehaviour
             Debug.LogWarning("Invalid weapon index: " + weaponIndex);
         }
     }
-
 }
+

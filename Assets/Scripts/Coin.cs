@@ -9,7 +9,8 @@ public class Coin : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            GameControl.moneyAmount += 2;
+            GameControl.moneyAmount += 10;
+            PlayerPrefs.SetInt("MoneyAmount", GameControl.moneyAmount);
             StartCoroutine(AnimateItemPickup());
         }
     }

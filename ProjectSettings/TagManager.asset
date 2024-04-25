@@ -13,6 +13,7 @@ TagManager:
   - UIText
   - Mg401
   - EnemyWeapons
+  - MoneyText
   layers:
   - Default
   - TransparentFX

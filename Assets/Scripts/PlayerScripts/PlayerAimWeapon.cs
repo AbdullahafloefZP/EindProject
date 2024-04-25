@@ -5,14 +5,12 @@ using UnityEngine;
 public class PlayerAimWeapon : MonoBehaviour
 {
     private Transform weaponsParent;
-    private Transform weaponsCanvas;
     private Transform Canvas;
     private Transform Canvas2;
 
     private void Awake()
     {
         weaponsParent = transform.Find("Weapons");
-        weaponsCanvas = transform.Find("Canvas/pickupMessage");
         Canvas = transform.Find("Canvas/reloadMessage");
         Canvas2 = transform.Find("Canvas/ammoMessage");
     }
@@ -34,13 +32,11 @@ public class PlayerAimWeapon : MonoBehaviour
 
                 if (transform.localScale.x < 0)
                 {
-                    weaponsCanvas.localEulerAngles = new Vector3(0, 180, 0);
                     Canvas.localEulerAngles = new Vector3(0, 180, 0);
                     Canvas2.localEulerAngles = new Vector3(0, 180, 0);
                 }
                 else
                 {
-                    weaponsCanvas.localEulerAngles = Vector3.zero;
                     Canvas.localEulerAngles = Vector3.zero;
                     Canvas2.localEulerAngles = Vector3.zero;
                 }

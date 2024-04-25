@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4138324}
-  - component: {fileID: 4138323}
   m_Layer: 0
   m_Name: shopControl
   m_TagString: Untagged
@@ -140,37 +139,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &4138323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4138322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e3e1b02b75fca14d9066b274d2a5327, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyAmountText: {fileID: 1744576091}
-  gunriflePrice:
-  - {fileID: 121873495}
-  - {fileID: 889979358}
-  - {fileID: 1555779823}
-  - {fileID: 1512472453}
-  - {fileID: 368780688}
-  soldText:
-  - {fileID: 165910069}
-  - {fileID: 480666040}
-  - {fileID: 2130508755}
-  - {fileID: 1660980455}
-  - {fileID: 1287432503}
-  buyButton:
-  - {fileID: 1121611508}
-  - {fileID: 1267839718}
-  - {fileID: 1405029913}
-  - {fileID: 373157793}
-  - {fileID: 1326140100}
 --- !u!4 &4138324
 Transform:
   m_ObjectHideFlags: 0
@@ -269,7 +237,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4138323}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShopControlScript, Assembly-CSharp
         m_MethodName: ExitShop
         m_Mode: 1
@@ -989,7 +957,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4138323}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShopControlScript, Assembly-CSharp
         m_MethodName: BuyWeapon
         m_Mode: 3
@@ -2053,7 +2021,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4138323}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShopControlScript, Assembly-CSharp
         m_MethodName: BuyWeapon
         m_Mode: 3
@@ -2613,7 +2581,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4138323}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShopControlScript, Assembly-CSharp
         m_MethodName: BuyWeapon
         m_Mode: 3
@@ -2825,7 +2793,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4138323}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShopControlScript, Assembly-CSharp
         m_MethodName: BuyWeapon
         m_Mode: 3
@@ -2958,7 +2926,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4138323}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShopControlScript, Assembly-CSharp
         m_MethodName: BuyWeapon
         m_Mode: 3

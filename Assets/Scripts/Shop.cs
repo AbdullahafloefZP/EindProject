@@ -11,58 +11,96 @@ public class Shop : MonoBehaviour
 
     public Text moneyAmountText;
     public Text[] gunriflePrice;
-    public Text[] soldText;
     public Button[] buyButton;
+    public Button[] equipButton;
+    public Text[] equippedText;
+    public GunChange gunChange;
 
     void Start()
     {
         moneyAmount = PlayerPrefs.GetInt("MoneyAmount");
+        moneyAmountText.text = moneyAmount.ToString(); // Update UI with initial money amount
         isWeaponSold = new bool[gunriflePrice.Length];
-        
-        foreach (Text soldTextElement in soldText)
+        int equippedWeaponIndex = PlayerPrefs.GetInt("EquippedWeaponIndex", -1);
+
+        for (int i = 0; i < gunriflePrice.Length; i++)
         {
-            soldTextElement.gameObject.SetActive(false);
+            isWeaponSold[i] = PlayerPrefs.GetInt("IsWeaponSold_" + i, 0) == 1;
+            buyButton[i].gameObject.SetActive(!isWeaponSold[i]);
+            equipButton[i].gameObject.SetActive(isWeaponSold[i] && i != equippedWeaponIndex);
+            equippedText[i].gameObject.SetActive(i == equippedWeaponIndex);
         }
         UpdateButtonInteractability();
     }
 
-    void Update()
-    {
-        moneyAmountText.text = moneyAmount.ToString();
-    }
-
     void UpdateButtonInteractability()
+{
+    for (int i = 0; i < gunriflePrice.Length; i++)
     {
-        for (int i = 0; i < gunriflePrice.Length; i++)
-        {
-            if (isWeaponSold[i])
-            {
-                buyButton[i].interactable = false;
-            }
-            else
-            {
-                buyButton[i].interactable = moneyAmount >= int.Parse(gunriflePrice[i].text);
-            }
-        }
+        bool canBuy = !isWeaponSold[i] && moneyAmount >= int.Parse(gunriflePrice[i].text);
+        buyButton[i].interactable = canBuy;
+        Debug.Log($"UpdateButtonInteractability: Index {i}, canBuy {canBuy}, isWeaponSold {isWeaponSold[i]}, moneyAmount {moneyAmount}, WeaponPrice {gunriflePrice[i].text}");
     }
+}
+
 
     public void BuyWeapon(int weaponIndex)
     {
-        if (!isWeaponSold[weaponIndex] && moneyAmount >= int.Parse(gunriflePrice[weaponIndex].text))
+        int weaponPrice = int.Parse(gunriflePrice[weaponIndex].text); // Get the price of the weapon
+        if (!isWeaponSold[weaponIndex] && moneyAmount >= weaponPrice)
         {
-            moneyAmount -= int.Parse(gunriflePrice[weaponIndex].text);
+            moneyAmount -= weaponPrice; // Subtract the weapon price from the money amount
+            moneyAmountText.text = moneyAmount.ToString(); // Update UI with the new money amount
             isWeaponSold[weaponIndex] = true;
-            soldText[weaponIndex].gameObject.SetActive(true);
-            buyButton[weaponIndex].gameObject.SetActive(false);
-            UpdateButtonInteractability();
-
-            PlayerPrefs.SetInt("PurchasedWeaponIndex", weaponIndex);
+            PlayerPrefs.SetInt("IsWeaponSold_" + weaponIndex, 1);
+            PlayerPrefs.SetInt("MoneyAmount", moneyAmount);
+            RefreshUI(weaponIndex);
+            gunChange.ActivateWeapon(weaponIndex);
         }
     }
 
-    public void ExitShop()
+    public void EquipWeapon(int weaponIndex)
     {
-        PlayerPrefs.SetInt("MoneyAmount", moneyAmount);
-        SceneManager.LoadScene("MainGame");
+        PlayerPrefs.SetInt("EquippedWeaponIndex", weaponIndex);
+        RefreshUI(weaponIndex);
+        gunChange.ActivateWeapon(weaponIndex);
+    }
+
+    public void ResetMoneyAndWeapons()
+    {
+        PlayerPrefs.DeleteKey("MoneyAmount");  // Deletes the saved money amount
+        moneyAmount = 0;  // Resets the money amount in the current session
+
+        // Reset each weapon's sold state and PlayerPrefs
+        for (int i = 0; i < isWeaponSold.Length; i++)
+        {
+            isWeaponSold[i] = false;
+            PlayerPrefs.DeleteKey("IsWeaponSold_" + i);
+        }
+
+        PlayerPrefs.SetInt("EquippedWeaponIndex", -1);  // Optionally reset equipped weapon index if needed
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        moneyAmountText.text = moneyAmount.ToString();
+        for (int i = 0; i < gunriflePrice.Length; i++)
+        {
+            buyButton[i].gameObject.SetActive(true);
+            equipButton[i].gameObject.SetActive(false);
+            equippedText[i].gameObject.SetActive(false);
+        }
+        UpdateButtonInteractability();
+    }
+
+    private void RefreshUI(int activeWeaponIndex)
+    {
+        for (int i = 0; i < gunriflePrice.Length; i++)
+        {
+            buyButton[i].gameObject.SetActive(!isWeaponSold[i]);
+            equipButton[i].gameObject.SetActive(isWeaponSold[i] && i != activeWeaponIndex);
+            equippedText[i].gameObject.SetActive(i == activeWeaponIndex);
+        }
     }
 }
