@@ -1,45 +1,44 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
+    public static GameControl Instance;
     public Text moneyText;
     public static int moneyAmount;
     public WeaponHolder weaponHolder;
+    public delegate void OnMoneyChanged();
+    public static event OnMoneyChanged MoneyChanged;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
-        moneyAmount = PlayerPrefs.GetInt("MoneyAmount");
-        UpdateMoneyDisplay();
-        int equippedWeaponIndex = PlayerPrefs.GetInt("EquippedWeaponIndex", -1);
-        ActivatePurchasedWeapon(equippedWeaponIndex);
-    }
-
-    void Update()
-    {
+        moneyAmount = PlayerPrefs.GetInt("MoneyAmount", 0);
         UpdateMoneyDisplay();
     }
 
-    void UpdateMoneyDisplay()
+    public void UpdateMoneyDisplay()
     {
         moneyText.text = moneyAmount.ToString();
+        MoneyChanged?.Invoke();
     }
 
-    void ActivatePurchasedWeapon(int weaponIndex)
+    public void ChangeMoney(int amount)
     {
-        if (weaponIndex >= 0 && weaponIndex < weaponHolder.guns.Length)
-        {
-            foreach (GameObject gun in weaponHolder.guns)
-            {
-                gun.SetActive(false);
-            }
-            weaponHolder.guns[weaponIndex].SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning("Invalid weapon index: " + weaponIndex);
-        }
+        moneyAmount += amount;
+        PlayerPrefs.SetInt("MoneyAmount", moneyAmount);
+        UpdateMoneyDisplay();
     }
 }
-

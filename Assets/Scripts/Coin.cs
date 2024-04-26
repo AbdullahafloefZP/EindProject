@@ -1,16 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
     [HideInInspector] public float duration = 0.8f;
+
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
             GameControl.moneyAmount += 10;
             PlayerPrefs.SetInt("MoneyAmount", GameControl.moneyAmount);
+            GameControl.Instance.UpdateMoneyDisplay();
             StartCoroutine(AnimateItemPickup());
         }
     }
@@ -23,8 +24,7 @@ public class Coin : MonoBehaviour
         while (currentTime < duration)
         {
             currentTime += Time.deltaTime;
-            transform.localScale = 
-                Vector3.Lerp(startScale, endScale, currentTime / duration);
+            transform.localScale = Vector3.Lerp(startScale, endScale, currentTime / duration);
             yield return null;
         }
         Destroy(gameObject);

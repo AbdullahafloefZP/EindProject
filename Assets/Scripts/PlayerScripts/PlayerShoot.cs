@@ -195,8 +195,10 @@ public class PlayerShoot : MonoBehaviour
         ejectedBullet.SetActive(true);
 
         lastShootTime = Time.time;
+        
+        Vector2 rayStart = shootPoint.position + shootPoint.right * 0.1f;
 
-        RaycastHit2D hit = Physics2D.Raycast(gunTransform.position, gunTransform.right);
+        RaycastHit2D hit = Physics2D.Raycast(rayStart, gunTransform.right);
 
         if (hit)
         {
