@@ -14,6 +14,7 @@ TagManager:
   - Mg401
   - EnemyWeapons
   - MoneyText
+  - Saw
   layers:
   - Default
   - TransparentFX

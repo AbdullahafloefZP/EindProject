@@ -40,7 +40,24 @@ public class PlayerMovement : MonoBehaviour {
     }
 }
 
-    private void FixedUpdate() {    
+    private void FixedUpdate() {  
+        if (transform.position.y >= 68)
+        {
+            transform.position = new Vector3(transform.position.x, 68, 0);
+        }
+        else if (transform.position.y <= -95)
+        {
+            transform.position = new Vector3(transform.position.x, -95, 0);
+        }
+        if (transform.position.x >= 110)
+        {
+            transform.position = new Vector3(110, transform.position.y, 0);
+        }
+        else if (transform.position.x <= -160)
+        {
+            transform.position = new Vector3(-160, transform.position.y, 0);
+        }
+
         OnMouseMovement();
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
         rb.freezeRotation = true;

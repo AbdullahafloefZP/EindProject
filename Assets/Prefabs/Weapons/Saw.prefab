@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 5608610944386007570}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.3, y: 0.03, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.71, y: 0.26, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6581235682641026543}
@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 5960554192507195681}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.37, y: 0.03, z: 0.2241921}
+  m_LocalPosition: {x: -1.79, y: 0.27, z: 0.2241921}
   m_LocalScale: {x: 1, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -129,12 +129,12 @@ GameObject:
   - component: {fileID: 8060009254262391420}
   - component: {fileID: 2751534646113254638}
   m_Layer: 0
-  m_Name: Ak47
-  m_TagString: Ak47
+  m_Name: Saw
+  m_TagString: Saw
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4525680587038419553
 Transform:
   m_ObjectHideFlags: 0
@@ -194,7 +194,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -318859795, guid: f70fe0371a5e31240910e28de5d597e3, type: 3}
+  m_Sprite: {fileID: 1016595078, guid: f70fe0371a5e31240910e28de5d597e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
   shootPoint: {fileID: 2163721574911512888}
   bulletPrefab: {fileID: 5872118433379449172, guid: 8fd06d7e3f993a34e8a57e751cec7955, type: 3}
   MuzzleFlash: {fileID: 6581235682641026543}
-  maxAmmo: 20
+  maxAmmo: 2
   maxReserve: 100
   reloadMessage: {fileID: 0}
   ammoMessage: {fileID: 0}
@@ -230,7 +230,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   ejectedBulletAnimator: {fileID: 4011523385133475532, guid: d2667e76d00ef7c46840f85eba8cdbf9, type: 3}
   shootRate: 0.13
-  damages: 2
+  damages: 5
   ejectedBulletPrefab: {fileID: 7114759388519496155, guid: d2667e76d00ef7c46840f85eba8cdbf9, type: 3}
   EjectPoint: {fileID: 0}
 --- !u!114 &2751534646113254638
@@ -272,7 +272,7 @@ Transform:
   m_GameObject: {fileID: 6914439808279069995}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -3, y: -0.15, z: 0}
+  m_LocalPosition: {x: -1.38, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1.2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -354,7 +354,7 @@ Transform:
   m_GameObject: {fileID: 8298164091731497092}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.06, y: 0.01, z: 0}
+  m_LocalPosition: {x: -0.18, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1.2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
