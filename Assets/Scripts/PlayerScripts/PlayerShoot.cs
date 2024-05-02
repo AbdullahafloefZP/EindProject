@@ -238,6 +238,22 @@ public class PlayerShoot : MonoBehaviour
         currentAmmo--;
     }
 
+    public void RefreshAmmo()
+    {
+        currentReserve = maxReserve;
+        UpdateAmmoUI();
+    }
+
+    public bool CanRefreshAmmo()
+    {
+        return currentReserve < maxReserve;
+    }
+
+    private void UpdateAmmoUI()
+    {
+        ammoDisplay.text = $"{currentAmmo}/{maxAmmo} | {currentReserve}/{maxReserve}";
+    }
+
     private void DisableMuzzleFlash()
     {
         MuzzleFlash.gameObject.SetActive(false);

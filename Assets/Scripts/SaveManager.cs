@@ -3,7 +3,6 @@ using System.IO;
 
 public class SaveManager : MonoBehaviour
 {
-    // Data model representing player's progress
     [System.Serializable]
     public class PlayerData
     {

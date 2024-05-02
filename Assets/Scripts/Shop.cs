@@ -11,9 +11,17 @@ public class Shop : MonoBehaviour
     public Button[] equipButton;
     public Text[] equippedText;
     public GunChange gunChange;
-
+    public Text medkitPriceText;
+    public Button buyMedkitButton;
+    public Text magazinePriceText;
+    public Button buyMagazineButton;
+    public Text medkitCountText;
     private int equippedWeaponIndex = -1;
     private bool[] isWeaponSold;
+    [HideInInspector] public int medkitCount = 0;
+    public PlayerShoot[] playerShoots;
+
+    public static Shop Instance;
 
     void OnEnable()
     {
@@ -29,7 +37,50 @@ public class Shop : MonoBehaviour
     {
         isWeaponSold = new bool[gunriflePrice.Length];
         LoadState();
+        LoadMedkitCount();
         UpdateUI();
+    }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void BuyMedkit()
+    {
+        int medkitPrice = int.Parse(medkitPriceText.text);
+        if (GameControl.moneyAmount >= medkitPrice)
+        {
+            GameControl.Instance.ChangeMoney(-medkitPrice);
+            medkitCount++;
+            PlayerPrefs.SetInt("MedkitCount", medkitCount);
+            UpdateMedkitUI();
+        }
+    }
+
+    void LoadMedkitCount()
+    {
+        medkitCount = PlayerPrefs.GetInt("MedkitCount", 0);
+        UpdateMedkitUI();
+    }
+
+    public void BuyMagazine()
+    {
+        int magazinePrice = int.Parse(magazinePriceText.text);
+        if (GameControl.moneyAmount >= magazinePrice && playerShoots[equippedWeaponIndex].CanRefreshAmmo())
+        {
+            GameControl.Instance.ChangeMoney(-magazinePrice);
+            playerShoots[equippedWeaponIndex].RefreshAmmo();
+            UpdateUI();
+        }
     }
 
     void LoadState()
@@ -42,16 +93,36 @@ public class Shop : MonoBehaviour
     }
 
     void UpdateUI()
+{
+    moneyAmountText.text = GameControl.moneyAmount.ToString();
+    if (equippedWeaponIndex >= 0 && equippedWeaponIndex < playerShoots.Length)
     {
-        moneyAmountText.text = GameControl.moneyAmount.ToString();
-        for (int i = 0; i < gunriflePrice.Length; i++)
-        {
-            int weaponPrice = int.Parse(gunriflePrice[i].text);
-            buyButton[i].gameObject.SetActive(!isWeaponSold[i]);
-            buyButton[i].interactable = !isWeaponSold[i] && GameControl.moneyAmount >= weaponPrice;
-            equipButton[i].gameObject.SetActive(isWeaponSold[i] && i != equippedWeaponIndex);
-            equippedText[i].gameObject.SetActive(i == equippedWeaponIndex);
-        }
+        buyMagazineButton.interactable = playerShoots[equippedWeaponIndex].CanRefreshAmmo() && 
+        GameControl.moneyAmount >= int.Parse(magazinePriceText.text);
+    }
+    else
+    {
+        buyMagazineButton.interactable = false;
+    }
+    
+    buyMedkitButton.interactable = GameControl.moneyAmount >= int.Parse(medkitPriceText.text);
+    
+    UpdateMedkitUI();
+
+    for (int i = 0; i < gunriflePrice.Length; i++)
+    {
+        int weaponPrice = int.Parse(gunriflePrice[i].text);
+        buyButton[i].gameObject.SetActive(!isWeaponSold[i]);
+        buyButton[i].interactable = !isWeaponSold[i] && GameControl.moneyAmount >= weaponPrice;
+        equipButton[i].gameObject.SetActive(isWeaponSold[i] && i != equippedWeaponIndex);
+        equippedText[i].gameObject.SetActive(i == equippedWeaponIndex);
+    }
+}
+
+
+    public void UpdateMedkitUI()
+    {
+        medkitCountText.text = medkitCount.ToString();
     }
 
     public void BuyWeapon(int weaponIndex)
@@ -59,12 +130,30 @@ public class Shop : MonoBehaviour
         int weaponPrice = int.Parse(gunriflePrice[weaponIndex].text);
         if (!isWeaponSold[weaponIndex] && GameControl.moneyAmount >= weaponPrice)
         {
-            GameControl.Instance.ChangeMoney(-weaponPrice); // Deduct the weapon price from money
+            GameControl.Instance.ChangeMoney(-weaponPrice);
             isWeaponSold[weaponIndex] = true;
             PlayerPrefs.SetInt("IsWeaponSold_" + weaponIndex, 1);
-            EquipWeapon(weaponIndex); // Automatically equip the weapon on purchase
+            EquipWeapon(weaponIndex);
             RefreshUI();
         }
+    }
+
+    public void ResetMoneyAndWeapons()
+    {
+        GameControl.Instance.ChangeMoney(-GameControl.moneyAmount);
+        for (int i = 0; i < isWeaponSold.Length; i++)
+        {
+            isWeaponSold[i] = false;
+            PlayerPrefs.DeleteKey("IsWeaponSold_" + i);
+        }
+        equippedWeaponIndex = -1;
+        PlayerPrefs.SetInt("EquippedWeaponIndex", -1);
+
+        medkitCount = 0;
+        PlayerPrefs.SetInt("MedkitCount", medkitCount);
+
+        PlayerPrefs.Save();
+        RefreshUI();
     }
 
     public void EquipWeapon(int weaponIndex)
@@ -75,23 +164,9 @@ public class Shop : MonoBehaviour
         gunChange.ActivateWeapon(weaponIndex);
     }
 
-    public void ResetMoneyAndWeapons()
-    {
-        GameControl.Instance.ChangeMoney(-GameControl.moneyAmount); // Set money to 0
-        for (int i = 0; i < isWeaponSold.Length; i++)
-        {
-            isWeaponSold[i] = false;
-            PlayerPrefs.DeleteKey("IsWeaponSold_" + i);
-        }
-        equippedWeaponIndex = -1;
-        PlayerPrefs.SetInt("EquippedWeaponIndex", -1);
-        PlayerPrefs.Save(); // Ensure all changes are saved to PlayerPrefs immediately
-        RefreshUI();
-    }
-
     private void RefreshUI()
     {
-        LoadState(); // Reloads the saved state from PlayerPrefs
-        UpdateUI(); // Updates the UI based on the loaded state
+        LoadState();
+        UpdateUI();
     }
 }

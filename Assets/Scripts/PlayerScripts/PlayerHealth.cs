@@ -14,6 +14,14 @@ public class PlayerHealth : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            UseMedkit();
+        }
+    }
+
     public void TakeDamage(int damage)
     {
         health -= damage;
@@ -22,6 +30,17 @@ public class PlayerHealth : MonoBehaviour
         if (health <= 0)
         {
             Die();
+        }
+    }
+
+    public void UseMedkit()
+    {
+        if (Shop.Instance.medkitCount > 0)
+        {
+            health = maxHealth;
+            healthBar.SetHealth(health);
+            Shop.Instance.medkitCount--;
+            Shop.Instance.UpdateMedkitUI();
         }
     }
 
