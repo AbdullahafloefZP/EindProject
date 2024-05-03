@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageFlash : MonoBehaviour
 {
+    public static event EventHandler OnEnemyDeath;
     [SerializeField] private float health, maxHealth = 3f;
     [SerializeField] private Color _flashColor = Color.white;
     [SerializeField] private float _flashTime = 0.25f;
@@ -12,7 +14,6 @@ public class DamageFlash : MonoBehaviour
     private SpriteRenderer[] _spriteRenderers;
     private Material[] _materials;
     private Coroutine damageFlashCoroutine;
-
     [HideInInspector] public CoinReward printCoin;
 
     private void Start() 
@@ -27,39 +28,14 @@ public class DamageFlash : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
-
             Instantiate(coinPrefab, transform.position, Quaternion.identity);
-
-            // CoinReward printCoin = FindObjectOfType<CoinReward>();
-            // if (printCoin != null)
-            // {
-            //     printCoin.AwardRewards();
-            //     printCoin.UpdateCoinText();
-            // }
+            OnEnemyDeath?.Invoke(this, EventArgs.Empty);
         }
     }
-
-    // private void AwardRewards()
-    // {
-    //     coinsEarned += 2;
-    //     xpEarned += 120;
-    // }
-
-
-    // public int GetCoinsEarned()
-    // {
-    //     return coinsEarned;
-    // }
-
-    // public int GetXPEarned()
-    // {
-    //     return xpEarned;
-    // }
 
     private void Awake()
     {
         _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-
         Init();
     }
 

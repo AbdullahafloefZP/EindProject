@@ -9,11 +9,27 @@ public class PlayerMovement : MonoBehaviour {
     private Vector2 movement;
     private Rigidbody2D rb; 
     private Animator animator;
+    public GameObject expCanvas;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        expCanvas.SetActive(false);
     }
+
+    void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                expCanvas.SetActive(true);
+            }
+
+            if (Input.GetKeyUp(KeyCode.Tab))
+            {
+                expCanvas.SetActive(false);
+            }
+        }
+
     private void OnMovement(InputValue value) {
         movement = value.Get<Vector2>();
 
