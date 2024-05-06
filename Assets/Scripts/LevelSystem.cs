@@ -53,4 +53,17 @@ public class LevelSystem : MonoBehaviour
     {
         return (float)experience / experienceNextLevel;
     }
+
+    public void ResetLevel()
+{
+    level = 0;
+    experience = 0;
+    PlayerPrefs.SetInt("level", level);
+    PlayerPrefs.SetInt("experience", experience);
+
+    onLevelChanged?.Invoke(this, EventArgs.Empty);
+    onExpChanged?.Invoke(this, EventArgs.Empty);
+
+    PlayerPrefs.Save();
+}
 }
