@@ -11,6 +11,10 @@ public class LevelWindow : MonoBehaviour
 
     private void Awake()
     {
+        if (levelSystem == null)
+        {
+            levelSystem = FindObjectOfType<LevelSystem>();
+        }
         if (level == null)
         {
             level = transform.Find("level").GetComponent<Text>();
@@ -20,6 +24,22 @@ public class LevelWindow : MonoBehaviour
             expBarImage = transform.Find("ExpBar").Find("Bar").GetComponent<Image>();
         }
     }
+
+
+    private void Start()
+    {
+        if (levelSystem == null)
+        {
+            Debug.LogError("LevelSystem not set in LevelWindow.");
+            return;
+        }
+        SetLevelSystem(levelSystem);
+
+        SetLevel(levelSystem.GetLevelAmount());
+        SetExpSize(levelSystem.GetExperienceNormalized());
+    }
+
+
 
     private void SetExpSize(float expNormalized)
     {

@@ -13,6 +13,8 @@ public class Shop : MonoBehaviour
     public GunChange gunChange;
     public Text[] levelRequirementTexts;
     public int[] levelRequirements;
+    public int medkitLevelRequirement;
+    public Text medkitLevelRequirementText;
     public Text medkitPriceText;
     public Button buyMedkitButton;
     public Text magazinePriceText;
@@ -98,21 +100,31 @@ public class Shop : MonoBehaviour
     void UpdateUI()
     {
         moneyAmountText.text = GameControl.moneyAmount.ToString();
+        int playerLevel = levelSystem.GetLevelAmount();
+
         if (equippedWeaponIndex >= 0 && equippedWeaponIndex < playerShoots.Length)
         {
             buyMagazineButton.interactable = playerShoots[equippedWeaponIndex].CanRefreshAmmo() && 
-            GameControl.moneyAmount >= int.Parse(magazinePriceText.text);
+                GameControl.moneyAmount >= int.Parse(magazinePriceText.text);
         }
         else
         {
             buyMagazineButton.interactable = false;
         }
 
-        buyMedkitButton.interactable = GameControl.moneyAmount >= int.Parse(medkitPriceText.text);
+        buyMedkitButton.interactable = GameControl.moneyAmount >= int.Parse(medkitPriceText.text) && playerLevel >= medkitLevelRequirement;
+
+        if (playerLevel >= medkitLevelRequirement)
+        {
+            medkitLevelRequirementText.gameObject.SetActive(false);
+        }
+        else
+        {
+            medkitLevelRequirementText.gameObject.SetActive(true);
+            medkitLevelRequirementText.text = "Level " + medkitLevelRequirement;
+        }
 
         UpdateMedkitUI();
-
-        int playerLevel = levelSystem.GetLevelAmount();
 
         for (int i = 0; i < gunriflePrice.Length; i++)
         {
@@ -133,6 +145,7 @@ public class Shop : MonoBehaviour
             }
         }
     }
+
 
     public void UpdateMedkitUI()
     {

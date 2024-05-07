@@ -40,6 +40,10 @@ public class PlayerHealth : MonoBehaviour
             health = maxHealth;
             healthBar.SetHealth(health);
             Shop.Instance.medkitCount--;
+
+            PlayerPrefs.SetInt("MedkitCount", Shop.Instance.medkitCount);
+            PlayerPrefs.Save();
+
             Shop.Instance.UpdateMedkitUI();
         }
     }

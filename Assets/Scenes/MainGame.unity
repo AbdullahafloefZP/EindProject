@@ -1221,8 +1221,9 @@ MonoBehaviour:
   - {fileID: 656913953}
   - {fileID: 344091989}
   - {fileID: 1068686191}
-  - {fileID: 1110399107}
-  levelRequirements: 000000000300000001000000000000000000000002000000020000000200000001000000
+  levelRequirements: 0000000003000000010000000000000000000000020000000200000002000000
+  medkitLevelRequirement: 1
+  medkitLevelRequirementText: {fileID: 1110399107}
   medkitPriceText: {fileID: 1617248323}
   buyMedkitButton: {fileID: 1658077868}
   magazinePriceText: {fileID: 1268552794}
@@ -8426,7 +8427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 99.7, y: -8.1}
+  m_AnchoredPosition: {x: 99.4, y: -8.1}
   m_SizeDelta: {x: 166.2361, y: 62.953}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1110399107
