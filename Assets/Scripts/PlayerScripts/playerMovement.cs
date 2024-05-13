@@ -11,52 +11,69 @@ public class PlayerMovement : MonoBehaviour {
     private Animator animator;
     public GameObject expCanvas;
 
-    private void Awake() {
+    private void Awake() 
+    {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         expCanvas.SetActive(false);
     }
 
     void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                expCanvas.SetActive(true);
-            }
-
-            if (Input.GetKeyUp(KeyCode.Tab))
-            {
-                expCanvas.SetActive(false);
-            }
+            expCanvas.SetActive(true);
         }
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            expCanvas.SetActive(false);
+        }
+    }
 
-    private void OnMovement(InputValue value) {
+    private void OnMovement(InputValue value) 
+    {
         movement = value.Get<Vector2>();
 
-        if (movement.x != 0) {
+        if (movement.x != 0) 
+        {
             animator.SetFloat("Y", 0);
             animator.SetBool("IsWalking", true);
-         } else if (movement.y != 0) {
+        } else if (movement.y != 0) {
             animator.SetFloat("Y", movement.y);
             animator.SetBool("IsWalking", true);
-        } else {
+        } 
+        else 
+        {
             animator.SetBool("IsWalking", false);
-    }
+        }
 
     }
 
-    private void OnMouseMovement() {
-    Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    Vector2 direction = mousePosition - transform.position;
-        
-   if (direction.x > 0) {
-        transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-    } else if (direction.x < 0) {
-        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-    }
-}
+    private void OnMouseMovement()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = mousePosition - transform.position;
 
-    private void FixedUpdate() {  
+        if (direction.x > 0) 
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        } 
+        else if (direction.x < 0) 
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+    }
+
+    public void ResetPosition()
+    {
+       transform.position = new Vector2(0, 0);
+       rb.velocity = Vector2.zero;
+       rb.angularVelocity = 0;
+       rb.isKinematic = false;
+    }
+
+    private void FixedUpdate() 
+    {  
         if (transform.position.y >= 68)
         {
             transform.position = new Vector3(transform.position.x, 68, 0);

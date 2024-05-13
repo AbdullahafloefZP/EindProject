@@ -73,6 +73,11 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenu.GameIsPaused)
+        {
+            return;
+        }
+
         ammoDisplay.text = $"{currentAmmo}/{maxAmmo} | {currentReserve}/{maxReserve}";
     
         if (isReloading)
@@ -188,54 +193,37 @@ public class PlayerShoot : MonoBehaviour
 
     private void Shoot()
     {
+
         GameObject ejectedBullet = GetPooledBullet();
         ejectedBullet.transform.SetParent(EjectPoint);
         ejectedBullet.transform.position = EjectPoint.position;
         ejectedBullet.transform.rotation = EjectPoint.rotation;
         ejectedBullet.SetActive(true);
 
-        lastShootTime = Time.time;
-        
-        Vector2 rayStart = shootPoint.position + shootPoint.right * 0.1f;
+        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
+        Vector2 direction = gunTransform.right * (flipped ? -1 : 1);
 
-        RaycastHit2D hit = Physics2D.Raycast(rayStart, gunTransform.right);
-
-        if (hit)
+        Bullet bulletComponent = bullet.GetComponent<Bullet>();
+        if (bulletComponent != null)
         {
-            GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
-
-            Bullet bulletComponent = bullet.GetComponent<Bullet>();
-            if (bulletComponent != null)
-            {
-                bulletComponent.SetDirection((hit.point - (Vector2)shootPoint.position).normalized);
-            }
-
-            DamageFlash damageFlash = hit.collider.GetComponent<DamageFlash>();
-            if (damageFlash != null)
-            {
-                damageFlash.CallDamageFlash();
-                hit.collider.gameObject.TryGetComponent<DamageFlash>(out DamageFlash zombieComponent);
-                if (zombieComponent != null)
-                {
-                    zombieComponent.TakeDamage(damages);
-                }
-            }
-        }
-        else
-        {
-            GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-
-            Bullet bulletComponent = bullet.GetComponent<Bullet>();
-            if (bulletComponent != null)
-            {
-                bulletComponent.SetDirection(gunTransform.right);
-            }
+            bulletComponent.SetDirection(direction);
+            bulletComponent.damage = damages;
         }
 
         MuzzleFlash.gameObject.SetActive(true);
         Invoke("DisableMuzzleFlash", 0.1f);
 
         currentAmmo--;
+        lastShootTime = Time.time;
+
+        if (flipped)
+        {
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
+        }
+        else
+        {
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
+        }
     }
 
     public void RefreshAmmo()

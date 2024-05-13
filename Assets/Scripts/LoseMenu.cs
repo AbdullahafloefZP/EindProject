@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class LoseMenu : MonoBehaviour
 {
     public static bool PlayerHasDied = false;
     public GameObject loseMenuUI;
+    public PlayerMovement playerMovement;
+    public PlayerHealth playerHealth;
+    public Shop shop;
+    public LevelSystem levelSystem;
+    public WaveSpawner waveSpawner;
 
     void Start()
     {
@@ -31,19 +35,21 @@ public class LoseMenu : MonoBehaviour
 
     public void Retry()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+        playerMovement.ResetPosition();
+        playerHealth.ResetHealth();
+        shop.ResetMoneyAndWeapons();
+        levelSystem.ResetLevel();
+        waveSpawner.ResetWaveProgression();
 
-    public void QuitToMainMenu()
-    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        loseMenuUI.SetActive(false);
     }
 
     public void QuitGame()
     {
-        // EditorApplication.isPlaying = false;
         Application.Quit();
     }
 }

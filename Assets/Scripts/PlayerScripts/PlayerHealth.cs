@@ -33,6 +33,13 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void ResetHealth() 
+    {
+        health = maxHealth;
+        healthBar.SetHealth(maxHealth);
+        gameObject.SetActive(true);
+    }
+
     public void UseMedkit()
     {
         if (Shop.Instance.medkitCount > 0)

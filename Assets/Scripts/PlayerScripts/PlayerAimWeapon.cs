@@ -17,6 +17,11 @@ public class PlayerAimWeapon : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenu.GameIsPaused)
+        {
+            return;
+        }
+
         UpdateGunRotation();
 
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

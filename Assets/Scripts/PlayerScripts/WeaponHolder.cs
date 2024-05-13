@@ -5,11 +5,8 @@ using UnityEngine;
 public class WeaponHolder : MonoBehaviour
 {
     int weaponTotal = 1;
-    // public static int currentWeaponIndex;
-
-    public GameObject[] guns;
+    [HideInInspector] public GameObject[] guns;
     public GameObject weaponHolder;
-    // public GameObject currentWeapon;
 
     void Awake() 
     {
@@ -22,7 +19,7 @@ public class WeaponHolder : MonoBehaviour
             guns[i].SetActive(false);
         }
 
-        guns[0].SetActive(true);
+        guns[6].SetActive(true);
         // currentWeapon = guns[0];
         // currentWeaponIndex = 0;
     }

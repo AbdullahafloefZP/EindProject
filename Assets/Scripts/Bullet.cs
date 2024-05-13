@@ -3,6 +3,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float speed = 150f;
+    public float damage = 0f;
 
     public void SetDirection(Vector3 dir)
     {
@@ -12,14 +13,20 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.right * speed * Time.deltaTime);
-
         Destroy(gameObject, 3f);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        if (other.CompareTag("Enemy"))
+        if (hitInfo.gameObject.CompareTag("Enemy"))
         {
+            DamageFlash damageFlash = hitInfo.GetComponent<DamageFlash>();
+            if (damageFlash != null)
+            {
+                damageFlash.CallDamageFlash();
+                damageFlash.TakeDamage(damage);
+            }
+
             Destroy(gameObject);
         }
     }

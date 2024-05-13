@@ -29,6 +29,14 @@ public class GameControl : MonoBehaviour
         UpdateMoneyDisplay();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            AddMoney(100);
+        }
+    }
+
     public void UpdateMoneyDisplay()
     {
         moneyText.text = moneyAmount.ToString();
@@ -40,5 +48,10 @@ public class GameControl : MonoBehaviour
         moneyAmount += amount;
         PlayerPrefs.SetInt("MoneyAmount", moneyAmount);
         UpdateMoneyDisplay();
+    }
+
+    public void AddMoney(int amount)
+    {
+        ChangeMoney(amount);
     }
 }

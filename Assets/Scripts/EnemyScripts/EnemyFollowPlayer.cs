@@ -21,6 +21,13 @@ public class EnemyFollowPlayer : MonoBehaviour
 
     private void Update()
     {
+        if (ShopTrigger.IsShopActive)
+        {
+            movement = Vector2.zero;
+            SetAnimationParameters(movement);
+            return;
+        }
+
         float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
         Vector2 moveDirection;
 
