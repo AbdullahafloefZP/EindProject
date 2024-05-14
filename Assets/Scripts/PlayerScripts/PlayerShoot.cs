@@ -11,6 +11,7 @@ public class PlayerShoot : MonoBehaviour
     private List<GameObject> pooledBullets = new List<GameObject>();
     private int pooledAmount = 1;
     public Text ammoDisplay;
+    public CursorManager cursorManager;
     [SerializeField] private Transform gunTransform;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private GameObject bulletPrefab;
@@ -126,7 +127,11 @@ public class PlayerShoot : MonoBehaviour
             {
                 MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
             }
-            Shoot();
+            
+            if (Input.GetMouseButton(0) && !cursorManager.IsPointerOverUI())
+            {
+                Shoot();
+            }
         }
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
@@ -150,7 +155,11 @@ public class PlayerShoot : MonoBehaviour
             {
                 MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
             }
-            Shoot();
+
+            if (Input.GetMouseButton(0) && !cursorManager.IsPointerOverUI())
+            {
+                Shoot();
+            }
         }
     
         if (isShooting && Time.time - lastShootTime >= 0.1f)

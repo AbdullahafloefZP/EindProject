@@ -15,6 +15,7 @@ TagManager:
   - EnemyWeapons
   - MoneyText
   - Saw
+  - ExcludeFromCursorChange
   layers:
   - Default
   - TransparentFX

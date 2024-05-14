@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class CursorManager : MonoBehaviour
 {
     private EventSystem eventSystem;
+    public string excludeTag = "ExcludeFromCursorChange";
 
     void Awake() 
     {
@@ -15,23 +16,24 @@ public class CursorManager : MonoBehaviour
     void Update()
     {
         CheckCursorUIHover();
-        Vector2 mouseCursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = mouseCursorPos;
+        UpdateCursor();
+    }
+
+    void UpdateCursor()
+    {
+        if (!IsPointerOverUI())
+        {
+            Vector2 mouseCursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = mouseCursorPos;
+        }
     }
 
     void CheckCursorUIHover()
     {
-        if (IsPointerOverUI())
-        {
-            Cursor.visible = true;
-        }
-        else
-        {
-            Cursor.visible = false;
-        }
+        Cursor.visible = IsPointerOverUI();
     }
 
-    bool IsPointerOverUI()
+    public bool IsPointerOverUI()
     {
         PointerEventData pointerEventData = new PointerEventData(eventSystem);
         pointerEventData.position = Input.mousePosition;
@@ -39,6 +41,14 @@ public class CursorManager : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         eventSystem.RaycastAll(pointerEventData, results);
 
-        return results.Count > 0;
+        foreach (RaycastResult result in results)
+        {
+            if (result.gameObject.CompareTag(excludeTag))
+            {
+                continue;
+            }
+            return true;
+        }
+        return false;
     }
 }

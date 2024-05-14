@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -7,6 +6,8 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 100;
     private int health;
     public HealthBar healthBar;
+
+    public static event Action OnPlayerDeath;
 
     void Start()
     {
@@ -47,10 +48,8 @@ public class PlayerHealth : MonoBehaviour
             health = maxHealth;
             healthBar.SetHealth(health);
             Shop.Instance.medkitCount--;
-
             PlayerPrefs.SetInt("MedkitCount", Shop.Instance.medkitCount);
             PlayerPrefs.Save();
-
             Shop.Instance.UpdateMedkitUI();
         }
     }
@@ -58,7 +57,7 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         gameObject.SetActive(false);
-        LoseMenu.PlayerHasDied = true;
+        OnPlayerDeath?.Invoke();
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -17,8 +17,15 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        SetupButtonListeners();
         ShowMainMenu();
         CheckSavedGame();
+    }
+
+    private void SetupButtonListeners()
+    {
+        playGameButton.onClick.AddListener(StartNewGame);
+        continueButton.onClick.AddListener(ContinueGame);
     }
 
     public void ShowMainMenu()
@@ -29,33 +36,22 @@ public class GameManager : MonoBehaviour
 
     private void CheckSavedGame()
     {
-        if (PlayerPrefs.HasKey("CurrentWaveNumber"))
-        {
-            playGameButton.onClick.RemoveAllListeners();
-            playGameButton.onClick.AddListener(StartNewGame);
-            continueButton.gameObject.SetActive(true);
-            continueButton.onClick.RemoveAllListeners();
-            continueButton.onClick.AddListener(ContinueGame);
-        }
-        else
-        {
-            playGameButton.onClick.RemoveAllListeners();
-            playGameButton.onClick.AddListener(StartNewGame);
-            continueButton.gameObject.SetActive(false);
-        }
+        continueButton.gameObject.SetActive(PlayerPrefs.HasKey("CurrentWaveNumber"));
     }
 
     public void StartNewGame()
     {
         ResetGameData();
         ClearCoins();
-        mainMenuCanvas.SetActive(false);
-        gameplayComponents.SetActive(true);
-        pauseMenuCanvas.SetActive(false);
-        Time.timeScale = 1;
+        ShowGameUI();
     }
 
     public void ContinueGame()
+    {
+        ShowGameUI();
+    }
+
+    private void ShowGameUI()
     {
         mainMenuCanvas.SetActive(false);
         gameplayComponents.SetActive(true);
@@ -75,9 +71,6 @@ public class GameManager : MonoBehaviour
         shop.ResetMoneyAndWeapons();
         levelSystem.ResetLevel();
         waveSpawner.ResetWaveProgression();
-
-
-        PlayerPrefs.Save();
     }
 
     private void ClearCoins()

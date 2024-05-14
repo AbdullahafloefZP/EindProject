@@ -27,7 +27,17 @@ public class LoseMenu : MonoBehaviour
         }
     }
 
-    void Lose()
+    void OnEnable()
+    {
+        PlayerHealth.OnPlayerDeath += Lose;
+    }
+
+    void OnDisable()
+    {
+        PlayerHealth.OnPlayerDeath -= Lose;
+    }
+
+    public void Lose()
     {
         loseMenuUI.SetActive(true);
         Time.timeScale = 0f;
@@ -35,10 +45,12 @@ public class LoseMenu : MonoBehaviour
 
     public void Retry()
     {
+        ClearCoins();
         playerMovement.ResetPosition();
         playerHealth.ResetHealth();
         shop.ResetMoneyAndWeapons();
         levelSystem.ResetLevel();
+
         waveSpawner.ResetWaveProgression();
 
         PlayerPrefs.DeleteAll();
@@ -51,5 +63,14 @@ public class LoseMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    private void ClearCoins()
+    {
+        Coin[] coins = FindObjectsOfType<Coin>();
+        foreach (Coin coin in coins)
+        {
+            Destroy(coin.gameObject);
+        }
     }
 }
