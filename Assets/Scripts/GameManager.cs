@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
         levelSystem.ResetLevel();
         waveSpawner.ResetWaveProgression();
 
-        PlayerPrefs.DeleteAll();
+
         PlayerPrefs.Save();
     }
 

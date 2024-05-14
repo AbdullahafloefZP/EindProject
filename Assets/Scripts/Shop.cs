@@ -185,10 +185,6 @@ public class Shop : MonoBehaviour
         {
             levelSystem.ResetLevel();
         }
-        else
-        {
-            Debug.LogError("LevelSystem not set in Shop.");
-        }
 
         PlayerPrefs.Save();
         RefreshUI();
