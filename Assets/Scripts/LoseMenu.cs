@@ -50,7 +50,6 @@ public class LoseMenu : MonoBehaviour
         playerHealth.ResetHealth();
         shop.ResetMoneyAndWeapons();
         levelSystem.ResetLevel();
-
         waveSpawner.ResetWaveProgression();
 
         PlayerPrefs.DeleteAll();

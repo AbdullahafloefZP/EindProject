@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 2751534646113254638}
   m_Layer: 0
   m_Name: slugG
-  m_TagString: Saw
+  m_TagString: slugG
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoDisplay: {fileID: 0}
+  cursorManager: {fileID: 0}
   gunTransform: {fileID: 5812399508387699282}
   shootPoint: {fileID: 2163721574911512888}
   bulletPrefab: {fileID: 5872118433379449172, guid: 8fd06d7e3f993a34e8a57e751cec7955, type: 3}

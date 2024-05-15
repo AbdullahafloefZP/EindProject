@@ -25,6 +25,7 @@ public class Shop : MonoBehaviour
     [HideInInspector] public int medkitCount = 0;
     public PlayerShoot[] playerShoots;
     public LevelSystem levelSystem;
+    public WeaponHolder weaponHolder;
 
     public static Shop Instance;
 
@@ -59,7 +60,7 @@ public class Shop : MonoBehaviour
         GameControl.MoneyChanged -= UpdateUI;
     }
 
-     void LoadState()
+    void LoadState()
     {
         equippedWeaponIndex = PlayerPrefs.GetInt("EquippedWeaponIndex", -1);
         for (int i = 0; i < isWeaponSold.Length; i++)
@@ -68,7 +69,7 @@ public class Shop : MonoBehaviour
         }
     }
 
-     public void BuyMedkit()
+    public void BuyMedkit()
     {
         int medkitPrice = int.Parse(medkitPriceText.text);
         if (GameControl.moneyAmount >= medkitPrice)
@@ -146,7 +147,6 @@ public class Shop : MonoBehaviour
         }
     }
 
-
     public void UpdateMedkitUI()
     {
         medkitCountText.text = medkitCount.ToString();
@@ -175,11 +175,25 @@ public class Shop : MonoBehaviour
             PlayerPrefs.DeleteKey("IsWeaponSold_" + i);
         }
 
-        equippedWeaponIndex = -1;
-        PlayerPrefs.SetInt("EquippedWeaponIndex", -1);
+        equippedWeaponIndex = 8;
+        isWeaponSold[equippedWeaponIndex] = true;
+        PlayerPrefs.SetInt("IsWeaponSold_" + equippedWeaponIndex, 1);
+        PlayerPrefs.SetInt("EquippedWeaponIndex", equippedWeaponIndex);
 
         medkitCount = 0;
         PlayerPrefs.SetInt("MedkitCount", medkitCount);
+
+        if (weaponHolder != null)
+        {
+            weaponHolder.ActivateWeapon(equippedWeaponIndex);
+        }
+
+        foreach (var playerShoot in playerShoots)
+        {
+            playerShoot.ResetAmmo();
+        }
+
+        StatisticsManager.Instance.ResetStatistics();
 
         if (levelSystem != null)
         {
@@ -189,7 +203,6 @@ public class Shop : MonoBehaviour
         PlayerPrefs.Save();
         RefreshUI();
     }
-
 
     public void EquipWeapon(int weaponIndex)
     {

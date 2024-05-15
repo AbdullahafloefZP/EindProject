@@ -23,6 +23,8 @@ public class LevelSystem : MonoBehaviour
             level++;
             experience -= experienceNextLevel;
             onLevelChanged?.Invoke(this, EventArgs.Empty);
+
+            StatisticsManager.Instance.UpdateHighestLevel(level);
         }
         Save();
         onExpChanged?.Invoke(this, EventArgs.Empty);

@@ -16,6 +16,9 @@ TagManager:
   - MoneyText
   - Saw
   - ExcludeFromCursorChange
+  - axo2
+  - slugG
+  - glock17
   layers:
   - Default
   - TransparentFX

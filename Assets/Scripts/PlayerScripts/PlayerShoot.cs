@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-
 public class PlayerShoot : MonoBehaviour
 {
     private GameObject pooledBullet;
@@ -74,7 +73,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        if (PauseMenu.GameIsPaused)
+        if (PauseMenu.GameIsPaused || ShopTrigger.IsShopActive)
         {
             return;
         }
@@ -83,6 +82,7 @@ public class PlayerShoot : MonoBehaviour
     
         if (isReloading)
         {
+            ammoMessage.SetActive(false);
             return;
         }
     
@@ -237,6 +237,13 @@ public class PlayerShoot : MonoBehaviour
 
     public void RefreshAmmo()
     {
+        currentReserve = maxReserve;
+        UpdateAmmoUI();
+    }
+
+    public void ResetAmmo()
+    {
+        currentAmmo = maxAmmo;
         currentReserve = maxReserve;
         UpdateAmmoUI();
     }

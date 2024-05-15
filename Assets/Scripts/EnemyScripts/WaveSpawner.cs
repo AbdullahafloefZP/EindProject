@@ -8,7 +8,7 @@ public class Wave
 {
     public string waveName;
     public int noOfEnemies;
-    public int initialNoOfEnemies;  // Initial number of enemies to maintain the original count
+    public int initialNoOfEnemies;
     public GameObject[] typeOfEnemies;
     public float spawnInterval;
 }
@@ -67,7 +67,7 @@ public class WaveSpawner : MonoBehaviour
     {
         foreach (var wave in waves)
         {
-            if (wave.initialNoOfEnemies == 0)  // Only set initialNoOfEnemies if it is not already set
+            if (wave.initialNoOfEnemies == 0)
             {
                 wave.initialNoOfEnemies = wave.noOfEnemies;
             }
@@ -81,6 +81,8 @@ public class WaveSpawner : MonoBehaviour
             currentWaveNumber++;
             canSpawn = true;
             SaveWaveProgress();
+
+            StatisticsManager.Instance.UpdateHighestWave(currentWaveNumber + 1);
         }
     }
 
@@ -121,9 +123,8 @@ public class WaveSpawner : MonoBehaviour
         canSpawn = true;
         canAnimate = false;
         nextSpawnTime = 0;
-        InitializeWaves();  // Reset initial number of enemies correctly
+        InitializeWaves();
 
-        // Reset the number of enemies for each wave
         foreach (var wave in waves)
         {
             wave.noOfEnemies = wave.initialNoOfEnemies;
@@ -132,7 +133,6 @@ public class WaveSpawner : MonoBehaviour
         currentWave = waves[currentWaveNumber];
         waveName.text = currentWave.waveName;
 
-        // Destroy all existing enemies
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var enemy in enemies)
         {

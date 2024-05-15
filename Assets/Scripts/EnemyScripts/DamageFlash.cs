@@ -30,6 +30,8 @@ public class DamageFlash : MonoBehaviour
             Destroy(gameObject);
             Instantiate(coinPrefab, transform.position, Quaternion.identity);
             OnEnemyDeath?.Invoke(this, EventArgs.Empty);
+            
+            StatisticsManager.Instance.IncrementEnemiesKilled();
         }
     }
 

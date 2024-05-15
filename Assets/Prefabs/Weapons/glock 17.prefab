@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 5608610944386007570}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.867, y: 0.241, z: 0}
+  m_LocalPosition: {x: -0.85, y: 0.3, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 5960554192507195681}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.983, y: 0.248, z: 0.2241921}
+  m_LocalPosition: {x: -0.88, y: 0.28, z: 0.2241921}
   m_LocalScale: {x: 1, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -129,8 +129,8 @@ GameObject:
   - component: {fileID: 8060009254262391420}
   - component: {fileID: 2751534646113254638}
   m_Layer: 0
-  m_Name: axo2
-  m_TagString: axo2
+  m_Name: glock 17
+  m_TagString: glock17
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,7 +145,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.028000116, y: -0.0089998245, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+  m_LocalScale: {x: 1.0833241, y: 1.0833241, z: 0.90277}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5812399508387699282}
@@ -194,7 +194,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1156517500, guid: f70fe0371a5e31240910e28de5d597e3, type: 3}
+  m_Sprite: {fileID: -1087207225, guid: f70fe0371a5e31240910e28de5d597e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -223,15 +223,15 @@ MonoBehaviour:
   shootPoint: {fileID: 2163721574911512888}
   bulletPrefab: {fileID: 5872118433379449172, guid: 8fd06d7e3f993a34e8a57e751cec7955, type: 3}
   MuzzleFlash: {fileID: 6581235682641026543}
-  maxAmmo: 25
+  maxAmmo: 30
   maxReserve: 100
   reloadMessage: {fileID: 0}
   ammoMessage: {fileID: 0}
   reloadTime: 2
   animator: {fileID: 0}
   ejectedBulletAnimator: {fileID: 4011523385133475532, guid: d2667e76d00ef7c46840f85eba8cdbf9, type: 3}
-  shootRate: 0.08
-  damages: 1.5
+  shootRate: 0.15
+  damages: 1
   ejectedBulletPrefab: {fileID: 7114759388519496155, guid: d2667e76d00ef7c46840f85eba8cdbf9, type: 3}
   EjectPoint: {fileID: 0}
 --- !u!114 &2751534646113254638
@@ -273,7 +273,7 @@ Transform:
   m_GameObject: {fileID: 6914439808279069995}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.757, y: -0.024, z: 0}
+  m_LocalPosition: {x: -0.61, y: 0.08, z: 0}
   m_LocalScale: {x: 1, y: 1.2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []

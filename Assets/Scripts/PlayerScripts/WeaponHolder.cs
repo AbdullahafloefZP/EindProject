@@ -11,7 +11,7 @@ public class WeaponHolder : MonoBehaviour
     void Awake() 
     {
         weaponTotal = weaponHolder.transform.childCount;
-        guns =  new GameObject[weaponTotal];
+        guns = new GameObject[weaponTotal];
 
         for (int i = 0; i < weaponTotal; i++)
         {
@@ -19,8 +19,19 @@ public class WeaponHolder : MonoBehaviour
             guns[i].SetActive(false);
         }
 
-        guns[6].SetActive(true);
-        // currentWeapon = guns[0];
-        // currentWeaponIndex = 0;
+        //guns[8].SetActive(true);
+    }
+
+    public void ActivateWeapon(int index)
+    {
+        if (index < 0 || index >= guns.Length)
+        {
+            return;
+        }
+
+        for (int i = 0; i < guns.Length; i++)
+        {
+            guns[i].SetActive(i == index);
+        }
     }
 }
