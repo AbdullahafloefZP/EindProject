@@ -7515,7 +7515,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 761580969}
-  - component: {fileID: 761580971}
   - component: {fileID: 761580970}
   m_Layer: 5
   m_Name: Stats
@@ -7563,18 +7562,6 @@ MonoBehaviour:
   moneyCollectedText: {fileID: 1947639322}
   highestLevelText: {fileID: 1146427838}
   highestWaveText: {fileID: 2073760070}
---- !u!114 &761580971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 761580968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ce515b13ea804744ac6703ec5554b27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &776056931
 GameObject:
   m_ObjectHideFlags: 0
@@ -16626,7 +16613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd08ef06c8b1e9645841e1c94d13164f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 11
+  speed: 8
   expCanvas: {fileID: 458488896}
 --- !u!114 &1764606455
 MonoBehaviour:
@@ -17425,9 +17412,17 @@ PrefabInstance:
       value: glock17
       objectReference: {fileID: 0}
     - target: {fileID: 8060009254262391420, guid: a4b0798af8a23b748867f799db9183a6, type: 3}
+      propertyPath: maxAmmo
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060009254262391420, guid: a4b0798af8a23b748867f799db9183a6, type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 1988973708}
+    - target: {fileID: 8060009254262391420, guid: a4b0798af8a23b748867f799db9183a6, type: 3}
+      propertyPath: shootRate
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8060009254262391420, guid: a4b0798af8a23b748867f799db9183a6, type: 3}
       propertyPath: EjectPoint
       value: 
@@ -84824,6 +84819,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a4f3c39d68d2d40a71b8ed1542425a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2038157411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2038157413}
+  - component: {fileID: 2038157412}
+  m_Layer: 0
+  m_Name: Stats
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2038157412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038157411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce515b13ea804744ac6703ec5554b27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2038157413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038157411}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.109572, y: 2.1887279, z: -12.25156}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2059597076
 GameObject:
   m_ObjectHideFlags: 0
@@ -85869,25 +85908,25 @@ MonoBehaviour:
     - {fileID: 7355526101739464427, guid: ddb98ae82a519c84a910c578b3d9ef01, type: 3}
     spawnInterval: 2
   - waveName: Wave 2
-    noOfEnemies: 5
+    noOfEnemies: 7
     initialNoOfEnemies: 0
     typeOfEnemies:
     - {fileID: 7355526101739464427, guid: ddb98ae82a519c84a910c578b3d9ef01, type: 3}
     spawnInterval: 2
   - waveName: Wave 3
-    noOfEnemies: 8
+    noOfEnemies: 10
     initialNoOfEnemies: 0
     typeOfEnemies:
     - {fileID: 7355526101739464427, guid: ddb98ae82a519c84a910c578b3d9ef01, type: 3}
     spawnInterval: 1.5
   - waveName: Wave 4
-    noOfEnemies: 12
+    noOfEnemies: 13
     initialNoOfEnemies: 0
     typeOfEnemies:
     - {fileID: 7355526101739464427, guid: ddb98ae82a519c84a910c578b3d9ef01, type: 3}
     spawnInterval: 1.5
   - waveName: Wave 5
-    noOfEnemies: 4
+    noOfEnemies: 6
     initialNoOfEnemies: 0
     typeOfEnemies:
     - {fileID: 7355526101739464427, guid: ddb98ae82a519c84a910c578b3d9ef01, type: 3}
@@ -85900,14 +85939,14 @@ MonoBehaviour:
     - {fileID: 7355526101739464427, guid: ddb98ae82a519c84a910c578b3d9ef01, type: 3}
     spawnInterval: 1.5
   - waveName: Wave 7
-    noOfEnemies: 10
+    noOfEnemies: 12
     initialNoOfEnemies: 0
     typeOfEnemies:
     - {fileID: 7355526101739464427, guid: ddb98ae82a519c84a910c578b3d9ef01, type: 3}
     - {fileID: 7355526101739464427, guid: 2ae9aba51daf69d4b8ce0988cfac9f11, type: 3}
     spawnInterval: 1.5
   - waveName: Wave 8
-    noOfEnemies: 13
+    noOfEnemies: 17
     initialNoOfEnemies: 0
     typeOfEnemies:
     - {fileID: 7355526101739464427, guid: ddb98ae82a519c84a910c578b3d9ef01, type: 3}
@@ -85920,7 +85959,7 @@ MonoBehaviour:
     - {fileID: 7355526101739464427, guid: ddb98ae82a519c84a910c578b3d9ef01, type: 3}
     spawnInterval: 1
   - waveName: Wave 10
-    noOfEnemies: 20
+    noOfEnemies: 25
     initialNoOfEnemies: 0
     typeOfEnemies:
     - {fileID: 7355526101739464427, guid: ddb98ae82a519c84a910c578b3d9ef01, type: 3}
@@ -86690,3 +86729,4 @@ SceneRoots:
   - {fileID: 186977590}
   - {fileID: 439811287}
   - {fileID: 82002205}
+  - {fileID: 2038157413}
