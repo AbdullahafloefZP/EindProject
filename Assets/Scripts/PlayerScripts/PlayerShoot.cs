@@ -225,13 +225,13 @@ public class PlayerShoot : MonoBehaviour
         currentAmmo--;
         lastShootTime = Time.time;
 
-        if (flipped)
-        {
-            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
-        }
-        else
+        if (transform.localScale.x > 0)
         {
             MuzzleFlash.localEulerAngles = new Vector3(0, 0, 90);
+        }
+        else if (transform.localScale.x < 0)
+        {
+            MuzzleFlash.localEulerAngles = new Vector3(0, 0, 270);
         }
     }
 

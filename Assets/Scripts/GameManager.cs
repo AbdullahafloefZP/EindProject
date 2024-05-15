@@ -34,13 +34,24 @@ public class GameManager : MonoBehaviour
         gameplayComponents.SetActive(false);
     }
 
-    private void CheckSavedGame()
+    public void CheckSavedGame()
     {
-        continueButton.gameObject.SetActive(PlayerPrefs.HasKey("CurrentWaveNumber"));
+        if (PlayerPrefs.GetInt("GameOver", 0) == 1)
+        {
+            continueButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            continueButton.gameObject.SetActive(PlayerPrefs.HasKey("CurrentWaveNumber"));
+        }
     }
 
     public void StartNewGame()
     {
+        PlayerPrefs.SetInt("GameOver", 0);
+        PlayerPrefs.SetInt("PlayerLives", playerHealth.maxLives);
+        PlayerPrefs.Save();
+
         ResetGameData();
         ClearCoins();
         ShowGameUI();
@@ -68,6 +79,7 @@ public class GameManager : MonoBehaviour
     {
         playerMovement.ResetPosition();
         playerHealth.ResetHealth();
+        playerHealth.ResetLives();
         shop.ResetMoneyAndWeapons();
         levelSystem.ResetLevel();
         waveSpawner.ResetWaveProgression();

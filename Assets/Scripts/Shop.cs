@@ -13,12 +13,21 @@ public class Shop : MonoBehaviour
     public GunChange gunChange;
     public Text[] levelRequirementTexts;
     public int[] levelRequirements;
+
     public int medkitLevelRequirement;
     public Text medkitLevelRequirementText;
     public Text medkitPriceText;
     public Button buyMedkitButton;
+
     public Text magazinePriceText;
     public Button buyMagazineButton;
+
+    public Text lifePriceText;
+    public Button buyLifeButton;
+    public int lifeLevelRequirement;
+    public Text lifeLevelRequirementText;
+    public PlayerHealth playerHealth;
+
     public Text medkitCountText;
     private int equippedWeaponIndex = -1;
     private bool[] isWeaponSold;
@@ -98,6 +107,17 @@ public class Shop : MonoBehaviour
         }
     }
 
+    public void BuyLife()
+    {
+        int lifePrice = int.Parse(lifePriceText.text);
+        if (GameControl.moneyAmount >= lifePrice)
+        {
+            GameControl.Instance.ChangeMoney(-lifePrice);
+            playerHealth.AddLife();
+            UpdateUI();
+        }
+    }
+
     void UpdateUI()
     {
         moneyAmountText.text = GameControl.moneyAmount.ToString();
@@ -144,6 +164,19 @@ public class Shop : MonoBehaviour
                 levelRequirementTexts[i].gameObject.SetActive(true);
                 levelRequirementTexts[i].text = "Level " + levelRequirements[i];
             }
+        }
+
+        int lifePrice = int.Parse(lifePriceText.text);
+        buyLifeButton.interactable = GameControl.moneyAmount >= lifePrice && playerLevel >= lifeLevelRequirement;
+
+        if (playerLevel >= lifeLevelRequirement)
+        {
+            lifeLevelRequirementText.gameObject.SetActive(false);
+        }
+        else
+        {
+            lifeLevelRequirementText.gameObject.SetActive(true);
+            lifeLevelRequirementText.text = "Level " + lifeLevelRequirement;
         }
     }
 

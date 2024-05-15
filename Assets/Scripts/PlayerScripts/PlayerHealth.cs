@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -7,11 +8,19 @@ public class PlayerHealth : MonoBehaviour
     private int health;
     public HealthBar healthBar;
     public static event Action OnPlayerDeath;
+    public int maxLives = 3;
+    private int lives;
+    public Transform[] respawnPoints;
+    public LoseMenu loseMenu;
+    public Image[] heartImages;
 
     void Start()
     {
         health = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+
+        lives = PlayerPrefs.GetInt("PlayerLives", maxLives);
+        UpdateHeartsUI();
     }
 
     void Update()
@@ -33,11 +42,30 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    public void ResetHealth() 
+    public void ResetHealth()
     {
         health = maxHealth;
         healthBar.SetHealth(maxHealth);
         gameObject.SetActive(true);
+    }
+
+    public void ResetLives()
+    {
+        lives = maxLives;
+        PlayerPrefs.SetInt("PlayerLives", lives);
+        PlayerPrefs.Save();
+        UpdateHeartsUI();
+    }
+
+    public void AddLife()
+    {
+        if (lives < maxLives)
+        {
+            lives++;
+            PlayerPrefs.SetInt("PlayerLives", lives);
+            PlayerPrefs.Save();
+            UpdateHeartsUI();
+        }
     }
 
     public void UseMedkit()
@@ -55,8 +83,42 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        gameObject.SetActive(false);
-        OnPlayerDeath?.Invoke();
+        lives--;
+        PlayerPrefs.SetInt("PlayerLives", lives);
+        PlayerPrefs.Save();
+        UpdateHeartsUI();
+
+        if (lives > 0)
+        {
+            Respawn();
+        }
+        else
+        {
+            gameObject.SetActive(false);
+            OnPlayerDeath?.Invoke();
+            PlayerPrefs.SetInt("GameOver", 1);
+            PlayerPrefs.Save();
+            loseMenu.ShowLoseMenu();
+        }
+    }
+
+    private void Respawn()
+    {
+        health = maxHealth;
+        healthBar.SetHealth(maxHealth);
+
+        Transform randomSpawnPoint = respawnPoints[UnityEngine.Random.Range(0, respawnPoints.Length)];
+        transform.position = randomSpawnPoint.position;
+
+        gameObject.SetActive(true);
+    }
+
+    private void UpdateHeartsUI()
+    {
+        for (int i = 0; i < heartImages.Length; i++)
+        {
+            heartImages[i].enabled = i < lives;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
