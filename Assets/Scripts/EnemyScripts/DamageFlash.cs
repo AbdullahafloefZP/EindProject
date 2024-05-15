@@ -30,7 +30,7 @@ public class DamageFlash : MonoBehaviour
             Destroy(gameObject);
             Instantiate(coinPrefab, transform.position, Quaternion.identity);
             OnEnemyDeath?.Invoke(this, EventArgs.Empty);
-            
+
             StatisticsManager.Instance.IncrementEnemiesKilled();
         }
     }
@@ -71,8 +71,6 @@ public class DamageFlash : MonoBehaviour
 
             yield return null;
         }
-
-
     }
 
     private void SetFlashColor() 

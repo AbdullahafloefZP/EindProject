@@ -30,7 +30,6 @@ public class LevelSystem : MonoBehaviour
         onExpChanged?.Invoke(this, EventArgs.Empty);
     }
 
-
     private void Save()
     {
         PlayerPrefs.SetInt("level", level);

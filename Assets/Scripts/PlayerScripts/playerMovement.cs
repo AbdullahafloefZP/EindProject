@@ -46,7 +46,6 @@ public class PlayerMovement : MonoBehaviour {
         {
             animator.SetBool("IsWalking", false);
         }
-
     }
 
     private void OnMouseMovement()
@@ -95,5 +94,4 @@ public class PlayerMovement : MonoBehaviour {
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
         rb.freezeRotation = true;
     }
-    
 }

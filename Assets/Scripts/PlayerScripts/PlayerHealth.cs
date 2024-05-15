@@ -6,7 +6,6 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 100;
     private int health;
     public HealthBar healthBar;
-
     public static event Action OnPlayerDeath;
 
     void Start()
