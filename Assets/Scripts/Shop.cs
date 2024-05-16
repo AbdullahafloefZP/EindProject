@@ -57,6 +57,8 @@ public class Shop : MonoBehaviour
         LoadState();
         LoadMedkitCount();
         UpdateUI();
+
+        buyLifeButton.onClick.AddListener(BuyLife);
     }
 
     void OnEnable()
@@ -110,7 +112,11 @@ public class Shop : MonoBehaviour
     public void BuyLife()
     {
         int lifePrice = int.Parse(lifePriceText.text);
-        if (GameControl.moneyAmount >= lifePrice)
+
+        bool hasEnoughMoney = GameControl.moneyAmount >= lifePrice;
+        bool canAddLife = playerHealth.GetLives() < playerHealth.maxLives;
+
+        if (hasEnoughMoney && canAddLife)
         {
             GameControl.Instance.ChangeMoney(-lifePrice);
             playerHealth.AddLife();
@@ -167,7 +173,7 @@ public class Shop : MonoBehaviour
         }
 
         int lifePrice = int.Parse(lifePriceText.text);
-        buyLifeButton.interactable = GameControl.moneyAmount >= lifePrice && playerLevel >= lifeLevelRequirement;
+        buyLifeButton.interactable = GameControl.moneyAmount >= lifePrice && playerHealth.GetLives() < playerHealth.maxLives && playerLevel >= lifeLevelRequirement;
 
         if (playerLevel >= lifeLevelRequirement)
         {

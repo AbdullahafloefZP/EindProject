@@ -8,20 +8,20 @@ public class PlayerHealth : MonoBehaviour
     private int health;
     public HealthBar healthBar;
     public static event Action OnPlayerDeath;
-    public int maxLives = 3;
+    public int maxLives = 10;
     private int lives;
     public Transform[] respawnPoints;
     public LoseMenu loseMenu;
     public Image[] heartImages;
 
     void Start()
-    {
-        health = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+{
+    health = maxHealth;
+    healthBar.SetMaxHealth(maxHealth);
 
-        lives = PlayerPrefs.GetInt("PlayerLives", maxLives);
-        UpdateHeartsUI();
-    }
+    lives = PlayerPrefs.GetInt("PlayerLives", 3);
+    UpdateHeartsUI();
+}
 
     void Update()
     {
@@ -51,7 +51,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void ResetLives()
     {
-        lives = maxLives;
+        lives = 3;
         PlayerPrefs.SetInt("PlayerLives", lives);
         PlayerPrefs.Save();
         UpdateHeartsUI();
@@ -66,6 +66,12 @@ public class PlayerHealth : MonoBehaviour
             PlayerPrefs.Save();
             UpdateHeartsUI();
         }
+    }
+
+
+    public int GetLives()
+    {
+        return lives;
     }
 
     public void UseMedkit()
