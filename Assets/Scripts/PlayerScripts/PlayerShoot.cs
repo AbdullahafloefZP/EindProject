@@ -235,6 +235,13 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
+    public void ResetReloadingState()
+    {
+        isReloading = false;
+        reloadMessage.SetActive(false);
+        animator.SetBool("Reloading", false);
+    }
+
     public void RefreshAmmo()
     {
         currentReserve = maxReserve;

@@ -83,6 +83,12 @@ public class GameManager : MonoBehaviour
         shop.ResetMoneyAndWeapons();
         levelSystem.ResetLevel();
         waveSpawner.ResetWaveProgression();
+        
+        PlayerShoot[] playerShoots = FindObjectsOfType<PlayerShoot>();
+        foreach (var playerShoot in playerShoots)
+        {
+            playerShoot.ResetReloadingState();
+        }
     }
 
     private void ClearCoins()

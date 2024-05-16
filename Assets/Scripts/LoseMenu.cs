@@ -64,6 +64,12 @@ public class LoseMenu : MonoBehaviour
         levelSystem.ResetLevel();
         waveSpawner.ResetWaveProgression();
 
+        PlayerShoot[] playerShoots = FindObjectsOfType<PlayerShoot>();
+        foreach (var playerShoot in playerShoots)
+        {
+            playerShoot.ResetReloadingState();
+        }
+
         PlayerPrefs.DeleteAll();
         PlayerPrefs.SetInt("GameOver", 0);
         PlayerPrefs.SetInt("PlayerLives", playerHealth.maxLives);
