@@ -7,6 +7,7 @@ public class GameControl : MonoBehaviour
     public Text moneyText;
     public static int moneyAmount;
     public WeaponHolder weaponHolder;
+    public LevelSystem levelSystem;
     public delegate void OnMoneyChanged();
     public static event OnMoneyChanged MoneyChanged;
 
@@ -34,6 +35,7 @@ public class GameControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M))
         {
             AddMoney(100);
+            levelSystem.AddExperience(100);
         }
     }
 

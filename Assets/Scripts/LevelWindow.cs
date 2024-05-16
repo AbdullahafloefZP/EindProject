@@ -30,7 +30,6 @@ public class LevelWindow : MonoBehaviour
     {
         if (levelSystem == null)
         {
-            Debug.LogError("LevelSystem not set in LevelWindow.");
             return;
         }
         SetLevelSystem(levelSystem);

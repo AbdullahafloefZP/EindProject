@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
+    public LoseMenu loseMenu;
 
     void Update()
     {
@@ -16,9 +17,13 @@ public class PauseMenu : MonoBehaviour
             if (GameIsPaused)
             {
                 Resume();
-            } else 
+            }
+            else
             {
-                Pause();
+                if (loseMenu == null || !loseMenu.loseMenuUI.activeInHierarchy)
+                {
+                    Pause();
+                }
             }
         }
     }

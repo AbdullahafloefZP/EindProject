@@ -15,9 +15,12 @@ public class Wave
 
 public class WaveSpawner : MonoBehaviour
 {
+    [Header("--Waves--")]
     public Wave[] waves;
+    [Header("--Spawn Points--")]
     public Transform[] spawnPoints;
     public Animator animator;
+    [Header("--Texts--")]
     public Text waveName;
     public Text waveInfoText;
     private Wave currentWave;

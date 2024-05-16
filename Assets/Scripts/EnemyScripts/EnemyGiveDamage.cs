@@ -9,6 +9,12 @@ public class EnemyGiveDamage : MonoBehaviour
     [SerializeField] private float attackInterval = 3f;
 
     private float timeSinceLastAttack;
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     private void Update()
     {
@@ -22,6 +28,7 @@ public class EnemyGiveDamage : MonoBehaviour
             {
                 if (playerCollider.CompareTag("Player"))
                 {
+                    audioManager.PlaySound(audioManager.zAttacking);
                     PlayerHealth playerHealth = playerCollider.GetComponent<PlayerHealth>();
                     if (playerHealth != null)
                     {

@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public Shop shop;
     public LevelSystem levelSystem;
     public WaveSpawner waveSpawner;
+    public AudioSource backgroundSound;
+    public AudioClip background2;
 
     private void Start()
     {
@@ -68,6 +70,9 @@ public class GameManager : MonoBehaviour
         gameplayComponents.SetActive(true);
         pauseMenuCanvas.SetActive(false);
         Time.timeScale = 1;
+
+        backgroundSound.clip = background2;
+        backgroundSound.Play();
     }
 
     public void QuitGame()

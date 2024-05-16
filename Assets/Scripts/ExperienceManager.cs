@@ -16,7 +16,7 @@ public class ExperienceManager : MonoBehaviour
         DamageFlash.OnEnemyDeath -= HandleEnemyDeath;
     }
 
-    private void HandleEnemyDeath(object sender, System.EventArgs e)
+    public void HandleEnemyDeath(object sender, System.EventArgs e)
     {
         levelSystem.AddExperience(10);
     }

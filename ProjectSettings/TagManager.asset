@@ -19,6 +19,7 @@ TagManager:
   - axo2
   - slugG
   - glock17
+  - Audio
   layers:
   - Default
   - TransparentFX

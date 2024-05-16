@@ -5,33 +5,46 @@ using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
-    public Text moneyAmountText;
+    [Header("--weapon prices--")]
     public Text[] gunriflePrice;
+
+    [Header("--Buy buttons--")]
     public Button[] buyButton;
+
+    [Header("--Equip buttons--")]
     public Button[] equipButton;
+
+    [Header("--Texts--")]
     public Text[] equippedText;
-    public GunChange gunChange;
     public Text[] levelRequirementTexts;
+    public Text moneyAmountText;
+
+    [Header("--Weapon Level--")]
     public int[] levelRequirements;
 
+    [Header("--Medkit stuff--")]
     public int medkitLevelRequirement;
     public Text medkitLevelRequirementText;
     public Text medkitPriceText;
     public Button buyMedkitButton;
+    public Text medkitCountText;
 
+    [Header("--Magazine stuff--")]
     public Text magazinePriceText;
     public Button buyMagazineButton;
 
+    [Header("--Extra lives stuff--")]
     public Text lifePriceText;
     public Button buyLifeButton;
     public int lifeLevelRequirement;
     public Text lifeLevelRequirementText;
     public PlayerHealth playerHealth;
-
-    public Text medkitCountText;
     private int equippedWeaponIndex = -1;
     private bool[] isWeaponSold;
     [HideInInspector] public int medkitCount = 0;
+
+    [Header("--refs--")]
+    public GunChange gunChange;
     public PlayerShoot[] playerShoots;
     public LevelSystem levelSystem;
     public WeaponHolder weaponHolder;

@@ -457,8 +457,8 @@ MonoBehaviour:
   ejectedBulletPrefab: {fileID: 7114759388519496155, guid: d2667e76d00ef7c46840f85eba8cdbf9, type: 3}
   EjectPoint: {fileID: 3252851215165630669}
   speed: 10
-  lineOfSight: 100
-  shootingRange: 60
+  lineOfSight: 65
+  shootingRange: 27
   Bullet: {fileID: 5872118433379449172, guid: 8fd06d7e3f993a34e8a57e751cec7955, type: 3}
 --- !u!95 &5484813398162433539
 Animator:

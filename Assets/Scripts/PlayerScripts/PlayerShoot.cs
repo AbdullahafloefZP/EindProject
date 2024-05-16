@@ -32,9 +32,12 @@ public class PlayerShoot : MonoBehaviour
     private float lastShootTime = 0f;
     public GameObject ejectedBulletPrefab;
     public Transform EjectPoint;
+    public AudioClip shootingSound;
+    AudioManager audioManager;
 
     private void Awake()
     {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         shootPoint.gameObject.SetActive(false);
         gunTransform.gameObject.SetActive(false);
         currentAmmo = maxAmmo;
@@ -186,6 +189,7 @@ public class PlayerShoot : MonoBehaviour
         animator.SetBool("Reloading", true);
         MuzzleFlash.gameObject.SetActive(false);
         shootPoint.gameObject.SetActive(false);
+        audioManager.PlaySoundReload(audioManager.reloading);
 
         yield return new WaitForSeconds(reloadTime);
 
@@ -202,7 +206,6 @@ public class PlayerShoot : MonoBehaviour
 
     private void Shoot()
     {
-
         GameObject ejectedBullet = GetPooledBullet();
         ejectedBullet.transform.SetParent(EjectPoint);
         ejectedBullet.transform.position = EjectPoint.position;
@@ -221,6 +224,8 @@ public class PlayerShoot : MonoBehaviour
 
         MuzzleFlash.gameObject.SetActive(true);
         Invoke("DisableMuzzleFlash", 0.1f);
+
+        audioManager.PlaySoundReload(shootingSound);
 
         currentAmmo--;
         lastShootTime = Time.time;

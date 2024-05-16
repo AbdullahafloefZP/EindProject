@@ -10,18 +10,30 @@ public class PlayerHealth : MonoBehaviour
     public static event Action OnPlayerDeath;
     public int maxLives = 10;
     private int lives;
+
+    [Header("--Respawn Points--")]
+
     public Transform[] respawnPoints;
     public LoseMenu loseMenu;
+
+    [Header("--Images--")]
+
     public Image[] heartImages;
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     void Start()
-{
-    health = maxHealth;
-    healthBar.SetMaxHealth(maxHealth);
+    {
+       health = maxHealth;
+       healthBar.SetMaxHealth(maxHealth);
 
-    lives = PlayerPrefs.GetInt("PlayerLives", 3);
-    UpdateHeartsUI();
-}
+       lives = PlayerPrefs.GetInt("PlayerLives", 3);
+       UpdateHeartsUI();
+    }
 
     void Update()
     {
@@ -38,6 +50,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (health <= 0)
         {
+            audioManager.PlaySound(audioManager.dying);
             Die();
         }
     }

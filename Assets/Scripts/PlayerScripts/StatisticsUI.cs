@@ -8,7 +8,7 @@ public class StatisticsUI : MonoBehaviour
     public Text highestLevelText;
     public Text highestWaveText;
 
-    private void Start()
+    private void OnEnable()
     {
         UpdateStatisticsUI();
     }
