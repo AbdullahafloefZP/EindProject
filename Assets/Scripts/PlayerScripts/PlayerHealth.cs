@@ -81,7 +81,6 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-
     public int GetLives()
     {
         return lives;
@@ -146,5 +145,17 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(2);
         }
+    }
+
+    public void SaveLives()
+    {
+        PlayerPrefs.SetInt("PlayerLives", lives);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadLives()
+    {
+        lives = PlayerPrefs.GetInt("PlayerLives", maxLives);
+        UpdateHeartsUI();
     }
 }

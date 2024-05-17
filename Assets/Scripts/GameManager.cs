@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
 
     public void ContinueGame()
     {
+        playerHealth.LoadLives();
         ShowGameUI();
     }
 

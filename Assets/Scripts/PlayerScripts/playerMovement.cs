@@ -69,6 +69,13 @@ public class PlayerMovement : MonoBehaviour {
        rb.velocity = Vector2.zero;
        rb.angularVelocity = 0;
        rb.isKinematic = false;
+       ResetMovement();
+    }
+
+    public void ResetMovement()
+    {
+        movement = Vector2.zero;
+        animator.SetBool("IsWalking", false);
     }
 
     private void FixedUpdate() 

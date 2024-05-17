@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
     public LoseMenu loseMenu;
+    public PlayerHealth playerHealth;
 
     void Update()
     {
@@ -44,7 +45,7 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        // EditorApplication.isPlaying = false;
+        playerHealth.SaveLives();
         Application.Quit();
     }
 }

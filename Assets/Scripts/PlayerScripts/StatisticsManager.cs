@@ -67,8 +67,6 @@ public class StatisticsManager : MonoBehaviour
 
     public void ResetStatistics()
     {
-        Debug.Log("ResetStatistics called");
-
         enemiesKilled = 0;
         moneyCollected = 0;
         highestLevel = 0;

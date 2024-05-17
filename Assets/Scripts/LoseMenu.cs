@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class LoseMenu : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class LoseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     private StatisticsUI statisticsUI;
     public PauseMenu pauseMenu;
+    public PlayerInput playerInput;
 
     void Start()
     {
@@ -65,6 +67,7 @@ public class LoseMenu : MonoBehaviour
         }
 
         PauseMenu.GameIsPaused = false;
+        playerInput.DeactivateInput();
     }
 
     public void Retry()
@@ -81,6 +84,8 @@ public class LoseMenu : MonoBehaviour
         shop.ResetMoneyAndWeapons();
         levelSystem.ResetLevel();
         waveSpawner.ResetWaveProgression();
+        playerInput.ActivateInput();
+        playerMovement.ResetMovement();
 
         PlayerPrefs.SetInt("GameOver", 0);
         PlayerPrefs.SetInt("PlayerLives", playerHealth.maxLives);
