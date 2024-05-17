@@ -18065,7 +18065,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthBar: {fileID: 1136466986}
-  maxLives: 3
+  maxLives: 10
   respawnPoints:
   - {fileID: 1193629971}
   - {fileID: 1198625979}
