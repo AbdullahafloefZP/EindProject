@@ -26,12 +26,12 @@ public class FlashLightControl : MonoBehaviour
         }
 
         if (transform.localScale.x < 0)
-                {
-                    flashLight.localEulerAngles = new Vector3(0, 0, -90); 
-                }
-                else
-                {
-                    flashLight.localEulerAngles = new Vector3(0, 0, 90);
-                }
+        {
+            flashLight.localEulerAngles = new Vector3(0, 0, -90); 
+        }
+        else
+        {
+            flashLight.localEulerAngles = new Vector3(0, 0, 90);
+        }
     }
 }
