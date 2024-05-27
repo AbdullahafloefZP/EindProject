@@ -6,19 +6,28 @@ using System.Collections.Generic;
 
 public class PlayerShoot : MonoBehaviour
 {
+    // Variabelen voor kogels en hun beheer
     private GameObject pooledBullet;
     private List<GameObject> pooledBullets = new List<GameObject>();
-    private int pooledAmount = 1;
+    private int pooledAmount = 1; // Aantal vooraf gepoolde kogels
+
+    // UI-elementen voor ammunitieweergave
     public Text ammoDisplay;
     public CursorManager cursorManager;
+
+    // Transforms en prefab voor geweer en schietpunt
     [SerializeField] private Transform gunTransform;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform MuzzleFlash;
+
+    // Ammunitie-instellingen
     [SerializeField] private int maxAmmo;
     private int currentAmmo;
     private int currentReserve;
     [SerializeField] private int maxReserve;
+
+    // Reloading en schietinstellingen
     private bool isReloading = false;
     public GameObject reloadMessage;
     public GameObject ammoMessage;
@@ -35,6 +44,7 @@ public class PlayerShoot : MonoBehaviour
     public AudioClip shootingSound;
     AudioManager audioManager;
 
+    // Initialisatie van variabelen en het voorbereiden van kogels
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
@@ -53,6 +63,7 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
+    // Haalt een gepoolde kogel op of maakt er een nieuwe als er geen beschikbaar is
     private GameObject GetPooledBullet()
     {
         for (int i = 0; i < pooledBullets.Count; i++)
@@ -68,21 +79,26 @@ public class PlayerShoot : MonoBehaviour
         return newBullet;
     }
 
+    // Herstel de reload-status bij het inschakelen van het object
     void OnEnable()
     {
         isReloading = false;
         animator.SetBool("Reloading", false);
     }
 
+    // Update-functie die elke frame wordt aangeroepen
     private void Update()
     {
+        // Controleer of het spel is gepauzeerd of de winkel actief is
         if (PauseMenu.GameIsPaused || ShopTrigger.IsShopActive)
         {
             return;
         }
 
+        // geef de ammo weer op het scherm
         ammoDisplay.text = $"{currentAmmo}/{maxAmmo} | {currentReserve}/{maxReserve}";
     
+        // Controleer of er herladen wordt
         if (isReloading)
         {
             ammoMessage.SetActive(false);
@@ -114,10 +130,10 @@ public class PlayerShoot : MonoBehaviour
             ammoMessage.SetActive(false);
         }
     
+        // Controleer of er geschoten moet worden
         if (Mouse.current.leftButton.wasPressedThisFrame && Time.time - lastShootTime >= shootRate)
         {
             isShooting = true;
-            // ejectedBulletAnimator.SetBool("Shooting", true);
     
             shootPoint.gameObject.SetActive(true);
             gunTransform.gameObject.SetActive(true);
@@ -141,13 +157,11 @@ public class PlayerShoot : MonoBehaviour
             isShooting = false;
             shootPoint.gameObject.SetActive(false);
             gunTransform.gameObject.SetActive(true);
-            // ejectedBulletAnimator.SetBool("Shooting", false);
         }
     
         if (isShooting && Time.time - lastShootTime >= shootRate)
         {
             isShooting = true;
-            // ejectedBulletAnimator.SetBool("Shooting", true);
             shootPoint.gameObject.SetActive(true);
     
             if (transform.localScale.x > 0)
@@ -168,7 +182,6 @@ public class PlayerShoot : MonoBehaviour
         if (isShooting && Time.time - lastShootTime >= 0.1f)
         {
             shootPoint.gameObject.SetActive(false);
-            // ejectedBulletAnimator.SetBool("Shooting", false);
             gunTransform.gameObject.SetActive(true);
     
             if (transform.localScale.x > 0)
@@ -182,6 +195,7 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
+    // Coroutine om het herladen van het wapen te beheren
     private IEnumerator Reload()
     {
         isReloading = true;
@@ -204,6 +218,7 @@ public class PlayerShoot : MonoBehaviour
         isReloading = false;
     }
 
+    // Functie om te schieten
     private void Shoot()
     {
         GameObject ejectedBullet = GetPooledBullet();
@@ -240,6 +255,7 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
+    // Functie om de herlaadstatus te resetten
     public void ResetReloadingState()
     {
         isReloading = false;
@@ -247,12 +263,14 @@ public class PlayerShoot : MonoBehaviour
         animator.SetBool("Reloading", false);
     }
 
+    // Functie om de ammunitie te verversen
     public void RefreshAmmo()
     {
         currentReserve = maxReserve;
         UpdateAmmoUI();
     }
 
+    // Functie om de ammunitie te resetten
     public void ResetAmmo()
     {
         currentAmmo = maxAmmo;
@@ -260,21 +278,25 @@ public class PlayerShoot : MonoBehaviour
         UpdateAmmoUI();
     }
 
+    // Controleer of de ammunitie kan worden ververst
     public bool CanRefreshAmmo()
     {
         return currentReserve < maxReserve;
     }
 
+    // Functie om de ammunitie UI bij te werken
     private void UpdateAmmoUI()
     {
         ammoDisplay.text = $"{currentAmmo}/{maxAmmo} | {currentReserve}/{maxReserve}";
     }
 
+    // Functie om de Muzzle Flash uit te schakelen
     private void DisableMuzzleFlash()
     {
         MuzzleFlash.gameObject.SetActive(false);
     }
 
+    // Functie om de character te draaien
     public void FlipCharacter(bool isFlipped)
     {
         flipped = isFlipped;

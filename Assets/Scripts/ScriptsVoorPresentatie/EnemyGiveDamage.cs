@@ -18,21 +18,28 @@ public class EnemyGiveDamage : MonoBehaviour
 
     private void Update()
     {
-        timeSinceLastAttack += Time.deltaTime;
+        timeSinceLastAttack += Time.deltaTime; // Verhoog de tijd sinds de laatste aanval met de verstreken tijd
 
+        // Controleer of het tijd is om opnieuw aan te vallen
         if (timeSinceLastAttack >= attackInterval)
         {
+            // Bereken de aangepaste positie voor de aanval
             Vector3 adjustedPosition = transform.position + new Vector3(0, 1.5f, 0);
+            // Zoek naar spelers binnen het schadebereik
             Collider2D[] nearbyPlayers = Physics2D.OverlapCircleAll(adjustedPosition, damageRange);
             foreach (var playerCollider in nearbyPlayers)
             {
                 if (playerCollider.CompareTag("Player"))
                 {
+                    // Speel het aanvals geluid af
                     audioManager.PlaySound(audioManager.zAttacking);
+                    // Haal de PlayerHealth component van de speler op
                     PlayerHealth playerHealth = playerCollider.GetComponent<PlayerHealth>();
                     if (playerHealth != null)
                     {
+                        // damage de speler
                         playerHealth.TakeDamage(damageAmount);
+                        // Reset de tijd sinds de laatste aanval
                         timeSinceLastAttack = 0f;
                     }
                 }

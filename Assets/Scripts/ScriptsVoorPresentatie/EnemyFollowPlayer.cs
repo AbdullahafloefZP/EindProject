@@ -21,6 +21,7 @@ public class EnemyFollowPlayer : MonoBehaviour
 
     private void Update()
     {
+        // Controleer of de winkel actief is en stop de enemies
         if (ShopTrigger.IsShopActive)
         {
             movement = Vector2.zero;
@@ -28,14 +29,14 @@ public class EnemyFollowPlayer : MonoBehaviour
             return;
         }
 
+        // Bereken de afstand van de vijand tot de speler
         float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
         Vector2 moveDirection;
 
+        // Als de speler binnen het zichtbereik is, beweeg naar de speler toe
         if (distanceFromPlayer < lineOfSight)
         {
             moveDirection = (player.position - transform.position).normalized;
-
-
             transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
         }
         else
@@ -43,9 +44,11 @@ public class EnemyFollowPlayer : MonoBehaviour
             moveDirection = Vector2.zero;
         }
 
+        // Stel de animatieparameters in op basis van de bewegingsrichting
         SetAnimationParameters(moveDirection);
     }
 
+    // Stel de animatieparameters in
     private void SetAnimationParameters(Vector2 moveDirection)
     {
         animator.SetFloat("X", moveDirection.x);
@@ -57,7 +60,6 @@ public class EnemyFollowPlayer : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, lineOfSight);
-
     }
 
     private void FixedUpdate()
